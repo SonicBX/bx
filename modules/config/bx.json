@@ -1,0 +1,23 @@
+{
+    "client": {
+        "view": "administrator",
+        "views": {
+            "administrator": {
+                "branch": "bxbranch_",
+                "user": "bxuser_",
+                "cert": "bxcert_",
+                "key": "bxkey_"
+            }
+        }
+    },
+    "server": {
+        "sql": {
+            "servers": [
+                "localhost",
+                "127.0.0.1"
+            ],
+            "username": "bxsql_user_",
+            "password": "bxsql_pass_"
+        }
+    }
+}
