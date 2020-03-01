@@ -42,7 +42,7 @@ class ChannelTimeoutTest extends TestCase
 
         list( $this->channel_rpc_timeout_seconds, $this->channel_rpc_timeout_microseconds ) = MiscHelper::splitSecondsMicroseconds($channel_rpc_timeout);
 
-        $this->io         = $this->getMockBuilder(StreamIO::class)
+        $this->io = $this->getMockBuilder(StreamIO::class)
                 ->setConstructorArgs(array(HOST, PORT, 3, 3, null, false, 0))
                 ->setMethods(array('select'))
                 ->getMock();

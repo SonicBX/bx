@@ -8,12 +8,12 @@ include(__DIR__ . '/config.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 
-$exchange    = 'fanout_example_exchange';
-$queue       = 'fanout_group_1';
+$exchange = 'fanout_example_exchange';
+$queue = 'fanout_group_1';
 $consumerTag = 'consumer' . getmypid();
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   name: $queue    // should be unique in fanout exchange.

@@ -111,28 +111,28 @@ abstract
     public
             function __construct(AbstractConnection $connection, $channel_id)
     {
-        $this->connection                  = $connection;
-        $this->channel_id                  = $channel_id;
+        $this->connection = $connection;
+        $this->channel_id = $channel_id;
         $connection->channels[$channel_id] = $this;
 
         $this->msg_property_reader = new AMQPReader(null);
         $this->wait_content_reader = new AMQPReader(null);
-        $this->dispatch_reader     = new AMQPReader(null);
+        $this->dispatch_reader = new AMQPReader(null);
 
         $this->protocolVersion = self::getProtocolVersion();
         switch ($this->protocolVersion)
         {
             case Wire\Constants091::VERSION:
-                $constantClass        = Wire\Constants091::class;
+                $constantClass = Wire\Constants091::class;
                 $this->protocolWriter = new Protocol091();
-                $this->waitHelper     = new Wait091();
-                $this->methodMap      = new MethodMap091();
+                $this->waitHelper = new Wait091();
+                $this->methodMap = new MethodMap091();
                 break;
             case Wire\Constants080::VERSION:
-                $constantClass        = Wire\Constants080::class;
+                $constantClass = Wire\Constants080::class;
                 $this->protocolWriter = new Protocol080();
-                $this->waitHelper     = new Wait080();
-                $this->methodMap      = new MethodMap080();
+                $this->waitHelper = new Wait080();
+                $this->methodMap = new MethodMap080();
                 break;
             default:
                 throw new AMQPNotImplementedException(sprintf(
@@ -141,7 +141,7 @@ abstract
                 ));
         }
         $this->constants = new $constantClass;
-        $this->debug     = new DebugHelper($this->constants);
+        $this->debug = new DebugHelper($this->constants);
     }
 
     /**
@@ -313,7 +313,7 @@ abstract
         $this->wait_content_reader->reuse(mb_substr($payload, 0, 12, 'ASCII'));
 
         $class_id = $this->wait_content_reader->read_short();
-        $weight   = $this->wait_content_reader->read_short();
+        $weight = $this->wait_content_reader->read_short();
 
         //hack to avoid creating new instances of AMQPReader;
         $this->msg_property_reader->reuse(mb_substr($payload, 12, mb_strlen($payload, 'ASCII') - 12, 'ASCII'));
@@ -332,7 +332,7 @@ abstract
     protected
             function createMessage($propertyReader, $contentReader)
     {
-        $bodyChunks        = array();
+        $bodyChunks = array();
         $bodyReceivedBytes = 0;
 
         $message = new AMQPMessage();
@@ -398,13 +398,11 @@ abstract
             try
             {
                 list($frame_type, $payload) = $this->next_frame($timeout);
-            }
-            catch (AMQPNoDataException $e)
+            } catch (AMQPNoDataException $e)
             {
                 // no data ready for non-blocking actions - stop and exit
                 break;
-            }
-            catch (AMQPConnectionClosedException $exception)
+            } catch (AMQPConnectionClosedException $exception)
             {
                 if ($this instanceof AMQPChannel)
                 {
@@ -417,7 +415,7 @@ abstract
             $this->validate_frame_payload($payload);
 
             $method_sig = $this->build_method_signature($payload);
-            $args       = $this->extract_args($payload);
+            $args = $this->extract_args($payload);
 
             $this->debug->debug_method_signature('> %s', $method_sig);
 
@@ -446,7 +444,7 @@ abstract
     protected
             function process_deferred_methods($allowed_methods)
     {
-        $dispatch      = false;
+        $dispatch = false;
         $queued_method = array();
 
         foreach ($this->method_queue as $qk => $qm)
@@ -458,7 +456,7 @@ abstract
             if ($allowed_methods == null || in_array($method_sig, $allowed_methods))
             {
                 unset($this->method_queue[$qk]);
-                $dispatch      = true;
+                $dispatch = true;
                 $queued_method = $qm;
                 break;
             }

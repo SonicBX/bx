@@ -17,7 +17,7 @@ if (empty($headers))
 
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 $exchangeName = 'topic_headers_test';
 $channel->exchange_declare($exchangeName, AMQPExchangeType::HEADERS);
@@ -49,8 +49,7 @@ while ($channel->is_consuming())
     try
     {
         $channel->wait(null, false, 2);
-    }
-    catch (AMQPTimeoutException $exception)
+    } catch (AMQPTimeoutException $exception)
     {
         
     }

@@ -19,7 +19,7 @@ class SocketIOTest extends TestCase
     {
         $socketIO = new SocketIO(HOST, PORT, 20, true, 20, 9);
         $socketIO->connect();
-        $ready    = $socketIO->select(0, 0);
+        $ready = $socketIO->select(0, 0);
         $this->assertEquals(0, $ready);
 
         return $socketIO;

@@ -12,12 +12,12 @@ include(__DIR__ . '/config.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 
-$exchange    = 'router';
-$queue       = 'msgs';
+$exchange = 'router';
+$queue = 'msgs';
 $consumerTag = 'consumer';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 $channel->queue_declare($queue, false, true, false, false);
 $channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
@@ -31,8 +31,7 @@ function process_message($message)
     if ($message->body == 'good')
     {
         $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
-    }
-    else
+    } else
     {
         $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
     }

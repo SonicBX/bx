@@ -7,7 +7,7 @@ abstract
 {
 
     const
-            VERSION     = '';
+            VERSION = '';
     const
             AMQP_HEADER = '';
 

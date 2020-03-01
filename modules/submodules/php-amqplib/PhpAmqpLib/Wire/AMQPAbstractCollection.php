@@ -20,44 +20,44 @@ abstract
 
     /** @deprecated  */
     const
-            PROTOCOL_091       = Wire\Constants091::VERSION;
+            PROTOCOL_091 = Wire\Constants091::VERSION;
     const
-            PROTOCOL_RBT       = 'rabbit'; //pseudo proto
+            PROTOCOL_RBT = 'rabbit'; //pseudo proto
     //Abstract data types
     const
-            T_INT_SHORTSHORT   = 1;
+            T_INT_SHORTSHORT = 1;
     const
             T_INT_SHORTSHORT_U = 2;
     const
-            T_INT_SHORT        = 3;
+            T_INT_SHORT = 3;
     const
-            T_INT_SHORT_U      = 4;
+            T_INT_SHORT_U = 4;
     const
-            T_INT_LONG         = 5;
+            T_INT_LONG = 5;
     const
-            T_INT_LONG_U       = 6;
+            T_INT_LONG_U = 6;
     const
-            T_INT_LONGLONG     = 7;
+            T_INT_LONGLONG = 7;
     const
-            T_INT_LONGLONG_U   = 8;
+            T_INT_LONGLONG_U = 8;
     const
-            T_DECIMAL          = 9;
+            T_DECIMAL = 9;
     const
-            T_TIMESTAMP        = 10;
+            T_TIMESTAMP = 10;
     const
-            T_VOID             = 11;
+            T_VOID = 11;
     const
-            T_BOOL             = 12;
+            T_BOOL = 12;
     const
-            T_STRING_SHORT     = 13;
+            T_STRING_SHORT = 13;
     const
-            T_STRING_LONG      = 14;
+            T_STRING_LONG = 14;
     const
-            T_ARRAY            = 15;
+            T_ARRAY = 15;
     const
-            T_TABLE            = 16;
+            T_TABLE = 16;
     const
-            T_BYTES            = 17;
+            T_BYTES = 17;
 
     /**
      * @var string
@@ -72,11 +72,11 @@ abstract
      */
     private static
             $_types_080 = array(
-        self::T_INT_LONG    => 'I',
-        self::T_DECIMAL     => 'D',
-        self::T_TIMESTAMP   => 'T',
+        self::T_INT_LONG => 'I',
+        self::T_DECIMAL => 'D',
+        self::T_TIMESTAMP => 'T',
         self::T_STRING_LONG => 'S',
-        self::T_TABLE       => 'F'
+        self::T_TABLE => 'F'
     );
 
     /**
@@ -84,23 +84,23 @@ abstract
      */
     private static
             $_types_091 = array(
-        self::T_INT_SHORTSHORT   => 'b',
+        self::T_INT_SHORTSHORT => 'b',
         self::T_INT_SHORTSHORT_U => 'B',
-        self::T_INT_SHORT        => 'U',
-        self::T_INT_SHORT_U      => 'u',
-        self::T_INT_LONG         => 'I',
-        self::T_INT_LONG_U       => 'i',
-        self::T_INT_LONGLONG     => 'L',
-        self::T_INT_LONGLONG_U   => 'l',
-        self::T_DECIMAL          => 'D',
-        self::T_TIMESTAMP        => 'T',
-        self::T_VOID             => 'V',
-        self::T_BOOL             => 't',
-        self::T_STRING_SHORT     => 's',
-        self::T_STRING_LONG      => 'S',
-        self::T_ARRAY            => 'A',
-        self::T_TABLE            => 'F',
-        self::T_BYTES            => 'x',
+        self::T_INT_SHORT => 'U',
+        self::T_INT_SHORT_U => 'u',
+        self::T_INT_LONG => 'I',
+        self::T_INT_LONG_U => 'i',
+        self::T_INT_LONGLONG => 'L',
+        self::T_INT_LONGLONG_U => 'l',
+        self::T_DECIMAL => 'D',
+        self::T_TIMESTAMP => 'T',
+        self::T_VOID => 'V',
+        self::T_BOOL => 't',
+        self::T_STRING_SHORT => 's',
+        self::T_STRING_LONG => 'S',
+        self::T_ARRAY => 'A',
+        self::T_TABLE => 'F',
+        self::T_BYTES => 'x',
     );
 
     /**
@@ -109,17 +109,17 @@ abstract
     private static
             $_types_rabbit = array(
         self::T_INT_SHORTSHORT => 'b',
-        self::T_INT_SHORT      => 's',
-        self::T_INT_LONG       => 'I',
-        self::T_INT_LONGLONG   => 'l',
-        self::T_DECIMAL        => 'D',
-        self::T_TIMESTAMP      => 'T',
-        self::T_VOID           => 'V',
-        self::T_BOOL           => 't',
-        self::T_STRING_LONG    => 'S',
-        self::T_ARRAY          => 'A',
-        self::T_TABLE          => 'F',
-        self::T_BYTES          => 'x',
+        self::T_INT_SHORT => 's',
+        self::T_INT_LONG => 'I',
+        self::T_INT_LONGLONG => 'l',
+        self::T_DECIMAL => 'D',
+        self::T_TIMESTAMP => 'T',
+        self::T_VOID => 'V',
+        self::T_BOOL => 't',
+        self::T_STRING_LONG => 'S',
+        self::T_ARRAY => 'A',
+        self::T_TABLE => 'F',
+        self::T_BYTES => 'x',
     );
 
     /**
@@ -160,8 +160,7 @@ abstract
                 );
             }
             $type = $val->getType();
-        }
-        elseif ($type)
+        } elseif ($type)
         { //ensuring data integrity and that all members are properly validated
             switch ($type)
             {
@@ -182,8 +181,7 @@ abstract
         {
             self::checkDataTypeIsSupported($type, false);
             $val = array($type, $val);
-        }
-        else
+        } else
         {
             $val = $this->encodeValue($val);
         }
@@ -191,8 +189,7 @@ abstract
         if ($key === null)
         {
             $this->data[] = $val;
-        }
-        else
+        } else
         {
             $this->data[$key] = $val;
         }
@@ -248,43 +245,34 @@ abstract
         if (is_string($val))
         {
             $val = $this->encodeString($val);
-        }
-        elseif (is_float($val))
+        } elseif (is_float($val))
         {
             $val = $this->encodeFloat($val);
-        }
-        elseif (is_int($val))
+        } elseif (is_int($val))
         {
             $val = $this->encodeInt($val);
-        }
-        elseif (is_bool($val))
+        } elseif (is_bool($val))
         {
             $val = $this->encodeBool($val);
-        }
-        elseif (is_null($val))
+        } elseif (is_null($val))
         {
             $val = $this->encodeVoid();
-        }
-        elseif ($val instanceof \DateTimeInterface)
+        } elseif ($val instanceof \DateTimeInterface)
         {
             $val = array(self::T_TIMESTAMP, $val->getTimestamp());
-        }
-        elseif ($val instanceof \DateTime)
+        } elseif ($val instanceof \DateTime)
         {
             // PHP <= 5.4 has no DateTimeInterface
             $val = array(self::T_TIMESTAMP, $val->getTimestamp());
-        }
-        elseif ($val instanceof AMQPDecimal)
+        } elseif ($val instanceof AMQPDecimal)
         {
             $val = array(self::T_DECIMAL, $val);
-        }
-        elseif ($val instanceof self)
+        } elseif ($val instanceof self)
         {
             //avoid silent type correction of strictly typed values
             self::checkDataTypeIsSupported($val->getType(), false);
             $val = array($val->getType(), $val);
-        }
-        elseif (is_array($val))
+        } elseif (is_array($val))
         {
             //AMQP specs says "Field names MUST start with a letter, '$' or '#'"
             //so beware, some servers may raise an exception with 503 code in cases when indexed array is encoded as table
@@ -292,17 +280,14 @@ abstract
             {
                 //080 doesn't support arrays, forcing table
                 $val = array(self::T_TABLE, new AMQPTable($val));
-            }
-            elseif (empty($val) || (array_keys($val) === range(0, count($val) - 1)))
+            } elseif (empty($val) || (array_keys($val) === range(0, count($val) - 1)))
             {
                 $val = array(self::T_ARRAY, new AMQPArray($val));
-            }
-            else
+            } else
             {
                 $val = array(self::T_TABLE, new AMQPTable($val));
             }
-        }
-        else
+        } else
         {
             throw new Exception\AMQPOutOfBoundsException(sprintf('Encountered value of unsupported type: %s', gettype($val)));
         }
@@ -322,8 +307,7 @@ abstract
         {
             //covering arrays and tables
             $val = $val->getNativeData();
-        }
-        else
+        } else
         {
             switch ($type)
             {
@@ -368,13 +352,11 @@ abstract
         if (($val >= -2147483648) && ($val <= 2147483647))
         {
             $ev = array(self::T_INT_LONG, $val);
-        }
-        elseif (self::isProtocol(Wire\Constants080::VERSION))
+        } elseif (self::isProtocol(Wire\Constants080::VERSION))
         {
             //080 doesn't support longlong
             $ev = $this->encodeString((string) $val);
-        }
-        else
+        } else
         {
             $ev = array(self::T_INT_LONGLONG, $val);
         }
@@ -479,8 +461,7 @@ abstract
                 throw new Exception\AMQPOutOfRangeException(sprintf('AMQP-%s doesn\'t support data of type [%s]', self::getProtocol(), $type));
             }
             return true;
-        }
-        catch (Exception\AMQPOutOfRangeException $ex)
+        } catch (Exception\AMQPOutOfRangeException $ex)
         {
             if (!$return)
             {

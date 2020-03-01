@@ -50,7 +50,7 @@ abstract
         ];
 
         $this->message = (object) [
-                    'body'       => null,
+                    'body' => null,
                     'properties' => null,
         ];
     }

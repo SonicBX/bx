@@ -7,10 +7,10 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $exchange = 'basic_get_test';
-$queue    = 'basic_get_queue';
+$queue = 'basic_get_queue';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   The following code is the same both in the consumer and the producer.

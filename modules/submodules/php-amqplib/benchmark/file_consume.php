@@ -7,12 +7,12 @@ use PhpAmqpLib\Connection\AMQPConnection;
 
 require_once __DIR__ . '/config.php';
 
-$exchange     = 'file_exchange';
-$queue        = 'file_queue';
+$exchange = 'file_exchange';
+$queue = 'file_queue';
 $consumer_tag = '';
 
 $conn = new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
-$ch   = $conn->channel();
+$ch = $conn->channel();
 
 $ch->queue_declare($queue, false, false, false, false);
 $ch->exchange_declare($exchange, 'direct', false, false, false);
@@ -22,7 +22,7 @@ class FileConsumer
 {
 
     protected
-            $msgCount  = 0;
+            $msgCount = 0;
     protected
             $startTime = null;
 

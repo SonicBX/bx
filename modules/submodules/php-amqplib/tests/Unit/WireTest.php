@@ -321,7 +321,7 @@ class WireTest extends TestCase
         $w = new AMQPWriter();
         $w->write_array($d);
 
-        $r  = new AMQPReader($w->getvalue());
+        $r = new AMQPReader($w->getvalue());
         $rd = $r->read_array();
 
         $this->assertEquals($d, $rd);
@@ -348,11 +348,11 @@ class WireTest extends TestCase
                     [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
                     [],
                     [
-                        'foo'  => 'bar',
-                        'baz'  => 'boo',
+                        'foo' => 'bar',
+                        'baz' => 'boo',
                         'bool' => true,
-                        'tbl'  => ['bar' => 'baz'],
-                        'arr'  => ['boo', false, 5]
+                        'tbl' => ['bar' => 'baz'],
+                        'arr' => ['boo', false, 5]
                     ],
                     [1 => 5, 3 => 'foo', 786 => 674],
                     [1, [2, [3, [4]]]],
@@ -377,11 +377,11 @@ class WireTest extends TestCase
                     [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
                     [],
                     [
-                        'foo'  => 'bar',
-                        'baz'  => 'boo',
+                        'foo' => 'bar',
+                        'baz' => 'boo',
                         'bool' => true,
-                        'tbl'  => ['bar' => 'baz'],
-                        'arr'  => ['boo', false, 5]
+                        'tbl' => ['bar' => 'baz'],
+                        'arr' => ['boo', false, 5]
                     ],
                     [1 => 5, 3 => 'foo', 786 => 674],
                     [1, [2, [3, [4]]]],
@@ -413,7 +413,7 @@ class WireTest extends TestCase
         $w = new AMQPWriter();
         $w->write_table($d);
 
-        $r  = new AMQPReader($w->getvalue());
+        $r = new AMQPReader($w->getvalue());
         $rd = $r->read_table();
 
         $this->assertEquals($d, $rd);
@@ -429,24 +429,24 @@ class WireTest extends TestCase
         $w->write_table(
                 new AMQPTable(
                         [
-                    'long'         => 12345,
-                    'long_neg'     => -12345,
-                    'longlong'     => 3000000000,
+                    'long' => 12345,
+                    'long_neg' => -12345,
+                    'longlong' => 3000000000,
                     'longlong_neg' => -3000000000,
-                    'float_low'    => 9.2233720368548,
-                    'float_high'   => (float) 9223372036854800000,
-                    'bool_true'    => true,
-                    'bool_false'   => false,
-                    'array'        => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
-                    'array_empty'  => [],
-                    'table'        => [
-                        'foo'  => 'bar',
-                        'baz'  => 'boo',
+                    'float_low' => 9.2233720368548,
+                    'float_high' => (float) 9223372036854800000,
+                    'bool_true' => true,
+                    'bool_false' => false,
+                    'array' => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
+                    'array_empty' => [],
+                    'table' => [
+                        'foo' => 'bar',
+                        'baz' => 'boo',
                         'bool' => true,
-                        'tbl'  => ['bar' => 'baz'],
-                        'arr'  => ['boo', false, 5]
+                        'tbl' => ['bar' => 'baz'],
+                        'arr' => ['boo', false, 5]
                     ],
-                    'table_num'    => [1 => 5, 3 => 'foo', 786 => 674],
+                    'table_num' => [1 => 5, 3 => 'foo', 786 => 674],
                     'array_nested' => [1, [2, [3, [4]]]],
                     'table_nested' => [
                         'i' => 1,
@@ -461,24 +461,24 @@ class WireTest extends TestCase
         //type casting - thanks to ancient phpunit on travis
         $this->assertEquals(
                 [
-                    'long'         => 12345,
-                    'long_neg'     => -12345,
-                    'longlong'     => (string) 3000000000,
+                    'long' => 12345,
+                    'long_neg' => -12345,
+                    'longlong' => (string) 3000000000,
                     'longlong_neg' => (string) -3000000000,
-                    'float_low'    => (string) (float) 9.2233720368548,
-                    'float_high'   => (string) (float) 9223372036854800000,
-                    'bool_true'    => true,
-                    'bool_false'   => false,
-                    'array'        => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
-                    'array_empty'  => [],
-                    'table'        => [
-                        'foo'  => 'bar',
-                        'baz'  => 'boo',
+                    'float_low' => (string) (float) 9.2233720368548,
+                    'float_high' => (string) (float) 9223372036854800000,
+                    'bool_true' => true,
+                    'bool_false' => false,
+                    'array' => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
+                    'array_empty' => [],
+                    'table' => [
+                        'foo' => 'bar',
+                        'baz' => 'boo',
                         'bool' => true,
-                        'tbl'  => ['bar' => 'baz'],
-                        'arr'  => ['boo', false, 5]
+                        'tbl' => ['bar' => 'baz'],
+                        'arr' => ['boo', false, 5]
                     ],
-                    'table_num'    => [1 => 5, 3 => 'foo', 786 => 674],
+                    'table_num' => [1 => 5, 3 => 'foo', 786 => 674],
                     'array_nested' => [1, [2, [3, [4]]]],
                     'table_nested' => [
                         'i' => 1,
@@ -686,8 +686,7 @@ class WireTest extends TestCase
             $m = new \ReflectionMethod($writer, $write_method);
             $m->setAccessible(true);
             $m->invoke($writer, $value);
-        }
-        else
+        } else
         {
             $writer->{$write_method}($value);
         }
@@ -695,11 +694,10 @@ class WireTest extends TestCase
         $reader = new AMQPReader($writer->getvalue());
         if ($reflection)
         {
-            $m         = new \ReflectionMethod($reader, $read_method);
+            $m = new \ReflectionMethod($reader, $read_method);
             $m->setAccessible(true);
             $readValue = $m->invoke($reader);
-        }
-        else
+        } else
         {
             $readValue = $reader->{$read_method}();
         }

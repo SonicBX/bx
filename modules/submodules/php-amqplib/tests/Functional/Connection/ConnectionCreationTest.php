@@ -22,7 +22,7 @@ class ConnectionCreationTest extends AbstractConnectionTest
                     array('host' => HOST, 'port' => PORT, 'user' => USER, 'password' => PASS)
                 )
             ),
-            'keys'  => array(
+            'keys' => array(
                 array(
                     'host1' => array('host' => HOST, 'port' => PORT, 'user' => USER, 'password' => PASS),
                     'host2' => array('host' => HOST, 'port' => PORT, 'user' => USER, 'password' => PASS)

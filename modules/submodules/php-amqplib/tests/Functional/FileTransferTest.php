@@ -16,7 +16,7 @@ class FileTransferTest extends TestCase
     protected
             $exchangeName = 'test_exchange';
     protected
-            $queueName    = null;
+            $queueName = null;
     protected
             $connection;
     protected
@@ -28,7 +28,7 @@ class FileTransferTest extends TestCase
             function setUp()
     {
         $this->connection = new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
-        $this->channel    = $this->connection->channel();
+        $this->channel = $this->connection->channel();
         $this->channel->exchange_declare($this->exchangeName, 'direct', false, false, false);
         list($this->queueName,, ) = $this->channel->queue_declare();
         $this->channel->queue_bind($this->queueName, $this->exchangeName, $this->queueName);

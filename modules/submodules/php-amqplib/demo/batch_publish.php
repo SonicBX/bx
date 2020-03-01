@@ -13,10 +13,10 @@ use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Exception\AMQPConnectionBlockedException;
 
 $exchange = 'bench_exchange';
-$queue    = 'bench_queue';
+$queue = 'bench_queue';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 $channel->queue_declare($queue, false, false, false, false);
 
@@ -42,7 +42,7 @@ $message = new AMQPMessage($messageBody);
 
 $time = microtime(true);
 
-$max   = isset($argv[1]) ? (int) $argv[1] : 1;
+$max = isset($argv[1]) ? (int) $argv[1] : 1;
 $batch = isset($argv[2]) ? (int) $argv[2] : 2;
 
 // Publishes $max messages using $messageBody as the content.
@@ -55,14 +55,12 @@ for ($i = 0; $i < $max; $i++)
         try
         {
             $channel->publish_batch();
-        }
-        catch (AMQPConnectionBlockedException $exception)
+        } catch (AMQPConnectionBlockedException $exception)
         {
             do
             {
                 sleep(10);
-            }
-            while ($connection->isBlocked());
+            } while ($connection->isBlocked());
             $channel->publish_batch();
         }
     }

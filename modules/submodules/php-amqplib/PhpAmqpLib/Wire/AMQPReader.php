@@ -21,23 +21,23 @@ class AMQPReader extends AbstractClient
 {
 
     const
-            BIT          = 1;
+            BIT = 1;
     const
-            OCTET        = 1;
+            OCTET = 1;
     const
-            SHORTSTR     = 1;
+            SHORTSTR = 1;
     const
-            SHORT        = 2;
+            SHORT = 2;
     const
-            LONG         = 4;
+            LONG = 4;
     const
-            SIGNED_LONG  = 4;
+            SIGNED_LONG = 4;
     const
             READ_PHP_INT = 4; // use READ_ to avoid possible clashes with PHP
     const
-            LONGLONG     = 8;
+            LONGLONG = 8;
     const
-            TIMESTAMP    = 8;
+            TIMESTAMP = 8;
 
     /** @var string */
     protected
@@ -79,10 +79,10 @@ class AMQPReader extends AbstractClient
 
         if (is_string($str))
         {
-            $this->str        = (string) $str;
+            $this->str = (string) $str;
             $this->str_length = mb_strlen($this->str, 'ASCII');
         }
-        $this->io      = $io;
+        $this->io = $io;
         $this->timeout = $timeout;
     }
 
@@ -99,9 +99,9 @@ class AMQPReader extends AbstractClient
     public
             function reuse($str)
     {
-        $this->str        = $str;
+        $this->str = $str;
         $this->str_length = mb_strlen($this->str, 'ASCII');
-        $this->offset     = 0;
+        $this->offset = 0;
         $this->resetCounters();
     }
 
@@ -145,17 +145,15 @@ class AMQPReader extends AbstractClient
         if (null === $timeout)
         {
             // timeout=null just poll state and return instantly
-            $sec  = 0;
+            $sec = 0;
             $usec = 0;
-        }
-        elseif ($timeout > 0)
+        } elseif ($timeout > 0)
         {
             list($sec, $usec) = MiscHelper::splitSecondsMicroseconds($this->getTimeout());
-        }
-        else
+        } else
         {
             // wait indefinitely for data if timeout=0
-            $sec  = null;
+            $sec = null;
             $usec = 0;
         }
 
@@ -174,8 +172,7 @@ class AMQPReader extends AbstractClient
                                 'The connection timed out after %s sec while awaiting incoming data',
                                 $timeout
                 ));
-            }
-            else
+            } else
             {
                 throw new AMQPNoDataException('No data is ready to read');
             }
@@ -202,8 +199,7 @@ class AMQPReader extends AbstractClient
                 {
                     $res = $this->io->read($n);
                     break;
-                }
-                catch (AMQPTimeoutException $e)
+                } catch (AMQPTimeoutException $e)
                 {
                     if ($this->getTimeout() > 0)
                     {
@@ -224,10 +220,10 @@ class AMQPReader extends AbstractClient
             ));
         }
 
-        $res              = mb_substr($this->str, 0, $n, 'ASCII');
-        $this->str        = mb_substr($this->str, $n, null, 'ASCII');
+        $res = mb_substr($this->str, 0, $n, 'ASCII');
+        $this->str = mb_substr($this->str, $n, null, 'ASCII');
         $this->str_length -= $n;
-        $this->offset     += $n;
+        $this->offset += $n;
 
         return $res;
     }
@@ -240,11 +236,11 @@ class AMQPReader extends AbstractClient
     {
         if (empty($this->bitcount))
         {
-            $this->bits     = ord($this->rawread(1));
+            $this->bits = ord($this->rawread(1));
             $this->bitcount = 8;
         }
 
-        $result     = ($this->bits & 1) === 1;
+        $result = ($this->bits & 1) === 1;
         $this->bits >>= 1;
         $this->bitcount--;
 
@@ -375,8 +371,7 @@ class AMQPReader extends AbstractClient
                 $res = unpack('J', $bytes);
                 return $res[1];
             }
-        }
-        else
+        } else
         {
             // on 32-bit systems we can "unpack" up to 31 bits integer
             list(, $hi, $lo) = unpack('N2', $bytes);
@@ -404,8 +399,7 @@ class AMQPReader extends AbstractClient
         {
             $res = unpack('q', $this->correctEndianness($bytes));
             return $res[1];
-        }
-        else
+        } else
         {
             // on 32-bit systems we can "unpack" up to 31 bits integer
             list(, $hi, $lo) = unpack('N2', $bytes);
@@ -490,13 +484,13 @@ class AMQPReader extends AbstractClient
         }
 
         $table_data = new AMQPReader($this->rawread($tlen), null);
-        $result     = $returnObject ? new AMQPTable() : array();
+        $result = $returnObject ? new AMQPTable() : array();
 
         while ($table_data->tell() < $tlen)
         {
-            $name          = $table_data->read_shortstr();
-            $ftype         = AMQPAbstractCollection::getDataTypeForSymbol($ftypeSym      = $table_data->rawread(1));
-            $val           = $table_data->read_value($ftype, $returnObject);
+            $name = $table_data->read_shortstr();
+            $ftype = AMQPAbstractCollection::getDataTypeForSymbol($ftypeSym = $table_data->rawread(1));
+            $val = $table_data->read_value($ftype, $returnObject);
             $returnObject ? $result->set($name, $val, $ftype) : $result[$name] = array($ftypeSym, $val);
         }
 
@@ -525,16 +519,16 @@ class AMQPReader extends AbstractClient
 
         // Determine array length and its end position
         $arrayLength = $this->read_php_int();
-        $endOffset   = $this->offset + $arrayLength;
+        $endOffset = $this->offset + $arrayLength;
 
         $result = $returnObject ? new AMQPArray() : array();
 
         // Read values until we reach the end of the array
         while ($this->offset < $endOffset)
         {
-            $fieldType  = AMQPAbstractCollection::getDataTypeForSymbol($this->rawread(1));
+            $fieldType = AMQPAbstractCollection::getDataTypeForSymbol($this->rawread(1));
             $fieldValue = $this->read_value($fieldType, $returnObject);
-            $returnObject ? $result->push($fieldValue, $fieldType) : $result[]   = $fieldValue;
+            $returnObject ? $result->push($fieldValue, $fieldType) : $result[] = $fieldValue;
         }
 
         return $result;
@@ -592,8 +586,8 @@ class AMQPReader extends AbstractClient
                 $val = $this->read_longlong();
                 break;
             case AMQPAbstractCollection::T_DECIMAL:
-                $e   = $this->read_octet();
-                $n   = $this->read_signed_long();
+                $e = $this->read_octet();
+                $n = $this->read_signed_long();
                 $val = new AMQPDecimal($n, $e);
                 break;
             case AMQPAbstractCollection::T_TIMESTAMP:
@@ -657,7 +651,7 @@ class AMQPReader extends AbstractClient
     private
             function resetCounters()
     {
-        $this->bitcount = $this->bits     = 0;
+        $this->bitcount = $this->bits = 0;
     }
 
 }

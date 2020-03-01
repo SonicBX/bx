@@ -37,7 +37,7 @@ class Protocol091
     public static
             function connectionStartOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_table();
         $response[] = $reader->read_shortstr();
         $response[] = $reader->read_longstr();
@@ -64,7 +64,7 @@ class Protocol091
     public static
             function connectionSecureOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_longstr();
         return $response;
     }
@@ -92,7 +92,7 @@ class Protocol091
     public static
             function connectionTuneOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_short();
         $response[] = $reader->read_long();
         $response[] = $reader->read_short();
@@ -122,7 +122,7 @@ class Protocol091
     public static
             function connectionOpenOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_shortstr();
         return $response;
     }
@@ -198,7 +198,7 @@ class Protocol091
     public static
             function channelOpenOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_longstr();
         return $response;
     }
@@ -222,7 +222,7 @@ class Protocol091
     public static
             function channelFlowOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_bit();
         return $response;
     }
@@ -281,7 +281,7 @@ class Protocol091
     public static
             function accessRequestOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_short();
         return $response;
     }
@@ -444,7 +444,7 @@ class Protocol091
     public static
             function queueDeclareOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_shortstr();
         $response[] = $reader->read_long();
         $response[] = $reader->read_long();
@@ -507,7 +507,7 @@ class Protocol091
     public static
             function queuePurgeOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_long();
         return $response;
     }
@@ -537,7 +537,7 @@ class Protocol091
     public static
             function queueDeleteOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_long();
         return $response;
     }
@@ -630,7 +630,7 @@ class Protocol091
     public static
             function basicConsumeOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_shortstr();
         return $response;
     }
@@ -656,7 +656,7 @@ class Protocol091
     public static
             function basicCancelOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_shortstr();
         return $response;
     }
@@ -741,7 +741,7 @@ class Protocol091
     public static
             function basicGetOk(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_longlong();
         $response[] = $reader->read_bit();
         $response[] = $reader->read_shortstr();
@@ -757,7 +757,7 @@ class Protocol091
     public static
             function basicGetEmpty(AMQPReader $reader)
     {
-        $response   = array();
+        $response = array();
         $response[] = $reader->read_shortstr();
         return $response;
     }
