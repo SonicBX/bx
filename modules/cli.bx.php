@@ -14,20 +14,22 @@ function bxcli_start()
 	unset($argv[1]);
     }
     bxcli_parse();
+	$bx["api"]["capture"]["api"]["packet"] = $bx["api"]["packet"];
     bxapi_capture();
 }
 
 function bxcli_parse()
 {
     global $bx,$argv;
+	$bx["api"]["packet"]["input"] = array();
     $bxcli_command                  = array();
     unset($argv[0]);
     foreach ($argv as $bxcli_arg)
         if (!bxcli_eval($bxcli_arg))
             $bxcli_command[]                = $bxcli_arg;
     $bx["api"]["packet"]["command"] = implode("/", $bxcli_command);
-    if (isset($bx["cli"]["input"]) && count($bx["cli"]["input"]))
-        $bx["api"]["packet"]["input"]   = $bx["cli"]["input"];
+    if (isset($bx["api"]["packet"]["input"]) && count($bx["api"]["packet"]["input"]))
+        $bx["api"]["packet"]["input"]   = $bx["api"]["packet"]["input"];
 }
 
 function bxcli_eval($bxcli_arg)
@@ -39,7 +41,7 @@ function bxcli_eval($bxcli_arg)
     $bxcli_arg_key      = $bxcli_arg_array[0];
     unset($bxcli_arg_array[0]);
     $bxcli_arg          = implode(array_values($bxcli_arg_array), "=");
-    $bx["cli"]["input"] = array_merge_recursive($bx["cli"]["input"], array($bxcli_arg_key => bxcli_merge($bxcli_arg)));
+    $bx["api"]["packet"]["input"] = array_merge_recursive($bx["api"]["packet"]["input"], array($bxcli_arg_key => bxcli_merge($bxcli_arg)));
     return true;
 }
 
