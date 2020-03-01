@@ -22,11 +22,9 @@ function bxcli_parse()
     $bx["api"]["packet"]["input"] = array();
     $bxcli_command = array();
     unset($argv[0]);
-    foreach ($argv as $bxcli_arg)
-            if (!bxcli_eval($bxcli_arg)) $bxcli_command[] = $bxcli_arg;
+    foreach ($argv as $bxcli_arg) if (!bxcli_eval($bxcli_arg)) $bxcli_command[] = $bxcli_arg;
     $bx["api"]["packet"]["command"] = implode("/", $bxcli_command);
-    if (count($bx["api"]["packet"]["input"]) > 0)
-            $bx["api"]["packet"]["input"] = $bx["api"]["packet"]["input"];
+    if (count($bx["api"]["packet"]["input"]) > 0) $bx["api"]["packet"]["input"] = $bx["api"]["packet"]["input"];
     else unset($bx["api"]["packet"]["input"]);
 }
 

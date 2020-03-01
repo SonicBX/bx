@@ -11,8 +11,7 @@ function bxapi_post()
     global $bx, $_POST;
     if (!isset($_POST)) bxapi_failure("no post");
     if (!isset($_POST["packets"])) bxapi_failure("no packets in post");
-    if (!$bx["api"]["packets"] = json_decode($_POST["packets"], true))
-            bxapi_failure("packets parse error");
+    if (!$bx["api"]["packets"] = json_decode($_POST["packets"], true)) bxapi_failure("packets parse error");
     if (!sizeof($bx["api"]["packets"])) bxapi_failure("packets empty");
     bxapi_process_packets();
 }
@@ -20,9 +19,7 @@ function bxapi_post()
 function bxapi_search($bxapi_command)
 {
     global $bx;
-    foreach (scandir($bxapi_command) as $bxapi_file)
-            if (substr($bxapi_file, 0, 1) != ".")
-                $bx["api"]["packet"]["options"][] = str_replace(".bx.php", "", $bxapi_file);
+    foreach (scandir($bxapi_command) as $bxapi_file) if (substr($bxapi_file, 0, 1) != ".") $bx["api"]["packet"]["options"][] = str_replace(".bx.php", "", $bxapi_file);
     bxapi_success();
 }
 
@@ -43,8 +40,7 @@ function bxapi_packet()
 function bxapi_capture()
 {
     global $bx;
-    foreach ($bx["api"]["capture"] as $bx["api"]["packet_id"] =>
-                $bx["api"]["packet"]) bxapi_packet();
+    foreach ($bx["api"]["capture"] as $bx["api"]["packet_id"] => $bx["api"]["packet"]) bxapi_packet();
     if (isset($bx["debug"])) die(json_encode($bx, JSON_PRETTY_PRINT) . "\n");
     die(json_encode($bx["api"]["output"], JSON_PRETTY_PRINT) . "\n");
 }

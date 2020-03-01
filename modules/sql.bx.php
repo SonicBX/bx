@@ -57,10 +57,8 @@ function bxsql_write($bxsql_query)
 function bxsql_select_image($bxsql_image)
 {
     global $bx;
-    if ($bx["sql"]["read_connection"] != array())
-            mysqli_select_db($bx["sql"]["read_connection"], $bxsql_image);
-    if ($bx["sql"]["write_connection"] != array())
-            mysqli_select_db($bx["sql"]["write_connection"], $bxsql_image);
+    if ($bx["sql"]["read_connection"] != array()) mysqli_select_db($bx["sql"]["read_connection"], $bxsql_image);
+    if ($bx["sql"]["write_connection"] != array()) mysqli_select_db($bx["sql"]["write_connection"], $bxsql_image);
 }
 
 function bxsql_read_connect()
