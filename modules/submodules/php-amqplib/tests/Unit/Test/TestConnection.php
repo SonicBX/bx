@@ -7,10 +7,12 @@ use PhpAmqpLib\Wire\AMQPReader;
 
 class TestConnection extends AbstractConnection
 {
+
     /**
      * @inheritDoc
      */
-    public function connectOnConstruct()
+    public
+            function connectOnConstruct()
     {
         return false;
     }
@@ -18,17 +20,23 @@ class TestConnection extends AbstractConnection
     /**
      * @inheritDoc
      */
-    public function isConnected()
+    public
+            function isConnected()
     {
         return true;
     }
 
-    public function setIsBlocked($blocked = true)
+    public
+            function setIsBlocked($blocked = true)
     {
-        if ($blocked) {
+        if ($blocked)
+        {
             $this->connection_blocked(new AMQPReader(hex2bin('0120')));
-        } else {
+        }
+        else
+        {
             $this->connection_unblocked();
         }
     }
+
 }

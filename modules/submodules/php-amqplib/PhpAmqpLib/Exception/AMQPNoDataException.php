@@ -7,4 +7,5 @@ namespace PhpAmqpLib\Exception;
  */
 class AMQPNoDataException extends AMQPRuntimeException
 {
+    
 }

@@ -1,6 +1,6 @@
 <?php
-namespace PhpAmqpLib\Wire;
 
+namespace PhpAmqpLib\Wire;
 
 class AMQPArray extends AMQPAbstractCollection
 {
@@ -8,7 +8,8 @@ class AMQPArray extends AMQPAbstractCollection
     /**
      * @param array|null $data
      */
-    public function __construct(array $data = null)
+    public
+            function __construct(array $data = null)
     {
         parent::__construct(empty($data) ? null : array_values($data));
     }
@@ -16,7 +17,8 @@ class AMQPArray extends AMQPAbstractCollection
     /**
      * @return int
      */
-    final public function getType()
+    final public
+            function getType()
     {
         return self::T_ARRAY;
     }
@@ -26,10 +28,12 @@ class AMQPArray extends AMQPAbstractCollection
      * @param null $type
      * @return $this
      */
-    public function push($val, $type = null)
+    public
+            function push($val, $type = null)
     {
         $this->setValue($val, $type);
 
         return $this;
     }
+
 }

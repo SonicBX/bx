@@ -26,10 +26,11 @@ $time = microtime(true);
 $max = isset($argv[1]) ? (int) $argv[1] : 1;
 
 // Publishes $max messages using $msg_body as the content.
-for ($i = 0; $i < $max; $i++) {
+for ($i = 0; $i < $max; $i++)
+{
 
-    $ch = $conn->channel();
-    list($queue,) = $ch->queue_declare("", false, false, true, true);
+    $ch  = $conn->channel();
+    list($queue, ) = $ch->queue_declare("", false, false, true, true);
     $msg = new AMQPMessage($msg_body);
     $ch->basic_publish($msg, "", $queue);
     $ch->close();

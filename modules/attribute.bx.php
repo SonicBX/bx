@@ -1,1 +1,3 @@
-<?php //bx/bxs/attribute.bx.php
+<?php
+
+//bx/bxs/attribute.bx.php

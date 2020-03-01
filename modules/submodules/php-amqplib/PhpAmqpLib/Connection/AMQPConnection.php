@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpAmqpLib\Connection;
 
 /**
@@ -10,4 +11,5 @@ namespace PhpAmqpLib\Connection;
  */
 class AMQPConnection extends AMQPStreamConnection
 {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpAmqpLib\Exception;
 
 /**
@@ -6,24 +7,30 @@ namespace PhpAmqpLib\Exception;
  */
 class AMQPException extends \Exception
 {
+
     /** @var string */
-    public $amqp_reply_code;
+    public
+            $amqp_reply_code;
 
     /** @var int */
-    public $amqp_reply_text;
+    public
+            $amqp_reply_text;
 
     /** @var int[] */
-    public $amqp_method_sig;
+    public
+            $amqp_method_sig;
 
     /** @var array */
-    public $args;
+    public
+            $args;
 
     /**
      * @param string $reply_code
      * @param int $reply_text
      * @param array $method_sig
      */
-    public function __construct($reply_code, $reply_text, $method_sig)
+    public
+            function __construct($reply_code, $reply_text, $method_sig)
     {
         parent::__construct($reply_text, $reply_code);
 
@@ -33,4 +40,5 @@ class AMQPException extends \Exception
 
         $this->args = array($reply_code, $reply_text, $method_sig, '');
     }
+
 }

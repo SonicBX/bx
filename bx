@@ -1,22 +1,28 @@
 #!/usr/bin/php -f
-<?php //bx/bx
-require_once(__DIR__."/modules/bx.php");
+<?php
+//bx/bx
+require_once(__DIR__ . "/modules/bx.php");
 bxcli_start();
 
-function bx($bxhost,$bx)
+function bx($bxhost, $bx)
 {
-	$bx = json_encode($bx,JSON_PRETTY_PRINT);
-	$bxpost = array('bx'=>$bx);
-	$bxcurl = curl_init();
-	curl_setopt($bxcurl, CURLOPT_URL, "https://$bxhost");
-	curl_setopt($bxcurl, CURLOPT_POST, 1);
-	curl_setopt($bxcurl, CURLOPT_POSTFIELDS, $bxpost);
-	curl_setopt($bxcurl, CURLOPT_RETURNTRANSFER, true);
-	$bxresult = curl_exec($bxcurl);
-	if(!$bx = json_decode($bxresult,true)) echo("ERROR: json does not decode\n");
-	if(!isset($bx))	echo("ERROR: bx array not set\n");
-	elseif(!isset($bx['bx'])) echo("ERROR: bx not set\n");
-	elseif(!isset($bx['session'])) echo("WARNING: session not started try: rbx start\n");
-	elseif(!isset($bx['success'])) echo("ERROR: success not set\n");
-	return($bx);
+    $bx       = json_encode($bx, JSON_PRETTY_PRINT);
+    $bxpost   = array('bx' => $bx);
+    $bxcurl   = curl_init();
+    curl_setopt($bxcurl, CURLOPT_URL, "https://$bxhost");
+    curl_setopt($bxcurl, CURLOPT_POST, 1);
+    curl_setopt($bxcurl, CURLOPT_POSTFIELDS, $bxpost);
+    curl_setopt($bxcurl, CURLOPT_RETURNTRANSFER, true);
+    $bxresult = curl_exec($bxcurl);
+    if (!$bx       = json_decode($bxresult, true))
+        echo("ERROR: json does not decode\n");
+    if (!isset($bx))
+        echo("ERROR: bx array not set\n");
+    elseif (!isset($bx['bx']))
+        echo("ERROR: bx not set\n");
+    elseif (!isset($bx['session']))
+        echo("WARNING: session not started try: rbx start\n");
+    elseif (!isset($bx['success']))
+        echo("ERROR: success not set\n");
+    return($bx);
 }

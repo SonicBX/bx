@@ -10,11 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class WireTest extends TestCase
 {
+
     /**
      * @dataProvider bitWrData
      * @test
      */
-    public function bit_wr($value)
+    public
+            function bit_wr($value)
     {
         $this->wr($value, 'write_bit', 'read_bit');
     }
@@ -23,7 +25,8 @@ class WireTest extends TestCase
      * @dataProvider octetWrData
      * @test
      */
-    public function octet_wr($value)
+    public
+            function octet_wr($value)
     {
         $this->wr($value, 'write_octet', 'read_octet');
     }
@@ -32,7 +35,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function octet_wr_out_of_range_lower()
+    public
+            function octet_wr_out_of_range_lower()
     {
         $this->wr(-1, 'write_octet', 'read_octet');
     }
@@ -41,7 +45,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function octet_wr_out_of_range_upper()
+    public
+            function octet_wr_out_of_range_upper()
     {
         $this->wr(256, 'write_octet', 'read_octet');
     }
@@ -50,7 +55,8 @@ class WireTest extends TestCase
      * @dataProvider signedOctetWrData
      * @test
      */
-    public function signed_octet_wr($value)
+    public
+            function signed_octet_wr($value)
     {
         $this->wr($value, 'write_signed_octet', 'read_signed_octet');
     }
@@ -59,7 +65,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_octet_wr_out_of_range_lower()
+    public
+            function signed_octet_wr_out_of_range_lower()
     {
         $this->wr(-129, 'write_signed_octet', 'read_signed_octet');
     }
@@ -68,7 +75,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_octet_wr_out_of_range_upper()
+    public
+            function signed_octet_wr_out_of_range_upper()
     {
         $this->wr(128, 'write_signed_octet', 'read_signed_octet');
     }
@@ -78,7 +86,8 @@ class WireTest extends TestCase
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      * @expectedExceptionMessage Short out of range: 65536
      */
-    public function short_wr()
+    public
+            function short_wr()
     {
         $this->wr(65536, 'write_short', 'read_short');
     }
@@ -87,7 +96,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function short_wr_out_of_range_lower()
+    public
+            function short_wr_out_of_range_lower()
     {
         $this->wr(-1, 'write_short', 'read_short');
     }
@@ -96,7 +106,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function short_wr_out_of_range_upper()
+    public
+            function short_wr_out_of_range_upper()
     {
         $this->wr(65536, 'write_short', 'read_short');
     }
@@ -105,7 +116,8 @@ class WireTest extends TestCase
      * @dataProvider signedShortWrData
      * @test
      */
-    public function signed_short_wr($value)
+    public
+            function signed_short_wr($value)
     {
         $this->wr($value, 'write_signed_short', 'read_signed_short');
     }
@@ -114,7 +126,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_short_wr_out_of_range_lower()
+    public
+            function signed_short_wr_out_of_range_lower()
     {
         $this->wr(-32769, 'write_signed_short', 'read_signed_short');
     }
@@ -123,7 +136,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_short_wr_out_of_range_upper()
+    public
+            function signed_short_wr_out_of_range_upper()
     {
         $this->wr(32768, 'write_signed_short', 'read_signed_short');
     }
@@ -132,7 +146,8 @@ class WireTest extends TestCase
      * @dataProvider longWrData
      * @test
      */
-    public function long_wr($value)
+    public
+            function long_wr($value)
     {
         $this->wr($value, 'write_long', 'read_long');
     }
@@ -141,7 +156,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function long_wr_out_of_range_lower()
+    public
+            function long_wr_out_of_range_lower()
     {
         $this->wr(-1, 'write_long', 'read_long');
     }
@@ -150,7 +166,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function long_wr_out_of_range_upper()
+    public
+            function long_wr_out_of_range_upper()
     {
         $this->wr('4294967296', 'write_long', 'read_long');
     }
@@ -159,7 +176,8 @@ class WireTest extends TestCase
      * @dataProvider signedLongWrData
      * @test
      */
-    public function signed_long_wr($value)
+    public
+            function signed_long_wr($value)
     {
         $this->wr($value, 'write_signed_long', 'read_signed_long', true);
     }
@@ -168,7 +186,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_long_wr_out_of_range_lower()
+    public
+            function signed_long_wr_out_of_range_lower()
     {
         $this->wr('-2147483649', 'write_signed_long', 'read_signed_long', true);
     }
@@ -177,7 +196,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_long_wr_out_of_range_upper()
+    public
+            function signed_long_wr_out_of_range_upper()
     {
         $this->wr('2147483648', 'write_signed_long', 'read_signed_long', true);
     }
@@ -186,7 +206,8 @@ class WireTest extends TestCase
      * @dataProvider longlongWrData
      * @test
      */
-    public function longlong_wr($value)
+    public
+            function longlong_wr($value)
     {
         $this->wr($value, 'write_longlong', 'read_longlong');
     }
@@ -195,7 +216,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function longlong_wr_out_of_range_lower()
+    public
+            function longlong_wr_out_of_range_lower()
     {
         $this->wr('-1', 'write_longlong', 'read_longlong');
     }
@@ -204,7 +226,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function longlong_wr_out_of_range_upper()
+    public
+            function longlong_wr_out_of_range_upper()
     {
         $this->wr('18446744073709551616', 'write_longlong', 'read_longlong');
     }
@@ -213,7 +236,8 @@ class WireTest extends TestCase
      * @dataProvider signedLonglongWrData
      * @test
      */
-    public function signed_longlong_wr($value)
+    public
+            function signed_longlong_wr($value)
     {
         $this->wr($value, 'write_signed_longlong', 'read_signed_longlong');
     }
@@ -222,7 +246,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_longlong_wr_out_of_range_lower()
+    public
+            function signed_longlong_wr_out_of_range_lower()
     {
         $this->wr('-9223372036854775809', 'write_signed_longlong', 'read_signed_longlong');
     }
@@ -231,7 +256,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function signed_longlong_wr_out_of_range_upper()
+    public
+            function signed_longlong_wr_out_of_range_upper()
     {
         $this->wr('9223372036854775808', 'write_signed_longlong', 'read_signed_longlong');
     }
@@ -240,7 +266,8 @@ class WireTest extends TestCase
      * @dataProvider shortstrWrData
      * @test
      */
-    public function shortstr_wr($value)
+    public
+            function shortstr_wr($value)
     {
         $this->wr($value, 'write_shortstr', 'read_shortstr');
     }
@@ -249,7 +276,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function shortstr_wr_out_of_range_ASCII()
+    public
+            function shortstr_wr_out_of_range_ASCII()
     {
         $this->wr(str_repeat('z', 256), 'write_shortstr', 'read_shortstr');
     }
@@ -258,7 +286,8 @@ class WireTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPInvalidArgumentException
      */
-    public function shortstr_wr_out_of_range_utf_two_byte()
+    public
+            function shortstr_wr_out_of_range_utf_two_byte()
     {
         $this->wr(str_repeat("\xd0\xaf", 128), 'write_shortstr', 'read_shortstr');
     }
@@ -267,7 +296,8 @@ class WireTest extends TestCase
      * @dataProvider longstrWrData
      * @test
      */
-    public function longstr_wr($value)
+    public
+            function longstr_wr($value)
     {
         $this->wr($value, 'write_longstr', 'read_longstr');
     }
@@ -275,7 +305,8 @@ class WireTest extends TestCase
     /**
      * @test
      */
-    public function array_wr_native()
+    public
+            function array_wr_native()
     {
         $d = [
             1,
@@ -290,7 +321,7 @@ class WireTest extends TestCase
         $w = new AMQPWriter();
         $w->write_array($d);
 
-        $r = new AMQPReader($w->getvalue());
+        $r  = new AMQPReader($w->getvalue());
         $rd = $r->read_array();
 
         $this->assertEquals($d, $rd);
@@ -299,70 +330,72 @@ class WireTest extends TestCase
     /**
      * @test
      */
-    public function array_wr_collection()
+    public
+            function array_wr_collection()
     {
         $w = new AMQPWriter();
         $w->write_array(
-            new AMQPArray(
-                [
+                new AMQPArray(
+                        [
                     12345,
                     -12345,
                     3000000000,
                     -3000000000,
                     9.2233720368548,
-                    (float)9223372036854800000,
+                    (float) 9223372036854800000,
                     true,
                     false,
                     [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
                     [],
                     [
-                        'foo' => 'bar',
-                        'baz' => 'boo',
+                        'foo'  => 'bar',
+                        'baz'  => 'boo',
                         'bool' => true,
-                        'tbl' => ['bar' => 'baz'],
-                        'arr' => ['boo', false, 5]
+                        'tbl'  => ['bar' => 'baz'],
+                        'arr'  => ['boo', false, 5]
                     ],
                     [1 => 5, 3 => 'foo', 786 => 674],
                     [1, [2, [3, [4]]]],
                     ['i' => 1, 'n' => ['i' => 2, 'n' => ['i' => 3, 'n' => ['i' => 4]]]]
-                ]
-            )
+                        ]
+                )
         );
 
         $r = new AMQPReader($w->getvalue());
 
         //type casting - thanks to ancient phpunit on travis
         $this->assertEquals(
-            [
-                12345,
-                -12345,
-                (string)3000000000,
-                (string)-3000000000,
-                (string)(float)9.2233720368548,
-                (string)(float)9223372036854800000,
-                true,
-                false,
-                [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
-                [],
                 [
-                    'foo' => 'bar',
-                    'baz' => 'boo',
-                    'bool' => true,
-                    'tbl' => ['bar' => 'baz'],
-                    'arr' => ['boo', false, 5]
+                    12345,
+                    -12345,
+                    (string) 3000000000,
+                    (string) -3000000000,
+                    (string) (float) 9.2233720368548,
+                    (string) (float) 9223372036854800000,
+                    true,
+                    false,
+                    [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
+                    [],
+                    [
+                        'foo'  => 'bar',
+                        'baz'  => 'boo',
+                        'bool' => true,
+                        'tbl'  => ['bar' => 'baz'],
+                        'arr'  => ['boo', false, 5]
+                    ],
+                    [1 => 5, 3 => 'foo', 786 => 674],
+                    [1, [2, [3, [4]]]],
+                    ['i' => 1, 'n' => ['i' => 2, 'n' => ['i' => 3, 'n' => ['i' => 4]]]]
                 ],
-                [1 => 5, 3 => 'foo', 786 => 674],
-                [1, [2, [3, [4]]]],
-                ['i' => 1, 'n' => ['i' => 2, 'n' => ['i' => 3, 'n' => ['i' => 4]]]]
-            ],
-            $r->read_array(true)->getNativeData()
+                $r->read_array(true)->getNativeData()
         );
     }
 
     /**
      * @test
      */
-    public function table_wr_native()
+    public
+            function table_wr_native()
     {
         $d = [
             'a' => ['I', 1],
@@ -380,7 +413,7 @@ class WireTest extends TestCase
         $w = new AMQPWriter();
         $w->write_table($d);
 
-        $r = new AMQPReader($w->getvalue());
+        $r  = new AMQPReader($w->getvalue());
         $rd = $r->read_table();
 
         $this->assertEquals($d, $rd);
@@ -389,73 +422,75 @@ class WireTest extends TestCase
     /**
      * @test
      */
-    public function table_wr_collection()
+    public
+            function table_wr_collection()
     {
         $w = new AMQPWriter();
         $w->write_table(
-            new AMQPTable(
-                [
-                    'long' => 12345,
-                    'long_neg' => -12345,
-                    'longlong' => 3000000000,
+                new AMQPTable(
+                        [
+                    'long'         => 12345,
+                    'long_neg'     => -12345,
+                    'longlong'     => 3000000000,
                     'longlong_neg' => -3000000000,
-                    'float_low' => 9.2233720368548,
-                    'float_high' => (float)9223372036854800000,
-                    'bool_true' => true,
-                    'bool_false' => false,
-                    'array' => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
-                    'array_empty' => [],
-                    'table' => [
-                        'foo' => 'bar',
-                        'baz' => 'boo',
+                    'float_low'    => 9.2233720368548,
+                    'float_high'   => (float) 9223372036854800000,
+                    'bool_true'    => true,
+                    'bool_false'   => false,
+                    'array'        => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
+                    'array_empty'  => [],
+                    'table'        => [
+                        'foo'  => 'bar',
+                        'baz'  => 'boo',
                         'bool' => true,
-                        'tbl' => ['bar' => 'baz'],
-                        'arr' => ['boo', false, 5]
+                        'tbl'  => ['bar' => 'baz'],
+                        'arr'  => ['boo', false, 5]
                     ],
-                    'table_num' => [1 => 5, 3 => 'foo', 786 => 674],
+                    'table_num'    => [1 => 5, 3 => 'foo', 786 => 674],
                     'array_nested' => [1, [2, [3, [4]]]],
                     'table_nested' => [
                         'i' => 1,
                         'n' => ['i' => 2, 'n' => ['i' => 3, 'n' => ['i' => 4]]],
                     ],
-                ]
-            )
+                        ]
+                )
         );
 
         $r = new AMQPReader($w->getvalue());
 
         //type casting - thanks to ancient phpunit on travis
         $this->assertEquals(
-            [
-                'long' => 12345,
-                'long_neg' => -12345,
-                'longlong' => (string)3000000000,
-                'longlong_neg' => (string)-3000000000,
-                'float_low' => (string)(float)9.2233720368548,
-                'float_high' => (string)(float)9223372036854800000,
-                'bool_true' => true,
-                'bool_false' => false,
-                'array' => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
-                'array_empty' => [],
-                'table' => [
-                    'foo' => 'bar',
-                    'baz' => 'boo',
-                    'bool' => true,
-                    'tbl' => ['bar' => 'baz'],
-                    'arr' => ['boo', false, 5]
+                [
+                    'long'         => 12345,
+                    'long_neg'     => -12345,
+                    'longlong'     => (string) 3000000000,
+                    'longlong_neg' => (string) -3000000000,
+                    'float_low'    => (string) (float) 9.2233720368548,
+                    'float_high'   => (string) (float) 9223372036854800000,
+                    'bool_true'    => true,
+                    'bool_false'   => false,
+                    'array'        => [1, 2, 3, 'foo', ['bar' => 'baz'], ['boo', false, 5], true],
+                    'array_empty'  => [],
+                    'table'        => [
+                        'foo'  => 'bar',
+                        'baz'  => 'boo',
+                        'bool' => true,
+                        'tbl'  => ['bar' => 'baz'],
+                        'arr'  => ['boo', false, 5]
+                    ],
+                    'table_num'    => [1 => 5, 3 => 'foo', 786 => 674],
+                    'array_nested' => [1, [2, [3, [4]]]],
+                    'table_nested' => [
+                        'i' => 1,
+                        'n' => ['i' => 2, 'n' => ['i' => 3, 'n' => ['i' => 4]]]
+                    ]
                 ],
-                'table_num' => [1 => 5, 3 => 'foo', 786 => 674],
-                'array_nested' => [1, [2, [3, [4]]]],
-                'table_nested' => [
-                    'i' => 1,
-                    'n' => ['i' => 2, 'n' => ['i' => 3, 'n' => ['i' => 4]]]
-                ]
-            ],
-            $r->read_table(true)->getNativeData()
+                $r->read_table(true)->getNativeData()
         );
     }
 
-    public function bitWrData()
+    public
+            function bitWrData()
     {
         return [
             [true],
@@ -463,27 +498,32 @@ class WireTest extends TestCase
         ];
     }
 
-    public function octetWrData()
+    public
+            function octetWrData()
     {
         $data = [];
-        for ($i = 0; $i <= 255; $i++) {
+        for ($i = 0; $i <= 255; $i++)
+        {
             $data[] = [$i];
         }
 
         return $data;
     }
 
-    public function signedOctetWrData()
+    public
+            function signedOctetWrData()
     {
         $data = [];
-        for ($i = -128; $i <= 127; $i++) {
+        for ($i = -128; $i <= 127; $i++)
+        {
             $data[] = [$i];
         }
 
         return $data;
     }
 
-    public function signedShortWrData()
+    public
+            function signedShortWrData()
     {
         return [
             [-32768],
@@ -493,7 +533,8 @@ class WireTest extends TestCase
         ];
     }
 
-    public function longWrData()
+    public
+            function longWrData()
     {
         $max = PHP_INT_SIZE === 8 ? 4294967295 : PHP_INT_MAX;
 
@@ -518,7 +559,8 @@ class WireTest extends TestCase
         ];
     }
 
-    public function signedLongWrData()
+    public
+            function signedLongWrData()
     {
         return [
             [-2147483648],
@@ -544,7 +586,8 @@ class WireTest extends TestCase
         ];
     }
 
-    public function longlongWrData()
+    public
+            function longlongWrData()
     {
         return [
             [0],
@@ -570,7 +613,8 @@ class WireTest extends TestCase
         ];
     }
 
-    public function signedLonglongWrData()
+    public
+            function signedLonglongWrData()
     {
         $min = defined('PHP_INT_MIN') ? PHP_INT_MIN : ~PHP_INT_MAX;
         return [
@@ -610,14 +654,18 @@ class WireTest extends TestCase
         ];
     }
 
-    public function shortstrWrData() {
+    public
+            function shortstrWrData()
+    {
         return [
             ['a'],
             ['üıß∑œ´®†¥¨πøˆ¨¥†®'],
         ];
     }
 
-    public function longstrWrData() {
+    public
+            function longstrWrData()
+    {
         return [
             ['a'],
             ['üıß∑œ´®†¥¨πøˆ¨¥†®'],
@@ -629,30 +677,38 @@ class WireTest extends TestCase
         ];
     }
 
-    protected function wr($value, $write_method, $read_method, $reflection = false)
+    protected
+            function wr($value, $write_method, $read_method, $reflection = false)
     {
         $writer = new AMQPWriter();
-        if ($reflection) {
+        if ($reflection)
+        {
             $m = new \ReflectionMethod($writer, $write_method);
             $m->setAccessible(true);
             $m->invoke($writer, $value);
-        } else {
+        }
+        else
+        {
             $writer->{$write_method}($value);
         }
 
         $reader = new AMQPReader($writer->getvalue());
-        if ($reflection) {
-            $m = new \ReflectionMethod($reader, $read_method);
+        if ($reflection)
+        {
+            $m         = new \ReflectionMethod($reader, $read_method);
             $m->setAccessible(true);
             $readValue = $m->invoke($reader);
-        } else {
+        }
+        else
+        {
             $readValue = $reader->{$read_method}();
         }
 
         $this->assertEquals(
-            $value,
-            $readValue,
-            'Written: ' . bin2hex($writer->getvalue()) . ', read: ' . bin2hex($readValue)
+                $value,
+                $readValue,
+                'Written: ' . bin2hex($writer->getvalue()) . ', read: ' . bin2hex($readValue)
         );
     }
+
 }

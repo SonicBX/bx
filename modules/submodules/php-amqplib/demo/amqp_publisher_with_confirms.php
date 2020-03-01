@@ -9,18 +9,20 @@ include(__DIR__ . '/config.php');
 $exchange = 'someExchange';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel = $connection->channel();
+$channel    = $connection->channel();
 
 $channel->set_ack_handler(
-    function (AMQPMessage $message) {
-        echo "Message acked with content " . $message->body . PHP_EOL;
-    }
+        function (AMQPMessage $message)
+{
+    echo "Message acked with content " . $message->body . PHP_EOL;
+}
 );
 
 $channel->set_nack_handler(
-    function (AMQPMessage $message) {
-        echo "Message nacked with content " . $message->body . PHP_EOL;
-    }
+        function (AMQPMessage $message)
+{
+    echo "Message nacked with content " . $message->body . PHP_EOL;
+}
 );
 
 /*
@@ -32,16 +34,16 @@ $channel->set_nack_handler(
 $channel->confirm_select();
 
 /*
-    name: $exchange
-    type: fanout
-    passive: false // don't check if an exchange with the same name exists
-    durable: false // the exchange won't survive server restarts
-    auto_delete: true //the exchange will be deleted once the channel is closed.
-*/
+  name: $exchange
+  type: fanout
+  passive: false // don't check if an exchange with the same name exists
+  durable: false // the exchange won't survive server restarts
+  auto_delete: true //the exchange will be deleted once the channel is closed.
+ */
 
 $channel->exchange_declare($exchange, AMQPExchangeType::FANOUT, false, false, true);
 
-$i = 1;
+$i   = 1;
 $msg = new AMQPMessage($i, array('content_type' => 'text/plain'));
 $channel->basic_publish($msg, $exchange);
 
@@ -52,7 +54,8 @@ $channel->basic_publish($msg, $exchange);
 
 $channel->wait_for_pending_acks();
 
-while ($i <= 11) {
+while ($i <= 11)
+{
     $msg = new AMQPMessage($i++, array('content_type' => 'text/plain'));
     $channel->basic_publish($msg, $exchange);
 }

@@ -1,2 +1,4 @@
-<?php //bx/modules/submodules/rabbitmq.bx.php
+<?php
+
+//bx/modules/submodules/rabbitmq.bx.php
 

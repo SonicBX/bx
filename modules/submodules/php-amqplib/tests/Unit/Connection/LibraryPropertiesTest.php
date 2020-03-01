@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class LibraryPropertiesTest extends TestCase
 {
+
     /**
      * Client properties.
      *
@@ -22,12 +23,13 @@ class LibraryPropertiesTest extends TestCase
      *
      * @test
      */
-    public function requiredProperties()
+    public
+            function requiredProperties()
     {
         $connection = $this->getMockBuilder('\PhpAmqpLib\Connection\AMQPStreamConnection')
-            ->setMethods(null)
-            ->disableOriginalConstructor()
-            ->getMock();
+                ->setMethods(null)
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $properties = $connection->getLibraryProperties();
 
@@ -48,12 +50,13 @@ class LibraryPropertiesTest extends TestCase
      *
      * @test
      */
-    public function propertyTypes()
+    public
+            function propertyTypes()
     {
         $connection = $this->getMockBuilder('\PhpAmqpLib\Connection\AMQPStreamConnection')
-            ->setMethods(null)
-            ->disableOriginalConstructor()
-            ->getMock();
+                ->setMethods(null)
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $properties = $connection->getLibraryProperties();
 
@@ -61,7 +64,8 @@ class LibraryPropertiesTest extends TestCase
         $this->assertInternalType('array', $properties);
 
         // Iterate array checking each value is suitable
-        foreach ($properties as $property) {
+        foreach ($properties as $property)
+        {
             // Property should be an array with exactly 2 properties
             $this->assertInternalType('array', $property);
             $this->assertCount(2, $property);
@@ -71,4 +75,5 @@ class LibraryPropertiesTest extends TestCase
             $this->assertStringMatchesFormat('%c', $dataType);
         }
     }
+
 }

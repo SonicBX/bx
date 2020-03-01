@@ -12,7 +12,8 @@ use PhpAmqpLib\Tests\Functional\AbstractConnectionTest;
 class ConnectionCreationTest extends AbstractConnectionTest
 {
 
-    public function hostDataProvider()
+    public
+            function hostDataProvider()
     {
         return array(
             'plain' => array(
@@ -21,7 +22,7 @@ class ConnectionCreationTest extends AbstractConnectionTest
                     array('host' => HOST, 'port' => PORT, 'user' => USER, 'password' => PASS)
                 )
             ),
-            'keys' => array(
+            'keys'  => array(
                 array(
                     'host1' => array('host' => HOST, 'port' => PORT, 'user' => USER, 'password' => PASS),
                     'host2' => array('host' => HOST, 'port' => PORT, 'user' => USER, 'password' => PASS)
@@ -35,9 +36,11 @@ class ConnectionCreationTest extends AbstractConnectionTest
      * @dataProvider hostDataProvider
      * @covers \PhpAmqpLib\Connection\AbstractConnection::create_connection()
      */
-    public function create_connection(array $hosts)
+    public
+            function create_connection(array $hosts)
     {
         $conn = AMQPStreamConnection::create_connection($hosts, array());
         $this->assertInstanceOf('PhpAmqpLib\Connection\AMQPStreamConnection', $conn);
     }
+
 }

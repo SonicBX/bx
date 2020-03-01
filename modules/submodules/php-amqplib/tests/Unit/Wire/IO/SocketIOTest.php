@@ -10,14 +10,16 @@ use PHPUnit\Framework\TestCase;
  */
 class SocketIOTest extends TestCase
 {
+
     /**
      * @test
      */
-    public function connect()
+    public
+            function connect()
     {
         $socketIO = new SocketIO(HOST, PORT, 20, true, 20, 9);
         $socketIO->connect();
-        $ready = $socketIO->select(0, 0);
+        $ready    = $socketIO->select(0, 0);
         $this->assertEquals(0, $ready);
 
         return $socketIO;
@@ -27,7 +29,8 @@ class SocketIOTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPIOException
      */
-    public function connect_with_invalid_credentials()
+    public
+            function connect_with_invalid_credentials()
     {
         $socket = new SocketIO('invalid_host', 5672);
         @$socket->connect();
@@ -59,7 +62,8 @@ class SocketIOTest extends TestCase
      * @depends connect
      * @expectedException \PhpAmqpLib\Exception\AMQPSocketException
      */
-    public function read_when_closed(SocketIO $socketIO)
+    public
+            function read_when_closed(SocketIO $socketIO)
     {
         $socketIO->close();
 
@@ -71,8 +75,10 @@ class SocketIOTest extends TestCase
      * @depends connect
      * @expectedException \PhpAmqpLib\Exception\AMQPSocketException
      */
-    public function write_when_closed(SocketIO $socketIO)
+    public
+            function write_when_closed(SocketIO $socketIO)
     {
         $socketIO->write('data');
     }
+
 }

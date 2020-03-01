@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpAmqpLib\Exception;
 
 /**
@@ -6,4 +7,5 @@ namespace PhpAmqpLib\Exception;
  */
 class AMQPChannelException extends AMQPException
 {
+    
 }

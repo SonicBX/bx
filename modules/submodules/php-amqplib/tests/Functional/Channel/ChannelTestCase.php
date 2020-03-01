@@ -10,52 +10,64 @@ use PHPUnit\Framework\TestCase;
 /**
  * @group connection
  */
-abstract class ChannelTestCase extends TestCase
+abstract
+        class ChannelTestCase extends TestCase
 {
+
     /** @var AbstractConnection */
-    protected $connection;
+    protected
+            $connection;
 
     /** @var AMQPChannel */
-    protected $channel;
+    protected
+            $channel;
 
     /** @var object */
-    protected $exchange;
+    protected
+            $exchange;
 
     /** @var object */
-    protected $queue;
+    protected
+            $queue;
 
     /** @var object */
-    protected $message;
+    protected
+            $message;
 
-    public function setUp()
+    public
+            function setUp()
     {
         $this->connection = new AMQPSocketConnection(HOST, PORT, USER, PASS, VHOST);
 
         $this->channel = $this->connection->channel();
 
         $this->exchange = (object) [
-            'name' => null,
+                    'name' => null,
         ];
 
         $this->queue = (object) [
-            'name' => null,
+                    'name' => null,
         ];
 
         $this->message = (object) [
-            'body' => null,
-            'properties' => null,
+                    'body'       => null,
+                    'properties' => null,
         ];
     }
 
-    public function tearDown()
+    public
+            function tearDown()
     {
-        if ($this->channel) {
+        if ($this->channel)
+        {
             $this->channel->close();
             $this->channel = null;
         }
-        if ($this->connection) {
+        if ($this->connection)
+        {
             $this->connection->close();
             $this->connection = null;
         }
     }
+
 }

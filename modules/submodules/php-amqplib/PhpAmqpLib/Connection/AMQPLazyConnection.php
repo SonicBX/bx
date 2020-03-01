@@ -1,14 +1,17 @@
 <?php
+
 namespace PhpAmqpLib\Connection;
 
 class AMQPLazyConnection extends AMQPStreamConnection
 {
+
     /**
      * Gets socket from current connection
      *
      * @deprecated
      */
-    public function getSocket()
+    public
+            function getSocket()
     {
         $this->connect();
 
@@ -18,7 +21,8 @@ class AMQPLazyConnection extends AMQPStreamConnection
     /**
      * {@inheritdoc}
      */
-    public function channel($channel_id = null)
+    public
+            function channel($channel_id = null)
     {
         $this->connect();
 
@@ -28,9 +32,11 @@ class AMQPLazyConnection extends AMQPStreamConnection
     /**
      * @return null|\PhpAmqpLib\Wire\IO\AbstractIO
      */
-    public function getIO()
+    public
+            function getIO()
     {
-        if (empty($this->io)) {
+        if (empty($this->io))
+        {
             $this->connect();
         }
 
@@ -42,8 +48,10 @@ class AMQPLazyConnection extends AMQPStreamConnection
      *
      * @return bool
      */
-    public function connectOnConstruct()
+    public
+            function connectOnConstruct()
     {
         return false;
     }
+
 }

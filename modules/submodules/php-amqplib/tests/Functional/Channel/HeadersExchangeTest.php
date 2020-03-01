@@ -10,7 +10,9 @@ use PhpAmqpLib\Wire\AMQPTable;
  */
 class HeadersExchangeTest extends ChannelTestCase
 {
-    public function setUp()
+
+    public
+            function setUp()
     {
         parent::setUp();
         $this->exchange->name = 'amq.headers';
@@ -22,7 +24,8 @@ class HeadersExchangeTest extends ChannelTestCase
      * @covers \PhpAmqpLib\Channel\AMQPChannel::queue_bind()
      * @covers \PhpAmqpLib\Exchange\AMQPExchangeType
      */
-    public function consume_specific_headers()
+    public
+            function consume_specific_headers()
     {
         list($queue1) = $this->channel->queue_declare();
         $this->channel->queue_bind($queue1, $this->exchange->name);
@@ -65,4 +68,5 @@ class HeadersExchangeTest extends ChannelTestCase
         $this->assertInstanceOf(AMQPMessage::class, $received1);
         $this->assertNull($received2);
     }
+
 }

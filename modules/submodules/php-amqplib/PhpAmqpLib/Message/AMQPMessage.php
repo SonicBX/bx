@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpAmqpLib\Message;
 
 use PhpAmqpLib\Wire\GenericContent;
@@ -8,44 +9,53 @@ use PhpAmqpLib\Wire\GenericContent;
  */
 class AMQPMessage extends GenericContent
 {
-    const DELIVERY_MODE_NON_PERSISTENT = 1;
-    const DELIVERY_MODE_PERSISTENT = 2;
+
+    const
+            DELIVERY_MODE_NON_PERSISTENT = 1;
+    const
+            DELIVERY_MODE_PERSISTENT     = 2;
 
     /** @var string */
-    public $body;
+    public
+            $body;
 
     /** @var int */
-    public $body_size;
+    public
+            $body_size;
 
     /** @var bool */
-    public $is_truncated = false;
+    public
+            $is_truncated = false;
 
     /** @var string */
-    public $content_encoding;
+    public
+            $content_encoding;
 
     /** @var array */
-    protected static $propertyDefinitions = array(
-        'content_type' => 'shortstr',
-        'content_encoding' => 'shortstr',
+    protected static
+            $propertyDefinitions = array(
+        'content_type'        => 'shortstr',
+        'content_encoding'    => 'shortstr',
         'application_headers' => 'table_object',
-        'delivery_mode' => 'octet',
-        'priority' => 'octet',
-        'correlation_id' => 'shortstr',
-        'reply_to' => 'shortstr',
-        'expiration' => 'shortstr',
-        'message_id' => 'shortstr',
-        'timestamp' => 'timestamp',
-        'type' => 'shortstr',
-        'user_id' => 'shortstr',
-        'app_id' => 'shortstr',
-        'cluster_id' => 'shortstr',
+        'delivery_mode'       => 'octet',
+        'priority'            => 'octet',
+        'correlation_id'      => 'shortstr',
+        'reply_to'            => 'shortstr',
+        'expiration'          => 'shortstr',
+        'message_id'          => 'shortstr',
+        'timestamp'           => 'timestamp',
+        'type'                => 'shortstr',
+        'user_id'             => 'shortstr',
+        'app_id'              => 'shortstr',
+        'cluster_id'          => 'shortstr',
     );
 
     /**
      * @param string $body
      * @param array $properties
      */
-    public function __construct($body = '', $properties = array())
+    public
+            function __construct($body = '', $properties = array())
     {
         $this->setBody($body);
         parent::__construct($properties, static::$propertyDefinitions);
@@ -54,7 +64,8 @@ class AMQPMessage extends GenericContent
     /**
      * @return string
      */
-    public function getBody()
+    public
+            function getBody()
     {
         return $this->body;
     }
@@ -65,7 +76,8 @@ class AMQPMessage extends GenericContent
      * @param string $body
      * @return $this
      */
-    public function setBody($body)
+    public
+            function setBody($body)
     {
         $this->body = $body;
 
@@ -75,7 +87,8 @@ class AMQPMessage extends GenericContent
     /**
      * @return string
      */
-    public function getContentEncoding()
+    public
+            function getContentEncoding()
     {
         return $this->content_encoding;
     }
@@ -83,7 +96,8 @@ class AMQPMessage extends GenericContent
     /**
      * @return int
      */
-    public function getBodySize()
+    public
+            function getBodySize()
     {
         return $this->body_size;
     }
@@ -92,7 +106,8 @@ class AMQPMessage extends GenericContent
      * @param int $body_size Message body size in byte(s)
      * @return AMQPMessage
      */
-    public function setBodySize($body_size)
+    public
+            function setBodySize($body_size)
     {
         $this->body_size = (int) $body_size;
 
@@ -102,7 +117,8 @@ class AMQPMessage extends GenericContent
     /**
      * @return boolean
      */
-    public function isTruncated()
+    public
+            function isTruncated()
     {
         return $this->is_truncated;
     }
@@ -111,7 +127,8 @@ class AMQPMessage extends GenericContent
      * @param bool $is_truncated
      * @return AMQPMessage
      */
-    public function setIsTruncated($is_truncated)
+    public
+            function setIsTruncated($is_truncated)
     {
         $this->is_truncated = (bool) $is_truncated;
 
@@ -123,12 +140,15 @@ class AMQPMessage extends GenericContent
      *
      * @throws \PhpAmqpLib\Exception\AMQPEmptyDeliveryTagException
      */
-    public function getDeliveryTag()
+    public
+            function getDeliveryTag()
     {
-        if (!isset($this->delivery_info['delivery_tag'])) {
+        if (!isset($this->delivery_info['delivery_tag']))
+        {
             throw new \PhpAmqpLib\Exception\AMQPEmptyDeliveryTagException();
         }
 
         return (int) $this->delivery_info['delivery_tag'];
     }
+
 }

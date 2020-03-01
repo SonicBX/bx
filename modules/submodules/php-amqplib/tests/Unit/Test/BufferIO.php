@@ -6,12 +6,15 @@ use PhpAmqpLib\Wire\IO\AbstractIO;
 
 class BufferIO extends AbstractIO
 {
-    private $buffer;
+
+    private
+            $buffer;
 
     /**
      * @inheritDoc
      */
-    public function read($len)
+    public
+            function read($len)
     {
         return fread($this->buffer, $len);
     }
@@ -19,7 +22,8 @@ class BufferIO extends AbstractIO
     /**
      * @inheritDoc
      */
-    public function write($data)
+    public
+            function write($data)
     {
         fwrite($this->buffer, $data);
     }
@@ -27,7 +31,8 @@ class BufferIO extends AbstractIO
     /**
      * @inheritDoc
      */
-    public function close()
+    public
+            function close()
     {
         fclose($this->buffer);
         $this->buffer = null;
@@ -36,7 +41,8 @@ class BufferIO extends AbstractIO
     /**
      * @inheritDoc
      */
-    protected function do_select($sec, $usec)
+    protected
+            function do_select($sec, $usec)
     {
         return !feof($this->buffer);
     }
@@ -44,7 +50,8 @@ class BufferIO extends AbstractIO
     /**
      * @inheritDoc
      */
-    public function connect()
+    public
+            function connect()
     {
         $this->buffer = fopen('php://memory', 'rb+');
     }
@@ -52,8 +59,10 @@ class BufferIO extends AbstractIO
     /**
      * @inheritDoc
      */
-    public function getSocket()
+    public
+            function getSocket()
     {
         return $this->buffer;
     }
+
 }

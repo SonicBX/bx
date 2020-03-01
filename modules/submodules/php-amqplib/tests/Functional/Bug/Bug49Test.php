@@ -12,30 +12,37 @@ use PHPUnit\Framework\TestCase;
  */
 class Bug49Test extends TestCase
 {
-    protected $connection;
 
-    protected $channel;
+    protected
+            $connection;
+    protected
+            $channel;
+    protected
+            $channel2;
 
-    protected $channel2;
-
-    public function setUp()
+    public
+            function setUp()
     {
         $this->connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-        $this->channel = $this->connection->channel();
-        $this->channel2 = $this->connection->channel();
+        $this->channel    = $this->connection->channel();
+        $this->channel2   = $this->connection->channel();
     }
 
-    protected function tearDown()
+    protected
+            function tearDown()
     {
-        if ($this->channel) {
+        if ($this->channel)
+        {
             $this->channel->close();
             $this->channel = null;
         }
-        if ($this->channel2) {
+        if ($this->channel2)
+        {
             $this->channel2->close();
             $this->channel2 = null;
         }
-        if ($this->connection) {
+        if ($this->connection)
+        {
             $this->connection->close();
             $this->connection = null;
         }
@@ -44,16 +51,21 @@ class Bug49Test extends TestCase
     /**
      * @test
      */
-    public function declaration()
+    public
+            function declaration()
     {
-        try {
+        try
+        {
             $this->channel->queue_declare($queue = 'pretty.queue', true, true);
             $this->fail('Should have raised an exception');
-        } catch (AMQPProtocolException $exception) {
+        }
+        catch (AMQPProtocolException $exception)
+        {
             $this->assertInstanceOf(AMQPProtocolChannelException::class, $exception);
             $this->assertEquals(404, $exception->getCode());
         }
         $this->channel2->queue_declare($queue, false, true, true, true);
         $this->channel2->queue_delete($queue, false, false, true);
     }
+
 }

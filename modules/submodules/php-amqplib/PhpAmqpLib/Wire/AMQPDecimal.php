@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpAmqpLib\Wire;
 
 use PhpAmqpLib\Exception\AMQPOutOfBoundsException;
@@ -17,20 +18,25 @@ use phpseclib\Math\BigInteger;
  */
 class AMQPDecimal
 {
-    /** @var int */
-    protected $n;
 
     /** @var int */
-    protected $e;
+    protected
+            $n;
+
+    /** @var int */
+    protected
+            $e;
 
     /**
      * @param int $n
      * @param int $e
      * @throws \PhpAmqpLib\Exception\AMQPOutOfBoundsException
      */
-    public function __construct($n, $e)
+    public
+            function __construct($n, $e)
     {
-        if ($e < 0) {
+        if ($e < 0)
+        {
             throw new AMQPOutOfBoundsException('Decimal exponent value must be unsigned!');
         }
 
@@ -41,7 +47,8 @@ class AMQPDecimal
     /**
      * @return string
      */
-    public function asBCvalue()
+    public
+            function asBCvalue()
     {
         $n = new BigInteger($this->n);
         $e = new BigInteger('1' . str_repeat('0', $this->e));
@@ -52,7 +59,8 @@ class AMQPDecimal
     /**
      * @return int
      */
-    public function getE()
+    public
+            function getE()
     {
         return $this->e;
     }
@@ -60,8 +68,10 @@ class AMQPDecimal
     /**
      * @return int
      */
-    public function getN()
+    public
+            function getN()
     {
         return $this->n;
     }
+
 }

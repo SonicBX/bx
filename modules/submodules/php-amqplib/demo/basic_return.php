@@ -7,7 +7,7 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-$channel = $connection->channel();
+$channel    = $connection->channel();
 
 // declare  exchange but don`t bind any queue
 $channel->exchange_declare('hidden_exchange', AMQPExchangeType::TOPIC);
@@ -16,21 +16,22 @@ $message = new AMQPMessage("Hello World!");
 
 echo " [x] Sent non-mandatory ...";
 $channel->basic_publish(
-    $message,
-    'hidden_exchange',
-    'rkey'
+        $message,
+        'hidden_exchange',
+        'rkey'
 );
 echo " done.\n";
 
 $wait = true;
 
 $returnListener = function (
-    $replyCode,
-    $replyText,
-    $exchange,
-    $routingKey,
-    $message
-) use ($wait) {
+        $replyCode,
+        $replyText,
+        $exchange,
+        $routingKey,
+        $message
+        ) use ($wait)
+{
     $GLOBALS['wait'] = false;
 
     echo "return: ",
@@ -45,14 +46,15 @@ $channel->set_return_listener($returnListener);
 
 echo " [x] Sent mandatory ... ";
 $channel->basic_publish(
-    $message,
-    'hidden_exchange',
-    'rkey',
-    true
+        $message,
+        'hidden_exchange',
+        'rkey',
+        true
 );
 echo " done.\n";
 
-while ($wait) {
+while ($wait)
+{
     $channel->wait();
 }
 

@@ -10,7 +10,9 @@ use PhpAmqpLib\Tests\Functional\Channel\ChannelTestCase;
  */
 class DirectExchangeTest extends ChannelTestCase
 {
-    public function setUp()
+
+    public
+            function setUp()
     {
         parent::setUp();
 
@@ -21,7 +23,8 @@ class DirectExchangeTest extends ChannelTestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPChannelClosedException
      */
-    public function exchange_declare_with_closed_connection()
+    public
+            function exchange_declare_with_closed_connection()
     {
         $this->connection->close();
 
@@ -32,7 +35,8 @@ class DirectExchangeTest extends ChannelTestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPChannelClosedException
      */
-    public function exchange_declare_with_closed_channel()
+    public
+            function exchange_declare_with_closed_channel()
     {
         $this->channel->close();
 
@@ -42,20 +46,21 @@ class DirectExchangeTest extends ChannelTestCase
     /**
      * @test
      */
-    public function basic_consume_foo()
+    public
+            function basic_consume_foo()
     {
         $this->channel->exchange_declare($this->exchange->name, 'direct', false, false, false);
-        list($this->queue->name, ,) = $this->channel->queue_declare();
+        list($this->queue->name,, ) = $this->channel->queue_declare();
         $this->channel->queue_bind($this->queue->name, $this->exchange->name, $this->queue->name);
 
         $this->message = (object) [
-            'body' => 'foo',
-            'properties' => [
-                'content_type' => 'text/plain',
-                'delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,
-                'correlation_id' => 'my_correlation_id',
-                'reply_to' => 'my_reply_to',
-            ],
+                    'body'       => 'foo',
+                    'properties' => [
+                        'content_type'   => 'text/plain',
+                        'delivery_mode'  => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,
+                        'correlation_id' => 'my_correlation_id',
+                        'reply_to'       => 'my_reply_to',
+                    ],
         ];
 
         $msg = new AMQPMessage($this->message->body, $this->message->properties);
@@ -77,17 +82,19 @@ class DirectExchangeTest extends ChannelTestCase
         };
 
         $this->channel->basic_consume(
-            $this->queue->name,
-            getmypid(),
-            false,
-            false,
-            false,
-            false,
-            $callback
+                $this->queue->name,
+                getmypid(),
+                false,
+                false,
+                false,
+                false,
+                $callback
         );
 
-        while (count($this->channel->callbacks)) {
+        while (count($this->channel->callbacks))
+        {
             $this->channel->wait();
         }
     }
+
 }
