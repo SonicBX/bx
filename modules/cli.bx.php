@@ -11,7 +11,7 @@ function bxcli_start()
     {
         $bxdebug["debug"]["bx"]   = $bx;
         $bxdebug["debug"]["argv"] = $argv;
-	unset($argv[1]);
+        unset($argv[1]);
     }
     bxcli_parse();
     $bx["api"]["capture"]["cli"] = $bx["api"]["packet"];
@@ -20,8 +20,8 @@ function bxcli_start()
 
 function bxcli_parse()
 {
-    global $bx,$argv;
-	$bx["api"]["packet"]["input"] = array();
+    global $bx, $argv;
+    $bx["api"]["packet"]["input"]   = array();
     $bxcli_command                  = array();
     unset($argv[0]);
     foreach ($argv as $bxcli_arg)
@@ -37,10 +37,10 @@ function bxcli_eval($bxcli_arg)
     global $bx;
     if (!strpos($bxcli_arg, "="))
         return false;
-    $bxcli_arg_array    = explode("=", $bxcli_arg);
-    $bxcli_arg_key      = $bxcli_arg_array[0];
+    $bxcli_arg_array              = explode("=", $bxcli_arg);
+    $bxcli_arg_key                = $bxcli_arg_array[0];
     unset($bxcli_arg_array[0]);
-    $bxcli_arg          = implode(array_values($bxcli_arg_array), "=");
+    $bxcli_arg                    = implode(array_values($bxcli_arg_array), "=");
     $bx["api"]["packet"]["input"] = array_merge_recursive($bx["api"]["packet"]["input"], array($bxcli_arg_key => bxcli_merge($bxcli_arg)));
     return true;
 }
