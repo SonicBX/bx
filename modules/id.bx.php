@@ -15,10 +15,10 @@ function bxid_generate($bxid_type)
 function bxid_validate($bxid_val)
 {
     if (strlen($bxid_val) != 32)
-            bxapi_failure("id is not exactly 32 characters");
+        bxapi_failure("id is not exactly 32 characters");
     if (substr($bxid_val, 0, 2) != "bx")
-            bxapi_failure("id does not begin with bx");
+        bxapi_failure("id does not begin with bx");
     if (!strpos($bxid_val, "_"))
-            bxapi_failure("id does not contain an underscore");
+        bxapi_failure("id does not contain an underscore");
     return true;
 }
