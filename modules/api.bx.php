@@ -24,11 +24,11 @@ function bxapi_packet()
         bxapi_search($bxapi_command);
     else
     {
-	    $bxapi_command .= ".bx.php";
-	    if (!file_exists($bxapi_command))
-	        bxapi_failure("command invalid");
-	    if (!include($bxapi_command))
-	        bxapi_failure("command failure");
+        $bxapi_command .= ".bx.php";
+        if (!file_exists($bxapi_command))
+            bxapi_failure("command invalid");
+        if (!include($bxapi_command))
+            bxapi_failure("command failure");
     }
 }
 
@@ -37,8 +37,8 @@ function bxapi_capture()
     global $bx;
     foreach ($bx["api"]["capture"] as $bx["api"]["packet_id"] => $bx["api"]["packet"])
         bxapi_packet();
-    if(isset($bx["debug"]))
-        die(json_encode($bx, JSON_PRETTY_PRINT)."\n");
+    if (isset($bx["debug"]))
+        die(json_encode($bx, JSON_PRETTY_PRINT) . "\n");
     die(json_encode($bx["api"]["output"], JSON_PRETTY_PRINT) . "\n");
 }
 
