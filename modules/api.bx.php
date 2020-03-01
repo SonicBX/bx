@@ -9,16 +9,27 @@ $bx["api"]["output"] = array();
 function bxapi_post()
 {
     global $bx, $_POST;
-    if (!isset($_POST)) bxapi_get();
-    if (!isset($_POST["packets"])) bxapi_failure("no packets in post");
+    if (!isset($_POST["packets"])) bxapi_get();
     if (!$bx["api"]["packets"] = json_decode($_POST["packets"], true)) bxapi_failure("packets parse error");
     if (!sizeof($bx["api"]["packets"])) bxapi_failure("packets empty");
-    bxapi_process_packets();
+    bxapi_capture();
 }
 
 function bxapi_get()
 {
-    print_r($_SERVER);
+    global $bx,$argv;
+    bxapi_request();
+    bxcli_parse();
+    $bx["api"]["capture"]["https"] = $bx["api"]["packet"];
+    bxapi_capture();
+}
+
+function bxapi_request()
+{
+    global $argv,$_SERVER;
+    $bxapi_request = $_SERVER["REQUEST_URI"];
+    while(strpos($bxapi_request,"%20")) $bxapi_request = str_replace("%20","/",$bxapi_request);
+    $argv = explode("/",$bxapi_request);
 }
 
 function bxapi_search($bxapi_command)
