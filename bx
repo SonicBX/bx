@@ -1,5 +1,6 @@
 #!/usr/bin/php -f
 <?php
 //bx/bx
-require_once(__DIR__ . "/modules/bx.php");
+$bx_dir = __DIR__;
+require_once("$bx_dir/modules/bx.php");
 bxcli_start();
