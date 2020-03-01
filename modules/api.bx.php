@@ -1,15 +1,15 @@
 <?php
 
 //bx/modules/api.bx.php
-$bxapi_dir            = "$bx_dir/api";
+$bxapi_dir            = __DIR__."/api";
 $bx["api"]["packet"]  = array();
 $bx["api"]["capture"] = array();
 $bx["api"]["output"]  = array();
 
-function bxapi_search()
+function bxapi_search($bxapi_command)
 {
     global $bx;
-    foreach (scandir(str_replace(".bx.php", "", $bxapi_command)) as $bxapi_file)
+    foreach (scandir($bxapi_command) as $bxapi_file)
         if (substr($bxapi_file, 0, 1) != ".")
             $bx["api"]["packet"]["sub_commands"][] = str_replace(".bx.php", "", $bxapi_file);
     bxapi_success();
@@ -19,10 +19,9 @@ function bxapi_packet()
 {
     global $bx, $bxapi_dir;
     $bxapi_command = "$bxapi_dir/";
-    if (isset($bx["api"]["packet"]["command"]))
-        $bxapi_command .= $bx["api"]["packet"]["command"];
+    $bxapi_command .= $bx["api"]["packet"]["command"];
     if (is_dir($bxapi_command))
-        $bxapi_command .= "/";
+        bxapi_search($bxapi_command);
     $bxapi_command .= ".bx.php";
     if (!file_exists($bxapi_command))
         bxapi_failure("command invalid");
