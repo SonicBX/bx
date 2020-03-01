@@ -11,11 +11,15 @@ use PHPUnit\Framework\TestCase;
  */
 class Bug458Test extends TestCase
 {
-    private $channel;
 
-    protected function setUp()
+    private
+            $channel;
+
+    protected
+            function setUp()
     {
-        if (!extension_loaded('pcntl')) {
+        if (!extension_loaded('pcntl'))
+        {
             $this->markTestSkipped('pcntl extension is not available');
         }
 
@@ -25,9 +29,11 @@ class Bug458Test extends TestCase
         $this->addSignalHandlers();
     }
 
-    protected function tearDown()
+    protected
+            function tearDown()
     {
-        if ($this->channel && $this->channel->is_open()) {
+        if ($this->channel && $this->channel->is_open())
+        {
             $this->channel->close();
         }
         $this->channel = null;
@@ -40,17 +46,21 @@ class Bug458Test extends TestCase
      *
      * @expectedException \PhpAmqpLib\Exception\AMQPTimeoutException
      */
-    public function stream_select_interruption()
+    public
+            function stream_select_interruption()
     {
         $pid = getmypid();
         exec('php -r "sleep(1);posix_kill(' . $pid . ', SIGTERM);" > /dev/null 2>/dev/null &');
         $this->channel->wait(null, false, 2);
     }
 
-    private function addSignalHandlers()
+    private
+            function addSignalHandlers()
     {
-        pcntl_signal(SIGTERM, function () {
+        pcntl_signal(SIGTERM, function ()
+        {
             // do nothing
         });
     }
+
 }

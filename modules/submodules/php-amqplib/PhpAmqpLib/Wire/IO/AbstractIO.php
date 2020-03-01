@@ -6,45 +6,60 @@ use PhpAmqpLib\Exception\AMQPHeartbeatMissedException;
 use PhpAmqpLib\Exception\AMQPIOWaitException;
 use PhpAmqpLib\Wire\AMQPWriter;
 
-abstract class AbstractIO
+abstract
+        class AbstractIO
 {
-    const BUFFER_SIZE = 8192;
+
+    const
+            BUFFER_SIZE = 8192;
 
     /** @var string */
-    protected $host;
+    protected
+            $host;
 
     /** @var int */
-    protected $port;
+    protected
+            $port;
 
     /** @var int|float */
-    protected $connection_timeout;
+    protected
+            $connection_timeout;
 
     /** @var int|float */
-    protected $read_timeout;
+    protected
+            $read_timeout;
 
     /** @var int|float */
-    protected $write_timeout;
+    protected
+            $write_timeout;
 
     /** @var int */
-    protected $heartbeat;
+    protected
+            $heartbeat;
 
     /** @var int */
-    protected $initial_heartbeat;
+    protected
+            $initial_heartbeat;
 
     /** @var bool */
-    protected $keepalive;
+    protected
+            $keepalive;
 
     /** @var int|float */
-    protected $last_read;
+    protected
+            $last_read;
 
     /** @var int|float */
-    protected $last_write;
+    protected
+            $last_write;
 
     /** @var array|null */
-    protected $last_error;
+    protected
+            $last_error;
 
     /** @var bool */
-    protected $canDispatchPcntlSignal = false;
+    protected
+            $canDispatchPcntlSignal = false;
 
     /**
      * @param int $len
@@ -55,7 +70,8 @@ abstract class AbstractIO
      * @throws \PhpAmqpLib\Exception\AMQPTimeoutException
      * @throws \PhpAmqpLib\Exception\AMQPConnectionClosedException
      */
-    abstract public function read($len);
+    abstract public
+            function read($len);
 
     /**
      * @param string $data
@@ -64,12 +80,14 @@ abstract class AbstractIO
      * @throws \PhpAmqpLib\Exception\AMQPConnectionClosedException
      * @throws \PhpAmqpLib\Exception\AMQPTimeoutException
      */
-    abstract public function write($data);
+    abstract public
+            function write($data);
 
     /**
      * @return void
      */
-    abstract public function close();
+    abstract public
+            function close();
 
     /**
      * @param int|null $sec
@@ -78,23 +96,29 @@ abstract class AbstractIO
      * @throws \PhpAmqpLib\Exception\AMQPIOException
      * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
      */
-    public function select($sec, $usec)
+    public
+            function select($sec, $usec)
     {
         $this->check_heartbeat();
         $this->set_error_handler();
-        try {
+        try
+        {
             $result = $this->do_select($sec, $usec);
             $this->cleanup_error_handler();
-        } catch (\ErrorException $e) {
+        }
+        catch (\ErrorException $e)
+        {
             throw new AMQPIOWaitException($e->getMessage(), $e->getCode(), $e);
         }
 
-        if ($this->canDispatchPcntlSignal) {
+        if ($this->canDispatchPcntlSignal)
+        {
             pcntl_signal_dispatch();
         }
 
         // no exception and false result - either timeout or signal was sent
-        if ($result === false) {
+        if ($result === false)
+        {
             $result = 0;
         }
 
@@ -106,7 +130,8 @@ abstract class AbstractIO
      * @param int|null $usec
      * @return int|bool
      */
-    abstract protected function do_select($sec, $usec);
+    abstract protected
+            function do_select($sec, $usec);
 
     /**
      * Set ups the connection.
@@ -114,34 +139,40 @@ abstract class AbstractIO
      * @throws \PhpAmqpLib\Exception\AMQPIOException
      * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
      */
-    abstract public function connect();
+    abstract public
+            function connect();
 
     /**
      * @return resource
      */
-    abstract public function getSocket();
+    abstract public
+            function getSocket();
 
     /**
      * Heartbeat logic: check connection health here
      * @return void
      * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
      */
-    public function check_heartbeat()
+    public
+            function check_heartbeat()
     {
         // ignore unless heartbeat interval is set
-        if ($this->heartbeat !== 0 && $this->last_read > 0 && $this->last_write > 0) {
-            $t = microtime(true);
-            $t_read = round($t - $this->last_read);
+        if ($this->heartbeat !== 0 && $this->last_read > 0 && $this->last_write > 0)
+        {
+            $t       = microtime(true);
+            $t_read  = round($t - $this->last_read);
             $t_write = round($t - $this->last_write);
 
             // server has gone away
-            if (($this->heartbeat * 2) < $t_read) {
+            if (($this->heartbeat * 2) < $t_read)
+            {
                 $this->close();
                 throw new AMQPHeartbeatMissedException('Missed server heartbeat');
             }
 
             // time for client to send a heartbeat
-            if (($this->heartbeat / 2) < $t_write) {
+            if (($this->heartbeat / 2) < $t_write)
+            {
                 $this->write_heartbeat();
             }
         }
@@ -150,7 +181,8 @@ abstract class AbstractIO
     /**
      * @return $this
      */
-    public function disableHeartbeat()
+    public
+            function disableHeartbeat()
     {
         $this->heartbeat = 0;
 
@@ -160,7 +192,8 @@ abstract class AbstractIO
     /**
      * @return $this
      */
-    public function reenableHeartbeat()
+    public
+            function reenableHeartbeat()
     {
         $this->heartbeat = $this->initial_heartbeat;
 
@@ -170,7 +203,8 @@ abstract class AbstractIO
     /**
      * Sends a heartbeat message
      */
-    protected function write_heartbeat()
+    protected
+            function write_heartbeat()
     {
         $pkt = new AMQPWriter();
         $pkt->write_octet(8);
@@ -183,7 +217,8 @@ abstract class AbstractIO
     /**
      * Begin tracking errors and set the error handler
      */
-    protected function set_error_handler()
+    protected
+            function set_error_handler()
     {
         $this->last_error = null;
         set_error_handler(array($this, 'error_handler'));
@@ -193,17 +228,19 @@ abstract class AbstractIO
      * throws an ErrorException if an error was handled
      * @throws \ErrorException
      */
-    protected function cleanup_error_handler()
+    protected
+            function cleanup_error_handler()
     {
         restore_error_handler();
 
-        if ($this->last_error !== null) {
+        if ($this->last_error !== null)
+        {
             throw new \ErrorException(
-                $this->last_error['errstr'],
-                0,
-                $this->last_error['errno'],
-                $this->last_error['errfile'],
-                $this->last_error['errline']
+                    $this->last_error['errstr'],
+                    0,
+                    $this->last_error['errno'],
+                    $this->last_error['errfile'],
+                    $this->last_error['errline']
             );
         }
     }
@@ -218,7 +255,8 @@ abstract class AbstractIO
      * @param  array $errcontext
      * @return void
      */
-    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = null)
+    public
+            function error_handler($errno, $errstr, $errfile, $errline, $errcontext = null)
     {
         // throwing an exception in an error handler will halt execution
         //   set the last error and continue
@@ -228,10 +266,10 @@ abstract class AbstractIO
     /**
      * @return bool
      */
-    protected function isPcntlSignalEnabled()
+    protected
+            function isPcntlSignalEnabled()
     {
-        return extension_loaded('pcntl')
-            && function_exists('pcntl_signal_dispatch')
-            && (defined('AMQP_WITHOUT_SIGNALS') ? !AMQP_WITHOUT_SIGNALS : true);
+        return extension_loaded('pcntl') && function_exists('pcntl_signal_dispatch') && (defined('AMQP_WITHOUT_SIGNALS') ? !AMQP_WITHOUT_SIGNALS : true);
     }
+
 }

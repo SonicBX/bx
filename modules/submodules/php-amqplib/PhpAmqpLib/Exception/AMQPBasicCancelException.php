@@ -1,18 +1,22 @@
 <?php
+
 namespace PhpAmqpLib\Exception;
 
 class AMQPBasicCancelException extends \Exception implements AMQPExceptionInterface
 {
+
     /**
      * @var string
      * @internal Use getter getConsumerTag()
      */
-    public $consumerTag;
+    public
+            $consumerTag;
 
     /**
      * @param string $consumerTag
      */
-    public function __construct($consumerTag)
+    public
+            function __construct($consumerTag)
     {
         parent::__construct('Channel was canceled');
         $this->consumerTag = $consumerTag;
@@ -21,8 +25,10 @@ class AMQPBasicCancelException extends \Exception implements AMQPExceptionInterf
     /**
      * @return string
      */
-    public function getConsumerTag()
+    public
+            function getConsumerTag()
     {
         return $this->consumerTag;
     }
+
 }

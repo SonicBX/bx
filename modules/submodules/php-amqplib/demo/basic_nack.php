@@ -1,4 +1,5 @@
 <?php
+
 /**
  * - Start this consumer in one window by calling: php demo/basic_nack.php
  * - Then on a separate window publish a message like this: php demo/amqp_publisher.php good
@@ -11,12 +12,12 @@ include(__DIR__ . '/config.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 
-$exchange = 'router';
-$queue = 'msgs';
+$exchange    = 'router';
+$queue       = 'msgs';
 $consumerTag = 'consumer';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel = $connection->channel();
+$channel    = $connection->channel();
 
 $channel->queue_declare($queue, false, true, false, false);
 $channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
@@ -27,14 +28,18 @@ $channel->queue_bind($queue, $exchange);
  */
 function process_message($message)
 {
-    if ($message->body == 'good') {
+    if ($message->body == 'good')
+    {
         $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
-    } else {
+    }
+    else
+    {
         $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
     }
 
     // Send a message with the string "quit" to cancel the consumer.
-    if ($message->body === 'quit') {
+    if ($message->body === 'quit')
+    {
         $message->delivery_info['channel']->basic_cancel($message->delivery_info['consumer_tag']);
     }
 }
@@ -54,6 +59,7 @@ function shutdown($channel, $connection)
 register_shutdown_function('shutdown', $channel, $connection);
 
 // Loop as long as the channel has callbacks registered
-while ($channel->is_consuming()) {
+while ($channel->is_consuming())
+{
     $channel->wait();
 }

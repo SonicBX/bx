@@ -10,13 +10,16 @@ use PHPUnit\Framework\TestCase;
  */
 class StreamIOTest extends TestCase
 {
+
     /** @var array|null */
-    protected $last_error;
+    protected
+            $last_error;
 
     /**
      * @test
      */
-    public function error_handler_is_restored_on_failed_connection()
+    public
+            function error_handler_is_restored_on_failed_connection()
     {
         $this->last_error = null;
         set_error_handler(array($this, 'custom_error_handler'));
@@ -24,9 +27,12 @@ class StreamIOTest extends TestCase
         error_reporting(~E_NOTICE);
 
         $exceptionThrown = false;
-        try {
+        try
+        {
             new AMQPStreamConnection(HOST, PORT - 1, USER, PASS, VHOST);
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception)
+        {
             $exceptionThrown = true;
         }
         $this->assertTrue($exceptionThrown, 'Custom error handler was not set.');
@@ -34,11 +40,14 @@ class StreamIOTest extends TestCase
         $this->assertNull($this->last_error);
 
         $exceptionThrown = false;
-        $arr = [];
+        $arr             = [];
 
-        try {
+        try
+        {
             $notice = $arr['second-key-that-does-not-exist-and-should-generate-a-notice'];
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception)
+        {
             $exceptionThrown = true;
         }
         $this->assertFalse($exceptionThrown, 'Default error handler was not restored.');
@@ -52,7 +61,8 @@ class StreamIOTest extends TestCase
     /**
      * @test
      */
-    public function error_handler_is_restored_on_success()
+    public
+            function error_handler_is_restored_on_success()
     {
         set_error_handler(array($this, 'custom_error_handler'));
 
@@ -63,8 +73,10 @@ class StreamIOTest extends TestCase
         $this->assertSame('custom_error_handler', $previousErrorHandler[1]);
     }
 
-    public function custom_error_handler($errno, $errstr, $errfile, $errline, $errcontext = null)
+    public
+            function custom_error_handler($errno, $errstr, $errfile, $errline, $errcontext = null)
     {
         $this->last_error = compact('errno', 'errstr', 'errfile', 'errline', 'errcontext');
     }
+
 }

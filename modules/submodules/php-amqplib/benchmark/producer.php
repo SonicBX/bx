@@ -5,17 +5,16 @@
  *  php producer.php 10000
  * The integer arguments tells the script how many messages to publish.
  */
-
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 include(__DIR__ . '/config.php');
 
 $exchange = 'bench_exchange';
-$queue = 'bench_queue';
+$queue    = 'bench_queue';
 
 $conn = new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
-$ch = $conn->channel();
+$ch   = $conn->channel();
 
 $ch->queue_declare($queue, false, false, false, false);
 
@@ -43,7 +42,8 @@ $time = microtime(true);
 $max = isset($argv[1]) ? (int) $argv[1] : 1;
 
 // Publishes $max messages using $msg_body as the content.
-for ($i = 0; $i < $max; $i++) {
+for ($i = 0; $i < $max; $i++)
+{
     $ch->basic_publish($msg, $exchange);
 }
 

@@ -7,10 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 class AMQPDecimalTest extends TestCase
 {
+
     /**
      * @test
      */
-    public function as_bc_value()
+    public
+            function as_bc_value()
     {
         $decimal = new AMQPDecimal(100, 2);
 
@@ -20,7 +22,8 @@ class AMQPDecimalTest extends TestCase
     /**
      * @test
      */
-    public function get_n()
+    public
+            function get_n()
     {
         $decimal = new AMQPDecimal(100, 2);
 
@@ -30,7 +33,8 @@ class AMQPDecimalTest extends TestCase
     /**
      * @test
      */
-    public function get_e()
+    public
+            function get_e()
     {
         $decimal = new AMQPDecimal(100, 2);
 
@@ -41,8 +45,10 @@ class AMQPDecimalTest extends TestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPOutOfBoundsException
      */
-    public function negative_value()
+    public
+            function negative_value()
     {
         new AMQPDecimal(100, -1);
     }
+
 }

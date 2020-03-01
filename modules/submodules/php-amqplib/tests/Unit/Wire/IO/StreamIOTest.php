@@ -15,18 +15,18 @@ class StreamIOTest extends TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage read_write_timeout must be at least 2x the heartbeat
      * TODO FUTURE re-enable this test
-    public function read_write_timeout_must_be_at_least_2x_the_heartbeat()
-    {
-        new StreamIO(
-            'localhost',
-            '5512',
-            1,
-            1,
-            null,
-            false,
-            1
-        );
-    }
+      public function read_write_timeout_must_be_at_least_2x_the_heartbeat()
+      {
+      new StreamIO(
+      'localhost',
+      '5512',
+      1,
+      1,
+      null,
+      false,
+      1
+      );
+      }
      */
 
     /**
@@ -35,7 +35,8 @@ class StreamIOTest extends TestCase
      * @expectedException \PhpAmqpLib\Exception\AMQPIOWaitException
      * @requires OS Linux
      */
-    public function select_must_throw_io_exception()
+    public
+            function select_must_throw_io_exception()
     {
         $property = new \ReflectionProperty(StreamIO::class, 'sock');
         $property->setAccessible(true);
@@ -48,4 +49,5 @@ class StreamIOTest extends TestCase
 
         $stream->select(0, 0);
     }
+
 }

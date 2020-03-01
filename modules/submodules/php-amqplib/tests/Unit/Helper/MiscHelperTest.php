@@ -7,11 +7,13 @@ use PHPUnit\Framework\TestCase;
 
 class MiscHelperTest extends TestCase
 {
+
     /**
      * @dataProvider splitSecondsMicrosecondsData
      * @test
      */
-    public function split_seconds_microseconds($input, $expected)
+    public
+            function split_seconds_microseconds($input, $expected)
     {
         $this->assertEquals($expected, MiscHelper::splitSecondsMicroseconds($input));
     }
@@ -20,7 +22,8 @@ class MiscHelperTest extends TestCase
      * @dataProvider hexdumpData
      * @test
      */
-    public function hexdump($args, $expected)
+    public
+            function hexdump($args, $expected)
     {
         $this->assertRegExp($expected, MiscHelper::hexdump($args[0], $args[1], $args[2], $args[3]));
     }
@@ -28,12 +31,14 @@ class MiscHelperTest extends TestCase
     /**
      * @test
      */
-    public function method_sig()
+    public
+            function method_sig()
     {
         $this->assertEquals('test', MiscHelper::methodSig('test'));
     }
 
-    public function splitSecondsMicrosecondsData()
+    public
+            function splitSecondsMicrosecondsData()
     {
         return [
             [0, [0, 0]],
@@ -50,11 +55,13 @@ class MiscHelperTest extends TestCase
         ];
     }
 
-    public function hexdumpData()
+    public
+            function hexdumpData()
     {
         return [
             [['FM', false, false, true], '/000\s+46 4d\s+FM/'],
             [['FM', false, true, true], '/000\s+46 4D\s+FM/'],
         ];
     }
+
 }

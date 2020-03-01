@@ -1,1 +1,3 @@
-<?php //bx/bxs/membership.bx.php
+<?php
+
+//bx/bxs/membership.bx.php

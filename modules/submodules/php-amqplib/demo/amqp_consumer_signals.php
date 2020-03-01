@@ -10,12 +10,15 @@ include(__DIR__ . '/config.php');
  */
 class Consumer
 {
+
     /**
      * Setup signals and connection
      */
-    public function __construct()
+    public
+            function __construct()
     {
-        if (extension_loaded('pcntl')) {
+        if (extension_loaded('pcntl'))
+        {
             define('AMQP_WITHOUT_SIGNALS', false);
 
             pcntl_signal(SIGTERM, [$this, 'signalHandler']);
@@ -25,30 +28,33 @@ class Consumer
             pcntl_signal(SIGUSR1, [$this, 'signalHandler']);
             pcntl_signal(SIGUSR2, [$this, 'signalHandler']);
             pcntl_signal(SIGALRM, [$this, 'alarmHandler']);
-        } else {
-             echo 'Unable to process signals.' . PHP_EOL;
-             exit(1);
+        }
+        else
+        {
+            echo 'Unable to process signals.' . PHP_EOL;
+            exit(1);
         }
 
         $ssl = null;
-        if (PORT === 5671) {
+        if (PORT === 5671)
+        {
             $ssl = [
                 'verify_peer'      => false,
                 'verify_peer_name' => false
             ];
         }
         $this->connection = new PhpAmqpLib\Connection\AMQPSSLConnection(
-            HOST,
-            PORT,
-            USER,
-            PASS,
-            VHOST,
-            $ssl,
-            [
-                'read_write_timeout' => 30,    // needs to be at least 2x heartbeat
-                'keepalive'          => false, // doesn't work with ssl connections
-                'heartbeat'          => 15
-            ]
+                HOST,
+                PORT,
+                USER,
+                PASS,
+                VHOST,
+                $ssl,
+                [
+            'read_write_timeout' => 30, // needs to be at least 2x heartbeat
+            'keepalive'          => false, // doesn't work with ssl connections
+            'heartbeat'          => 15
+                ]
         );
     }
 
@@ -58,12 +64,14 @@ class Consumer
      * @param  int $signalNumber
      * @return void
      */
-    public function signalHandler($signalNumber)
+    public
+            function signalHandler($signalNumber)
     {
         echo 'Handling signal: #' . $signalNumber . PHP_EOL;
         global $consumer;
 
-        switch ($signalNumber) {
+        switch ($signalNumber)
+        {
             case SIGTERM:  // 15 : supervisor default stop
             case SIGQUIT:  // 3  : kill -s QUIT
                 $consumer->stopHard();
@@ -93,7 +101,8 @@ class Consumer
      * @param  int $signalNumber
      * @return void
      */
-    public function alarmHandler($signalNumber)
+    public
+            function alarmHandler($signalNumber)
     {
         echo 'Handling alarm: #' . $signalNumber . PHP_EOL;
 
@@ -107,14 +116,16 @@ class Consumer
      * @param  PhpAmqpLib\Message\AMQPMessage $message
      * @return void
      */
-    public function messageHandler(PhpAmqpLib\Message\AMQPMessage $message)
+    public
+            function messageHandler(PhpAmqpLib\Message\AMQPMessage $message)
     {
         echo "\n--------\n";
         echo $message->body;
         echo "\n--------\n";
 
         $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
-        if ($message->body === 'quit') {
+        if ($message->body === 'quit')
+        {
             $message->delivery_info['channel']->basic_cancel($message->delivery_info['consumer_tag']);
         }
     }
@@ -124,12 +135,16 @@ class Consumer
      *
      * @return void
      */
-    public function start()
+    public
+            function start()
     {
-        if ($this->restart) {
+        if ($this->restart)
+        {
             echo 'Restarting consumer.' . PHP_EOL;
             $this->restart = false;
-        } else {
+        }
+        else
+        {
             echo 'Starting consumer.' . PHP_EOL;
         }
 
@@ -141,19 +156,20 @@ class Consumer
         $this->channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
         $this->channel->queue_bind($queue, $exchange);
         $this->channel->basic_consume(
-            $queue,
-            $this->consumerTag,
-            false,
-            false,
-            false,
-            false,
-            [$this,'messageHandler'],
-            null,
-            ['x-cancel-on-ha-failover' => ['t', true]] // fail over to another node
+                $queue,
+                $this->consumerTag,
+                false,
+                false,
+                false,
+                false,
+                [$this, 'messageHandler'],
+                null,
+                ['x-cancel-on-ha-failover' => ['t', true]] // fail over to another node
         );
 
         echo 'Enter wait.' . PHP_EOL;
-        while ($this->channel->is_consuming()) {
+        while ($this->channel->is_consuming())
+        {
             $this->channel->wait();
         }
         echo 'Exit wait.' . PHP_EOL;
@@ -162,7 +178,8 @@ class Consumer
     /**
      * Restart the consumer on an existing connection
      */
-    public function restart()
+    public
+            function restart()
     {
         $this->stopSoft();
         $this->restart = true;
@@ -171,7 +188,8 @@ class Consumer
     /**
      * Close the connection to the server
      */
-    public function stopHard()
+    public
+            function stopHard()
     {
         echo 'Stopping consumer by closing connection.' . PHP_EOL;
         $this->connection->close();
@@ -180,7 +198,8 @@ class Consumer
     /**
      * Close the channel to the server
      */
-    public function stopSoft()
+    public
+            function stopSoft()
     {
         echo 'Stopping consumer by closing channel.' . PHP_EOL;
         $this->channel->close();
@@ -190,14 +209,16 @@ class Consumer
      * Tell the server you are going to stop consuming
      * It will finish up the last message and not send you any more
      */
-    public function stop()
+    public
+            function stop()
     {
         echo 'Stopping consumer by cancel command.' . PHP_EOL;
         // this gets stuck and will not exit without the last two parameters set
         $this->channel->basic_cancel($this->consumerTag, false, true);
     }
 
-    public function shouldRestart()
+    public
+            function shouldRestart()
     {
         return $this->restart;
     }
@@ -207,29 +228,36 @@ class Consumer
      *
      * @var PhpAmqpLib\Connection\AMQPSSLConnection
      */
-    protected $connection = null;
+    protected
+            $connection = null;
 
     /**
      * Current channel
      *
      * @var PhpAmqpLib\Channel\AMQPChannel
      */
-    protected $channel = null;
+    protected
+            $channel = null;
 
     /**
      * Consumer tag
      *
      * @var string
      */
-    protected $consumerTag = 'consumer';
+    protected
+            $consumerTag = 'consumer';
 
     /**
      * @var bool
      */
-    protected $restart = false;
+    protected
+            $restart = false;
+
 }
 
 $consumer = new Consumer();
-do {
+do
+{
     $consumer->start();
-} while ($consumer->shouldRestart());
+}
+while ($consumer->shouldRestart());

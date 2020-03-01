@@ -1,3 +1,5 @@
-<?php //bx/api/session/validate.php
+<?php
+
+//bx/api/session/validate.php
 bxsession_validate();
 bxsuccess();

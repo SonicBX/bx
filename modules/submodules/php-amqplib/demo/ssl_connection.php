@@ -7,8 +7,8 @@ use PhpAmqpLib\Connection\AMQPSSLConnection;
 define('CERTS_PATH', '/git/rabbitmqinaction/av_scratchwork/openssl');
 
 $sslOptions = array(
-    'cafile' => CERTS_PATH . '/rmqca/cacert.pem',
-    'local_cert' => CERTS_PATH . '/phpcert.pem',
+    'cafile'      => CERTS_PATH . '/rmqca/cacert.pem',
+    'local_cert'  => CERTS_PATH . '/phpcert.pem',
     'verify_peer' => true
 );
 
@@ -24,5 +24,7 @@ function shutdown($connection)
 
 register_shutdown_function('shutdown', $connection);
 
-while (true) {
+while (true)
+{
+    
 }

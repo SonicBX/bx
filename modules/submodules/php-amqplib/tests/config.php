@@ -5,4 +5,4 @@ define('PORT', getenv('TEST_RABBITMQ_PORT') ? getenv('TEST_RABBITMQ_PORT') : 567
 define('USER', getenv('TEST_RABBITMQ_USER') ? getenv('TEST_RABBITMQ_USER') : 'guest');
 define('PASS', getenv('TEST_RABBITMQ_PASS') ? getenv('TEST_RABBITMQ_PASS') : 'guest');
 define('VHOST', '/');
-define('AMQP_DEBUG', getenv('TEST_AMQP_DEBUG') !== false ? (bool)getenv('TEST_AMQP_DEBUG') : false);
+define('AMQP_DEBUG', getenv('TEST_AMQP_DEBUG') !== false ? (bool) getenv('TEST_AMQP_DEBUG') : false);

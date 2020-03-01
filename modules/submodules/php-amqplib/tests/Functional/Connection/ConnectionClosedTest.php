@@ -11,6 +11,7 @@ use PhpAmqpLib\Tests\Functional\AbstractConnectionTest;
  */
 class ConnectionClosedTest extends AbstractConnectionTest
 {
+
     /**
      * Try to wait for incoming data on blocked and closed connection.
      * @test
@@ -29,19 +30,20 @@ class ConnectionClosedTest extends AbstractConnectionTest
      * @param string $type
      * @param bool $keepalive
      */
-    public function must_throw_exception_broken_pipe_wait($type, $keepalive)
+    public
+            function must_throw_exception_broken_pipe_wait($type, $keepalive)
     {
         $proxy = $this->create_proxy();
 
-        $options = array(
+        $options    = array(
             'keepalive' => $keepalive,
         );
         /** @var AbstractConnection $connection */
         $connection = $this->conection_create(
-            $type,
-            $proxy->getHost(),
-            $proxy->getPort(),
-            $options
+                $type,
+                $proxy->getHost(),
+                $proxy->getPort(),
+                $options
         );
 
         $channel = $connection->channel();
@@ -50,9 +52,13 @@ class ConnectionClosedTest extends AbstractConnectionTest
         $exception = null;
         // block and close connection after delay
         $proxy->mode('timeout', array('timeout' => 100));
-        try {
+        try
+        {
             $channel->wait(null, false, 1);
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception)
+        {
+            
         }
 
         $this->assertInstanceOf('Exception', $exception);
@@ -75,33 +81,38 @@ class ConnectionClosedTest extends AbstractConnectionTest
      *
      * @param string $type
      */
-    public function must_throw_exception_broken_pipe_write($type)
+    public
+            function must_throw_exception_broken_pipe_write($type)
     {
         $proxy = $this->create_proxy();
 
         /** @var AbstractConnection $connection */
         $connection = $this->conection_create(
-            $type,
-            $proxy->getHost(),
-            $proxy->getPort()
+                $type,
+                $proxy->getHost(),
+                $proxy->getPort()
         );
 
         $channel = $connection->channel();
         $this->assertTrue($channel->is_open());
 
         $this->queue_bind($channel, $exchange_name = 'test_exchange_broken', $queue_name);
-        $message = new AMQPMessage(
-            str_repeat('0', 1024 * 32), // 32kb fills up buffer completely on most OS
-            ['delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT]
+        $message       = new AMQPMessage(
+                str_repeat('0', 1024 * 32), // 32kb fills up buffer completely on most OS
+                           ['delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT]
         );
 
         $exception = null;
         // block proxy connection
         $proxy->disable();
 
-        try {
+        try
+        {
             $channel->basic_publish($message, $exchange_name, $queue_name);
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception)
+        {
+            
         }
 
         $this->assertInstanceOf('PhpAmqpLib\Exception\AMQPConnectionClosedException', $exception);
@@ -111,9 +122,13 @@ class ConnectionClosedTest extends AbstractConnectionTest
 
         // 2nd publish call must return exception instantly cause connection is already closed
         $exception = null;
-        try {
+        try
+        {
             $channel->basic_publish($message, $exchange_name, $queue_name);
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception)
+        {
+            
         }
         $this->assertInstanceOf('PhpAmqpLib\Exception\AMQPChannelClosedException', $exception);
     }
@@ -131,25 +146,26 @@ class ConnectionClosedTest extends AbstractConnectionTest
      * @covers \PhpAmqpLib\Wire\IO\SocketIO::write()
      * @param string $type
      */
-    public function must_throw_exception_after_connection_was_restored($type)
+    public
+            function must_throw_exception_after_connection_was_restored($type)
     {
-        $timeout = 1;
-        $proxy = $this->create_proxy();
+        $timeout    = 1;
+        $proxy      = $this->create_proxy();
         /** @var AbstractConnection $connection */
         $connection = $this->conection_create(
-            $type,
-            $proxy->getHost(),
-            $proxy->getPort(),
-            array('timeout' => $timeout)
+                $type,
+                $proxy->getHost(),
+                $proxy->getPort(),
+                array('timeout' => $timeout)
         );
 
         $channel = $connection->channel();
         $this->assertTrue($channel->is_open());
 
         $this->queue_bind($channel, $exchange_name = 'test_exchange_broken', $queue_name);
-        $message = new AMQPMessage(
-            str_repeat('0', 1024 * 32), // 32kb fills up buffer completely on most OS
-            ['delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT]
+        $message       = new AMQPMessage(
+                str_repeat('0', 1024 * 32), // 32kb fills up buffer completely on most OS
+                           ['delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT]
         );
         $channel->basic_publish($message, $exchange_name, $queue_name);
 
@@ -160,9 +176,13 @@ class ConnectionClosedTest extends AbstractConnectionTest
         $proxy = $this->create_proxy();
 
         $exception = null;
-        try {
+        try
+        {
             $channel->basic_publish($message, $exchange_name, $queue_name);
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception)
+        {
+            
         }
 
         $this->assertInstanceOf('Exception', $exception);
@@ -171,4 +191,5 @@ class ConnectionClosedTest extends AbstractConnectionTest
         $this->assertChannelClosed($channel);
         $this->assertConnectionClosed($connection);
     }
+
 }

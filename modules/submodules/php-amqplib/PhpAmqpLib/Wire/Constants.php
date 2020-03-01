@@ -2,35 +2,44 @@
 
 namespace PhpAmqpLib\Wire;
 
-abstract class Constants
+abstract
+        class Constants
 {
-    const VERSION = '';
-    const AMQP_HEADER = '';
+
+    const
+            VERSION     = '';
+    const
+            AMQP_HEADER = '';
 
     /**
      * @var array<int, string>
      */
-    protected static $FRAME_TYPES = array();
+    protected static
+            $FRAME_TYPES = array();
 
     /**
      * @var array<int, string>
      */
-    protected static $CONTENT_METHODS = array();
+    protected static
+            $CONTENT_METHODS = array();
 
     /**
      * @var array<int, string>
      */
-    protected static $CLOSE_METHODS = array();
+    protected static
+            $CLOSE_METHODS = array();
 
     /**
      * @var array<string, string>
      */
-    public static $GLOBAL_METHOD_NAMES = array();
+    public static
+            $GLOBAL_METHOD_NAMES = array();
 
     /**
      * @return string
      */
-    public function getHeader()
+    public
+            function getHeader()
     {
         return static::AMQP_HEADER;
     }
@@ -39,7 +48,8 @@ abstract class Constants
      * @param int $type
      * @return bool
      */
-    public function isFrameType($type)
+    public
+            function isFrameType($type)
     {
         return array_key_exists($type, static::$FRAME_TYPES);
     }
@@ -48,7 +58,8 @@ abstract class Constants
      * @param int $type
      * @return string
      */
-    public function getFrameType($type)
+    public
+            function getFrameType($type)
     {
         return static::$FRAME_TYPES[$type];
     }
@@ -57,7 +68,8 @@ abstract class Constants
      * @param string $method
      * @return bool
      */
-    public function isContentMethod($method)
+    public
+            function isContentMethod($method)
     {
         return in_array($method, static::$CONTENT_METHODS, false);
     }
@@ -66,8 +78,10 @@ abstract class Constants
      * @param string $method
      * @return bool
      */
-    public function isCloseMethod($method)
+    public
+            function isCloseMethod($method)
     {
         return in_array($method, static::$CLOSE_METHODS, false);
     }
+
 }

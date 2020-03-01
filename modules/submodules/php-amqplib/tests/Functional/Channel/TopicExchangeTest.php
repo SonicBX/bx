@@ -11,7 +11,9 @@ use PhpAmqpLib\Tests\Functional\Channel\ChannelTestCase;
  */
 class TopicExchangeTest extends ChannelTestCase
 {
-    public function setUp()
+
+    public
+            function setUp()
     {
         parent::setUp();
 
@@ -22,7 +24,8 @@ class TopicExchangeTest extends ChannelTestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPChannelClosedException
      */
-    public function exchange_declare_with_closed_connection()
+    public
+            function exchange_declare_with_closed_connection()
     {
         $this->connection->close();
 
@@ -33,7 +36,8 @@ class TopicExchangeTest extends ChannelTestCase
      * @test
      * @expectedException \PhpAmqpLib\Exception\AMQPChannelClosedException
      */
-    public function exchange_declare_with_closed_channel()
+    public
+            function exchange_declare_with_closed_channel()
     {
         $this->channel->close();
 
@@ -43,13 +47,15 @@ class TopicExchangeTest extends ChannelTestCase
     /**
      * @test
      */
-    public function publish_with_confirm()
+    public
+            function publish_with_confirm()
     {
         $this->channel->exchange_declare($this->exchange->name, 'topic');
 
         $deliveryTags = [];
 
-        $this->channel->set_ack_handler(function (AMQPMessage $message) use (&$deliveryTags) {
+        $this->channel->set_ack_handler(function (AMQPMessage $message) use (&$deliveryTags)
+        {
             $deliveryTags[] = (int) $message->get('delivery_tag');
             return false;
         });
@@ -57,7 +63,7 @@ class TopicExchangeTest extends ChannelTestCase
         $this->channel->confirm_select();
 
         $connection2 = new AMQPSocketConnection(HOST, PORT, USER, PASS, VHOST);
-        $channel2 = $connection2->channel();
+        $channel2    = $connection2->channel();
 
         $channel2->queue_declare('tst.queue3');
         $channel2->queue_bind('tst.queue3', $this->exchange->name, '#');
@@ -82,4 +88,5 @@ class TopicExchangeTest extends ChannelTestCase
         $channel2->close();
         $connection2->close();
     }
+
 }
