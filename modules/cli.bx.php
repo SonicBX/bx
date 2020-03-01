@@ -14,7 +14,7 @@ function bxcli_start()
 	unset($argv[1]);
     }
     bxcli_parse();
-	$bx["api"]["capture"]["api"]["packet"] = $bx["api"]["packet"];
+    $bx["api"]["capture"]["cli"] = $bx["api"]["packet"];
     bxapi_capture();
 }
 

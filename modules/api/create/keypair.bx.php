@@ -1,6 +1,6 @@
 <?php
 
 //bx/api/create/keypair.bx.php
-$bxcrypto_output["bxsession_key"]  = bxcrypto_generate("key");
-$bxcrypto_output["bxsession_cert"] = bxcrypto_generate("cert");
-bxapi_success(bxapi_output($bxcrypto_output));
+$bxid_output["bxsession_key"]  = bxid_generate("key");
+$bxid_output["bxsession_cert"] = bxid_generate("cert");
+bxapi_success(bxapi_output($bxid_output));
