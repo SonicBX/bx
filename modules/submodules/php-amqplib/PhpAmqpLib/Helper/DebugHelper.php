@@ -36,9 +36,9 @@ class DebugHelper
             define('STDOUT', fopen('php://stdout', 'w'));
         }
 
-        $this->debug        = defined('AMQP_DEBUG') ? AMQP_DEBUG : false;
+        $this->debug = defined('AMQP_DEBUG') ? AMQP_DEBUG : false;
         $this->debug_output = defined('AMQP_DEBUG_OUTPUT') ? AMQP_DEBUG_OUTPUT : STDOUT;
-        $this->constants    = $constants;
+        $this->constants = $constants;
     }
 
     /**
@@ -62,8 +62,7 @@ class DebugHelper
         if ($allowed_methods)
         {
             $msg = 'waiting for ' . implode(', ', $allowed_methods);
-        }
-        else
+        } else
         {
             $msg = 'waiting for any method';
         }
@@ -89,8 +88,8 @@ class DebugHelper
         if ($this->debug)
         {
             $constants = $this->constants;
-            $methods   = $constants::$GLOBAL_METHOD_NAMES;
-            $key       = MiscHelper::methodSig($method_sig);
+            $methods = $constants::$GLOBAL_METHOD_NAMES;
+            $key = MiscHelper::methodSig($method_sig);
             $this->debug_msg(sprintf($msg . ': %s', $key, $methods[$key]));
         }
     }
@@ -106,7 +105,7 @@ class DebugHelper
             $this->debug_msg(sprintf(
                             '< [hex]: %s%s',
                             PHP_EOL,
-                            MiscHelper::hexdump($data, $htmloutput = false, $uppercase  = true, $return     = true)
+                            MiscHelper::hexdump($data, $htmloutput = false, $uppercase = true, $return = true)
             ));
         }
     }
@@ -128,8 +127,8 @@ class DebugHelper
                             $version_major,
                             $version_minor,
                             MiscHelper::dump_table($server_properties),
-                                                   implode(', ', $mechanisms),
-                                                           implode(', ', $locales)
+                            implode(', ', $mechanisms),
+                            implode(', ', $locales)
             ));
         }
     }

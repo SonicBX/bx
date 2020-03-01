@@ -15,11 +15,11 @@ class Bug256Test extends AbstractConnectionTest
 {
 
     protected
-            $exchangeName  = 'test_exchange';
+            $exchangeName = 'test_exchange';
     protected
-            $queueName     = null;
+            $queueName = null;
     protected
-            $messageCount  = 100;
+            $messageCount = 100;
     protected
             $consumedCount = 0;
     protected
@@ -35,12 +35,12 @@ class Bug256Test extends AbstractConnectionTest
             function setUp()
     {
         $this->connection = $this->conection_create('socket');
-        $this->channel    = $this->connection->channel();
+        $this->channel = $this->connection->channel();
 
         $this->channel->exchange_declare($this->exchangeName, 'direct', false, true, false);
 
         $this->connection2 = $this->conection_create('stream');
-        $this->channel2    = $this->connection->channel();
+        $this->channel2 = $this->connection->channel();
 
         list($this->queueName,, ) = $this->channel2->queue_declare();
         $this->channel2->queue_bind($this->queueName, $this->exchangeName, $this->queueName);
@@ -78,7 +78,7 @@ class Bug256Test extends AbstractConnectionTest
     public
             function frame_order()
     {
-        $msg  = new AMQPMessage('');
+        $msg = new AMQPMessage('');
         $hdrs = new AMQPTable(['x-foo' => 'bar']);
         $msg->set('application_headers', $hdrs);
 

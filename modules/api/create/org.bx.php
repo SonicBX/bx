@@ -1,4 +1,4 @@
 <?php
 
 //bx/api/create/org.bx.php
-bxapi_success(bxapi_output(bxcrypto_generate("org")));
+bxapi_success(bxapi_output(bxid_generate("org")));

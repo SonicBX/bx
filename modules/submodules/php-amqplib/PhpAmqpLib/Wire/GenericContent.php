@@ -147,7 +147,7 @@ abstract
         while (true)
         {
             $flag_bits = $reader->read_short();
-            $flags[]   = $flag_bits;
+            $flags[] = $flag_bits;
 
             if (($flag_bits & 1) === 0)
             {
@@ -156,7 +156,7 @@ abstract
         }
 
         $shift = 0;
-        $data  = array();
+        $data = array();
 
         foreach ($this->prop_types as $key => $proptype)
         {
@@ -167,7 +167,7 @@ abstract
                     break;
                 }
                 $flag_bits = array_shift($flags);
-                $shift     = 15;
+                $shift = 15;
             }
 
             if ($flag_bits & (1 << $shift))
@@ -199,9 +199,9 @@ abstract
             return $this->serialized_properties;
         }
 
-        $shift     = 15;
+        $shift = 15;
         $flag_bits = 0;
-        $flags     = array();
+        $flags = array();
         $raw_bytes = new AMQPWriter();
 
         foreach ($this->prop_types as $key => $prototype)
@@ -218,9 +218,9 @@ abstract
 
             if ($shift === 0)
             {
-                $flags[]   = $flag_bits;
+                $flags[] = $flag_bits;
                 $flag_bits = 0;
-                $shift     = 15;
+                $shift = 15;
             }
 
             $flag_bits |= (1 << $shift);
@@ -233,7 +233,7 @@ abstract
         }
 
         $flags[] = $flag_bits;
-        $result  = new AMQPWriter();
+        $result = new AMQPWriter();
         foreach ($flags as $flag_bits)
         {
             $result->write_short($flag_bits);

@@ -6,14 +6,14 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Wire\AMQPTable;
 
-$exchange      = 'router';
-$queue         = 'haqueue';
+$exchange = 'router';
+$queue = 'haqueue';
 $specificQueue = 'specific-haqueue';
 
 $consumerTag = 'consumer';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   The following code is the same both in the consumer and the producer.
@@ -24,7 +24,7 @@ $channel    = $connection->channel();
 $haConnection = new AMQPTable(array('x-ha-policy' => 'all'));
 
 $haSpecificConnection = new AMQPTable(array(
-    'x-ha-policy'        => 'nodes',
+    'x-ha-policy' => 'nodes',
     'x-ha-policy-params' => array(
         'rabbit@' . HOST,
         'hare@' . HOST,

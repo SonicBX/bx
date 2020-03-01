@@ -7,10 +7,10 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $exchange = 'router';
-$queue    = 'msgs';
+$queue = 'msgs';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   The following code is the same both in the consumer and the producer.
@@ -40,7 +40,7 @@ $channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, fal
 $channel->queue_bind($queue, $exchange);
 
 $messageBody = implode(' ', array_slice($argv, 1));
-$message     = new AMQPMessage($messageBody, array('content_type' => 'text/plain', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
+$message = new AMQPMessage($messageBody, array('content_type' => 'text/plain', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
 $channel->basic_publish($message, $exchange);
 
 $channel->close();

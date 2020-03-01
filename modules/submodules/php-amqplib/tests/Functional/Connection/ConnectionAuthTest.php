@@ -31,13 +31,11 @@ class ConnectionAuthTest extends AbstractConnectionTest
             $connection = new AMQPStreamConnection(HOST, PORT, $username, '', '/', false, 'PLAIN', null, 'en_US', 1);
             $this->assertInstanceOf(AMQPStreamConnection::class, $connection);
             $this->assertTrue($connection->isConnected());
-        }
-        catch (AMQPExceptionInterface $exception)
+        } catch (AMQPExceptionInterface $exception)
         {
             // rabbitmq does not respond to wrong auth content due to empty password
             $this->assertInstanceOf(AMQPTimeoutException::class, $exception);
-        }
-        finally
+        } finally
         {
             $this->deleteUser($username);
         }
@@ -47,14 +45,13 @@ class ConnectionAuthTest extends AbstractConnectionTest
         try
         {
             $connection = new AMQPStreamConnection(HOST, PORT, $username, $password, '/', false, 'PLAIN', null, 'en_US',
-                                                   1);
+                    1);
             $this->assertInstanceOf(AMQPStreamConnection::class, $connection);
             $this->assertTrue($connection->isConnected());
-            $channel    = $connection->channel();
+            $channel = $connection->channel();
             $this->assertInstanceOf(AMQPChannel::class, $channel);
             $connection->close();
-        }
-        finally
+        } finally
         {
             $this->deleteUser($username);
         }
@@ -67,14 +64,14 @@ class ConnectionAuthTest extends AbstractConnectionTest
         $passwordHash = '';
         if (!empty($password))
         {
-            $salt         = substr(md5(mt_rand()), 0, 4);
+            $salt = substr(md5(mt_rand()), 0, 4);
             $passwordHash = base64_encode($salt . hash('sha256', $salt . $password, true));
         }
         $request = Request::put(
                         $userEndpoint,
                         json_encode([
-                    'password_hash'     => $passwordHash,
-                    'tags'              => '',
+                    'password_hash' => $passwordHash,
+                    'tags' => '',
                     'hashing_algorithm' => 'rabbit_password_hashing_sha256',
                         ])
         );
@@ -87,8 +84,7 @@ class ConnectionAuthTest extends AbstractConnectionTest
         try
         {
             $response = $request->send();
-        }
-        catch (ConnectionErrorException $exception)
+        } catch (ConnectionErrorException $exception)
         {
             $this->markTestSkipped($exception->getMessage());
         }
@@ -97,7 +93,7 @@ class ConnectionAuthTest extends AbstractConnectionTest
             $this->markTestSkipped('Cannot create temporary user');
         }
 
-        $request  = Request::put(
+        $request = Request::put(
                         HOST . ':15672/api/permissions/%2f/' . $username,
                         json_encode(['configure' => '', 'write' => '.*', 'read' => '.*'])
         );
@@ -114,7 +110,7 @@ class ConnectionAuthTest extends AbstractConnectionTest
             function deleteUser($username)
     {
         $userEndpoint = HOST . ':15672/api/users/' . $username;
-        $request      = Request::delete($userEndpoint);
+        $request = Request::delete($userEndpoint);
         $request->expectsJson();
         $request->basicAuth(USER, PASS);
         $request->send();

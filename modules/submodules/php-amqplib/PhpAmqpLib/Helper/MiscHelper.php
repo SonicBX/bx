@@ -56,11 +56,11 @@ class MiscHelper
             function hexdump($data, $htmloutput = true, $uppercase = false, $return = false)
     {
         // Init
-        $hexi   = '';
-        $ascii  = '';
-        $dump   = $htmloutput ? '<pre>' : '';
+        $hexi = '';
+        $ascii = '';
+        $dump = $htmloutput ? '<pre>' : '';
         $offset = 0;
-        $len    = mb_strlen($data, 'ASCII');
+        $len = mb_strlen($data, 'ASCII');
 
         // Upper or lower case hexidecimal
         $hexFormat = $uppercase ? 'X' : 'x';
@@ -77,8 +77,7 @@ class MiscHelper
             if (ord($data[$i]) >= 32)
             {
                 $ascii .= $htmloutput ? htmlentities($data[$i]) : $data[$i];
-            }
-            else
+            } else
             {
                 $ascii .= '.';
             }
@@ -86,7 +85,7 @@ class MiscHelper
             // Add extra column spacing
             if ($j === 7)
             {
-                $hexi  .= ' ';
+                $hexi .= ' ';
                 $ascii .= ' ';
             }
 
@@ -99,9 +98,9 @@ class MiscHelper
                 $dump .= sprintf('%04' . $hexFormat . '  %-49s  %s', $offset, $hexi, $ascii);
 
                 // Reset vars
-                $hexi   = $ascii  = '';
+                $hexi = $ascii = '';
                 $offset += 16;
-                $j      = 0;
+                $j = 0;
 
                 // Add newline
                 if ($i !== $len - 1)

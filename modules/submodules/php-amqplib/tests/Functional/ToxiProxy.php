@@ -37,7 +37,7 @@ class ToxiProxy
     {
         $this->name = $name;
         $this->host = $host;
-        $this->api  = 'http://' . $host . ':' . $port;
+        $this->api = 'http://' . $host . ':' . $port;
     }
 
     public
@@ -57,13 +57,13 @@ class ToxiProxy
     public
             function open($host, $port, $listen)
     {
-        $payload  = array(
-            'name'     => $this->name,
+        $payload = array(
+            'name' => $this->name,
             'upstream' => $host . ':' . $port,
-            'listen'   => ':' . $listen,
+            'listen' => ':' . $listen,
         );
-        $url      = $this->api . '/proxies';
-        $request  = Request::post($url, json_encode($payload), 'json');
+        $url = $this->api . '/proxies';
+        $request = Request::post($url, json_encode($payload), 'json');
         $request->timeout(1);
         $request->expectsJson();
         $response = $request->send();
@@ -86,15 +86,15 @@ class ToxiProxy
     public
             function mode($type, $attributes = array(), $direction = 'upstream', $toxicity = 1.0)
     {
-        $payload  = [
-            'name'       => null,
-            'stream'     => $direction,
-            'type'       => $type,
-            'toxicity'   => $toxicity,
+        $payload = [
+            'name' => null,
+            'stream' => $direction,
+            'type' => $type,
+            'toxicity' => $toxicity,
             'attributes' => !empty($attributes) ? $attributes : null,
         ];
-        $url      = sprintf('%s/proxies/%s/toxics', $this->api, $this->name);
-        $request  = Request::post($url, json_encode($payload), 'json');
+        $url = sprintf('%s/proxies/%s/toxics', $this->api, $this->name);
+        $request = Request::post($url, json_encode($payload), 'json');
         $request->timeout(1);
         $request->expectsJson();
         $response = $request->send();
@@ -112,7 +112,7 @@ class ToxiProxy
     public
             function disable()
     {
-        $url      = sprintf('%s/proxies/%s', $this->api, $this->name);
+        $url = sprintf('%s/proxies/%s', $this->api, $this->name);
         $response = Request::post($url, json_encode(array('enabled' => false)), 'json')->send();
         if ($response->code !== 200)
         {
@@ -127,7 +127,7 @@ class ToxiProxy
     public
             function close()
     {
-        $url      = sprintf('%s/proxies/%s', $this->api, $this->name);
+        $url = sprintf('%s/proxies/%s', $this->api, $this->name);
         $response = Request::delete($url)->send();
         if ($response->code !== 204 && $response->code !== 404)
         {

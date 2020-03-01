@@ -27,7 +27,7 @@ class TestChannel extends AMQPChannel
 
         $this->debug->debug_msg('using channel_id: ' . $channel_id);
 
-        $this->auto_decode         = $auto_decode;
+        $this->auto_decode = $auto_decode;
         $this->channel_rpc_timeout = $channel_rpc_timeout;
     }
 

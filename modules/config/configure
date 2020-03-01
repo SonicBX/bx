@@ -1,0 +1,13 @@
+#!/usr/bin/php -f
+<?php
+//bx/modules/config/configure
+$bx["client"]["view"] = "root";
+$bx["client"]["views"]["root"]["branch"] = "bxbranch_";
+$bx["client"]["views"]["root"]["user"] = "bxuser_";
+$bx["client"]["views"]["root"]["cert"] = "bxcert_ZTRDYcNJFFkeGSmHae7o75i27";
+$bx["client"]["views"]["root"]["key"] = "bxkey_jyxWVfBjx4vam8cU9t1oUpyVAx";
+$bx["server"]["sql"]["servers"][] = "localhost";
+$bx["server"]["sql"]["servers"][] = "127.0.0.1";
+$bx["server"]["sql"]["username"] = "bxsql_user_";
+$bx["server"]["sql"]["password"] = "bxsql_pass_";
+file_put_contents("bx.json", json_encode($bx, JSON_PRETTY_PRINT));

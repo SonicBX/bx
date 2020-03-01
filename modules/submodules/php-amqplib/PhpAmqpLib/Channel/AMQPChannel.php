@@ -128,14 +128,13 @@ class AMQPChannel extends AbstractChannel
 
         $this->debug->debug_msg('using channel_id: ' . $channel_id);
 
-        $this->auto_decode         = $auto_decode;
+        $this->auto_decode = $auto_decode;
         $this->channel_rpc_timeout = $channel_rpc_timeout;
 
         try
         {
             $this->x_open();
-        }
-        catch (\Exception $e)
+        } catch (\Exception $e)
         {
             $this->close();
             throw $e;
@@ -162,8 +161,8 @@ class AMQPChannel extends AbstractChannel
             unset($this->connection->channels[$this->channel_id]);
         }
         $this->channel_id = $this->connection = null;
-        $this->is_open    = false;
-        $this->callbacks  = array();
+        $this->is_open = false;
+        $this->callbacks = array();
     }
 
     /**
@@ -182,7 +181,7 @@ class AMQPChannel extends AbstractChannel
     {
         $reply_code = $reader->read_short();
         $reply_text = $reader->read_shortstr();
-        $details    = $reader->read_table();
+        $details = $reader->read_table();
         array_push($this->alerts, array($reply_code, $reply_text, $details));
     }
 
@@ -215,8 +214,7 @@ class AMQPChannel extends AbstractChannel
         try
         {
             $this->send_method_frame(array($class_id, $method_id), $args);
-        }
-        catch (\Exception $e)
+        } catch (\Exception $e)
         {
             $this->do_close();
 
@@ -237,8 +235,8 @@ class AMQPChannel extends AbstractChannel
     {
         $reply_code = $reader->read_short();
         $reply_text = $reader->read_shortstr();
-        $class_id   = $reader->read_short();
-        $method_id  = $reader->read_short();
+        $class_id = $reader->read_short();
+        $method_id = $reader->read_short();
 
         $this->send_method_frame(array(20, 41));
         $this->do_close();
@@ -758,8 +756,8 @@ class AMQPChannel extends AbstractChannel
     protected
             function queue_declare_ok($reader)
     {
-        $queue          = $reader->read_shortstr();
-        $message_count  = $reader->read_long();
+        $queue = $reader->read_shortstr();
+        $message_count = $reader->read_long();
         $consumer_count = $reader->read_long();
 
         return array($queue, $message_count, $consumer_count);
@@ -875,7 +873,7 @@ class AMQPChannel extends AbstractChannel
             function basic_ack_from_server(AMQPReader $reader)
     {
         $delivery_tag = $reader->read_longlong();
-        $multiple     = (bool) $reader->read_bit();
+        $multiple = (bool) $reader->read_bit();
 
         if (!isset($this->published_messages[$delivery_tag]))
         {
@@ -898,7 +896,7 @@ class AMQPChannel extends AbstractChannel
             function basic_nack_from_server($reader)
     {
         $delivery_tag = $reader->read_longlong();
-        $multiple     = (bool) $reader->read_bit();
+        $multiple = (bool) $reader->read_bit();
 
         if (!isset($this->published_messages[$delivery_tag]))
         {
@@ -929,10 +927,9 @@ class AMQPChannel extends AbstractChannel
             {
                 $this->internal_ack_handler($key, false, $handler);
             }
-        }
-        else
+        } else
         {
-            $message                                = $this->get_and_unset_message($delivery_tag);
+            $message = $this->get_and_unset_message($delivery_tag);
             $message->delivery_info['delivery_tag'] = $delivery_tag;
             $this->dispatch_to_handler($handler, array($message));
         }
@@ -947,12 +944,12 @@ class AMQPChannel extends AbstractChannel
             function get_keys_less_or_equal(array $messages, $value)
     {
         $value = (int) $value;
-        $keys  = array_reduce(
+        $keys = array_reduce(
                 array_keys($messages),
                 /**
                  * @param string $key
                  */
-                           function ($keys, $key) use ($value)
+                function ($keys, $key) use ($value)
         {
             if ($key <= $value)
             {
@@ -961,7 +958,7 @@ class AMQPChannel extends AbstractChannel
 
             return $keys;
         },
-                           array()
+                array()
         );
 
         return $keys;
@@ -1118,17 +1115,17 @@ class AMQPChannel extends AbstractChannel
     {
         $consumer_tag = $reader->read_shortstr();
         $delivery_tag = $reader->read_longlong();
-        $redelivered  = $reader->read_bit();
-        $exchange     = $reader->read_shortstr();
-        $routing_key  = $reader->read_shortstr();
+        $redelivered = $reader->read_bit();
+        $exchange = $reader->read_shortstr();
+        $routing_key = $reader->read_shortstr();
 
         $message->delivery_info = array(
-            'channel'      => $this,
+            'channel' => $this,
             'consumer_tag' => $consumer_tag,
             'delivery_tag' => $delivery_tag,
-            'redelivered'  => $redelivered,
-            'exchange'     => $exchange,
-            'routing_key'  => $routing_key
+            'redelivered' => $redelivered,
+            'exchange' => $exchange,
+            'routing_key' => $routing_key
         );
 
         if (isset($this->callbacks[$consumer_tag]))
@@ -1179,17 +1176,17 @@ class AMQPChannel extends AbstractChannel
     protected
             function basic_get_ok($reader, $message)
     {
-        $delivery_tag  = $reader->read_longlong();
-        $redelivered   = $reader->read_bit();
-        $exchange      = $reader->read_shortstr();
-        $routing_key   = $reader->read_shortstr();
+        $delivery_tag = $reader->read_longlong();
+        $redelivered = $reader->read_bit();
+        $exchange = $reader->read_shortstr();
+        $routing_key = $reader->read_shortstr();
         $message_count = $reader->read_long();
 
         $message->delivery_info = array(
-            'delivery_tag'  => $delivery_tag,
-            'redelivered'   => $redelivered,
-            'exchange'      => $exchange,
-            'routing_key'   => $routing_key,
+            'delivery_tag' => $delivery_tag,
+            'redelivered' => $redelivered,
+            'exchange' => $exchange,
+            'routing_key' => $routing_key,
             'message_count' => $message_count
         );
 
@@ -1226,7 +1223,7 @@ class AMQPChannel extends AbstractChannel
                     $immediate
             );
 
-            $pkt                             = $this->prepare_method_frame(array($class_id, $method_id), $args);
+            $pkt = $this->prepare_method_frame(array($class_id, $method_id), $args);
             $this->publish_cache[$cache_key] = $pkt->getvalue();
             if (count($this->publish_cache) > $this->publish_cache_max_size)
             {
@@ -1273,12 +1270,11 @@ class AMQPChannel extends AbstractChannel
                     60,
                     0,
                     mb_strlen($msg->body, 'ASCII'),
-                              $msg->serialize_properties(),
-                              $msg->body,
-                              $pkt
+                    $msg->serialize_properties(),
+                    $msg->body,
+                    $pkt
             );
-        }
-        catch (AMQPConnectionClosedException $e)
+        } catch (AMQPConnectionClosedException $e)
         {
             $this->do_close();
             throw $e;
@@ -1343,11 +1339,11 @@ class AMQPChannel extends AbstractChannel
             /** @var AMQPMessage $msg */
             $msg = $m[0];
 
-            $exchange    = isset($m[1]) ? $m[1] : '';
+            $exchange = isset($m[1]) ? $m[1] : '';
             $routing_key = isset($m[2]) ? $m[2] : '';
-            $mandatory   = isset($m[3]) ? $m[3] : false;
-            $immediate   = isset($m[4]) ? $m[4] : false;
-            $ticket      = isset($m[5]) ? $m[5] : null;
+            $mandatory = isset($m[3]) ? $m[3] : false;
+            $immediate = isset($m[4]) ? $m[4] : false;
+            $ticket = isset($m[5]) ? $m[5] : null;
             $pkt->write($this->pre_publish($exchange, $routing_key, $mandatory, $immediate, $ticket));
 
             $this->connection->prepare_content(
@@ -1355,9 +1351,9 @@ class AMQPChannel extends AbstractChannel
                     60,
                     0,
                     mb_strlen($msg->body, 'ASCII'),
-                              $msg->serialize_properties(),
-                              $msg->body,
-                              $pkt
+                    $msg->serialize_properties(),
+                    $msg->body,
+                    $pkt
             );
 
             if ($this->next_delivery_tag > 0)
@@ -1462,9 +1458,9 @@ class AMQPChannel extends AbstractChannel
             return null;
         }
 
-        $reply_code  = $reader->read_short();
-        $reply_text  = $reader->read_shortstr();
-        $exchange    = $reader->read_shortstr();
+        $reply_code = $reader->read_short();
+        $reply_text = $reader->read_shortstr();
+        $exchange = $reader->read_shortstr();
         $routing_key = $reader->read_shortstr();
 
         call_user_func_array($callback, array(
@@ -1573,7 +1569,7 @@ class AMQPChannel extends AbstractChannel
             $this->waitHelper->get_wait('basic.ack'),
             $this->waitHelper->get_wait('basic.nack'),
         );
-        $timeout   = max(0, $timeout);
+        $timeout = max(0, $timeout);
         while (!empty($this->published_messages))
         {
             $this->wait($functions, false, $timeout);

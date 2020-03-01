@@ -1,12 +1,12 @@
 {
     "client": {
-        "view": "administrator",
+        "view": "root",
         "views": {
-            "administrator": {
+            "root": {
                 "branch": "bxbranch_",
                 "user": "bxuser_",
-                "cert": "bxcert_",
-                "key": "bxkey_"
+                "cert": "bxcert_ZTRDYcNJFFkeGSmHae7o75i27",
+                "key": "bxkey_jyxWVfBjx4vam8cU9t1oUpyVAx"
             }
         }
     },
