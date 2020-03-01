@@ -1,4 +1,6 @@
-<?php //bx/modules/api/help/intro.bx.php
+<?php
+
+//bx/modules/api/help/intro.bx.php
 $info['web'] = "www.sonicbx.com";
 $info['email'] = "russell@sonicbx.com";
 $info['call'] = "+1 (855) SONICBX";
