@@ -27,8 +27,9 @@ function bxcli_parse()
         if (!bxcli_eval($bxcli_arg))
             $bxcli_command[]                = $bxcli_arg;
     $bx["api"]["packet"]["command"] = implode("/", $bxcli_command);
-    if (isset($bx["api"]["packet"]["input"]) && count($bx["api"]["packet"]["input"]))
+    if(count($bx["api"]["packet"]["input"]) > 0)
         $bx["api"]["packet"]["input"]   = $bx["api"]["packet"]["input"];
+    else unset($bx["api"]["packet"]["input"]);
 }
 
 function bxcli_eval($bxcli_arg)
