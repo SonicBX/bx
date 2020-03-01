@@ -26,7 +26,8 @@ function bxmq_get($bxmq_queue)
         if (handleMessage(json_decode($bxmq_msg->body, true)))
         {
             $bxmq_msg->delivery_info['channel']->basic_ack($bxmq_msg->delivery_info['delivery_tag']);
-        } else
+        }
+        else
         {
             $bxmq_msg->delivery_info['channel']->basic_nack($bxmq_msg->delivery_info['delivery_tag'], false, true);
         }
@@ -38,7 +39,8 @@ function bxmq_get($bxmq_queue)
         try
         {
             $bxmq_channel->wait();
-        } catch (Exception $bxmq_e)
+        }
+        catch (Exception $bxmq_e)
         {
             break;
         }
