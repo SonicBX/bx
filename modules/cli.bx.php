@@ -9,8 +9,7 @@ function bxcli_start()
         die("config mode\n");
     if (isset($argv[1]) && $argv[1] == ".debug")
     {
-        $bxdebug["debug"]["bx"]   = $bx;
-        $bxdebug["debug"]["argv"] = $argv;
+        $bx["debug"]["argv"] = $argv;
         unset($argv[1]);
     }
     bxcli_parse();
