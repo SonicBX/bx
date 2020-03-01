@@ -1,6 +1,5 @@
 #!/usr/bin/php -f
 <?php
-
 //bx/modules/config/configure
 $bx["client"]["view"] = "root";
 $bx["client"]["views"]["root"]["branch"] = "bxbranch_";
