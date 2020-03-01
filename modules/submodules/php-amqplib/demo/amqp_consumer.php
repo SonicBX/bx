@@ -5,12 +5,12 @@ include(__DIR__ . '/config.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 
-$exchange    = 'router';
-$queue       = 'msgs';
+$exchange = 'router';
+$queue = 'msgs';
 $consumerTag = 'consumer';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   The following code is the same both in the consumer and the producer.

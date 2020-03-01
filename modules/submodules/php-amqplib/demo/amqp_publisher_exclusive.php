@@ -9,7 +9,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 $exchange = 'fanout_exclusive_example_exchange';
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   name: $exchange
@@ -22,7 +22,7 @@ $channel    = $connection->channel();
 $channel->exchange_declare($exchange, AMQPExchangeType::FANOUT, false, false, true);
 
 $messageBody = implode(' ', array_slice($argv, 1));
-$message     = new AMQPMessage($messageBody, array('content_type' => 'text/plain'));
+$message = new AMQPMessage($messageBody, array('content_type' => 'text/plain'));
 $channel->basic_publish($message, $exchange);
 
 $channel->close();

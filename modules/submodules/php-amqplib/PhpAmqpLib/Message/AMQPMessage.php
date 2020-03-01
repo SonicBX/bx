@@ -13,7 +13,7 @@ class AMQPMessage extends GenericContent
     const
             DELIVERY_MODE_NON_PERSISTENT = 1;
     const
-            DELIVERY_MODE_PERSISTENT     = 2;
+            DELIVERY_MODE_PERSISTENT = 2;
 
     /** @var string */
     public
@@ -34,20 +34,20 @@ class AMQPMessage extends GenericContent
     /** @var array */
     protected static
             $propertyDefinitions = array(
-        'content_type'        => 'shortstr',
-        'content_encoding'    => 'shortstr',
+        'content_type' => 'shortstr',
+        'content_encoding' => 'shortstr',
         'application_headers' => 'table_object',
-        'delivery_mode'       => 'octet',
-        'priority'            => 'octet',
-        'correlation_id'      => 'shortstr',
-        'reply_to'            => 'shortstr',
-        'expiration'          => 'shortstr',
-        'message_id'          => 'shortstr',
-        'timestamp'           => 'timestamp',
-        'type'                => 'shortstr',
-        'user_id'             => 'shortstr',
-        'app_id'              => 'shortstr',
-        'cluster_id'          => 'shortstr',
+        'delivery_mode' => 'octet',
+        'priority' => 'octet',
+        'correlation_id' => 'shortstr',
+        'reply_to' => 'shortstr',
+        'expiration' => 'shortstr',
+        'message_id' => 'shortstr',
+        'timestamp' => 'timestamp',
+        'type' => 'shortstr',
+        'user_id' => 'shortstr',
+        'app_id' => 'shortstr',
+        'cluster_id' => 'shortstr',
     );
 
     /**

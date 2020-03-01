@@ -30,8 +30,7 @@ class StreamIOTest extends TestCase
         try
         {
             new AMQPStreamConnection(HOST, PORT - 1, USER, PASS, VHOST);
-        }
-        catch (\Exception $exception)
+        } catch (\Exception $exception)
         {
             $exceptionThrown = true;
         }
@@ -40,13 +39,12 @@ class StreamIOTest extends TestCase
         $this->assertNull($this->last_error);
 
         $exceptionThrown = false;
-        $arr             = [];
+        $arr = [];
 
         try
         {
             $notice = $arr['second-key-that-does-not-exist-and-should-generate-a-notice'];
-        }
-        catch (\Exception $exception)
+        } catch (\Exception $exception)
         {
             $exceptionThrown = true;
         }

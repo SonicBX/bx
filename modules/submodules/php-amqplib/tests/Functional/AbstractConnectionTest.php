@@ -28,9 +28,9 @@ abstract
     protected
             function conection_create($type = 'stream', $host = HOST, $port = PORT, $options = array())
     {
-        $keepalive         = isset($options['keepalive']) ? $options['keepalive'] : false;
-        $heartbeat         = isset($options['heartbeat']) ? $options['heartbeat'] : 0;
-        $timeout           = isset($options['timeout']) ? $options['timeout'] : 1;
+        $keepalive = isset($options['keepalive']) ? $options['keepalive'] : false;
+        $heartbeat = isset($options['heartbeat']) ? $options['heartbeat'] : 0;
+        $timeout = isset($options['timeout']) ? $options['timeout'] : 1;
         $connectionTimeout = isset($options['connectionTimeout']) ? $options['connectionTimeout'] : $timeout;
 
         switch ($type)

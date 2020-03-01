@@ -9,8 +9,8 @@ use PhpAmqpLib\Connection\AMQPSSLConnection;
 define('CERTS_PATH', '/git/rabbitmqinaction/av_scratchwork/openssl');
 
 $ssl_options = array(
-    'cafile'      => CERTS_PATH . '/rmqca/cacert.pem',
-    'local_cert'  => CERTS_PATH . '/phpcert.pem',
+    'cafile' => CERTS_PATH . '/rmqca/cacert.pem',
+    'local_cert' => CERTS_PATH . '/phpcert.pem',
     'verify_peer' => true
 );
 
@@ -26,16 +26,16 @@ $connection = AMQPStreamConnection::create_connection([
             ['host' => HOST, 'port' => 5673, 'user' => USER, 'password' => PASS, 'vhost' => VHOST],
             ['host' => HOST, 'port' => 5674, 'user' => USER, 'password' => PASS, 'vhost' => VHOST]
                 ],
-                                                      [
-                    'insist'             => false,
-                    'login_method'       => 'AMQPLAIN',
-                    'login_response'     => null,
-                    'locale'             => 'en_US',
+                [
+                    'insist' => false,
+                    'login_method' => 'AMQPLAIN',
+                    'login_response' => null,
+                    'locale' => 'en_US',
                     'connection_timeout' => 3.0,
                     'read_write_timeout' => 10.0,
-                    'context'            => null,
-                    'keepalive'          => false,
-                    'heartbeat'          => 5
+                    'context' => null,
+                    'keepalive' => false,
+                    'heartbeat' => 5
         ]);
 
 
@@ -45,7 +45,7 @@ $connection = AMQPStreamConnection::create_connection([
             ['host' => HOST, 'port' => 5673, 'user' => USER, 'password' => PASS, 'vhost' => VHOST],
             ['host' => HOST, 'port' => 5674, 'user' => USER, 'password' => PASS, 'vhost' => VHOST]
                 ],
-                                                      []);
+                []);
 
 // Options keys are different for different connection types
 $connection = AMQPSocketConnection::create_connection([
@@ -53,15 +53,15 @@ $connection = AMQPSocketConnection::create_connection([
             ['host' => HOST, 'port' => 5673, 'user' => USER, 'password' => PASS, 'vhost' => VHOST],
             ['host' => HOST, 'port' => 5674, 'user' => USER, 'password' => PASS, 'vhost' => VHOST]
                 ],
-                                                      [
-                    'insist'         => false,
-                    'login_method'   => 'AMQPLAIN',
+                [
+                    'insist' => false,
+                    'login_method' => 'AMQPLAIN',
                     'login_response' => null,
-                    'locale'         => 'en_US',
-                    'read_timeout'   => 10,
-                    'keepalive'      => false,
-                    'write_timeout'  => 10,
-                    'heartbeat'      => 5
+                    'locale' => 'en_US',
+                    'read_timeout' => 10,
+                    'keepalive' => false,
+                    'write_timeout' => 10,
+                    'heartbeat' => 5
         ]);
 
 // Use empty options array for defaults
@@ -80,7 +80,7 @@ $ssl_connection = AMQPSSLConnection::create_connection([
             ['host' => HOST, 'port' => 5673, 'user' => USER, 'password' => PASS, 'vhost' => VHOST],
             ['host' => HOST, 'port' => 5674, 'user' => USER, 'password' => PASS, 'vhost' => VHOST]
                 ],
-                                                       [
+                [
                     'ssl_options' => $ssl_options
         ]);
 

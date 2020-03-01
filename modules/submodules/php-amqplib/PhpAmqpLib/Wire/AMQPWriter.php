@@ -26,8 +26,8 @@ class AMQPWriter extends AbstractClient
     {
         if (!empty($this->bits))
         {
-            $this->out      .= implode('', array_map('chr', $this->bits));
-            $this->bits     = array();
+            $this->out .= implode('', array_map('chr', $this->bits));
+            $this->bits = array();
             $this->bitcount = 0;
         }
     }
@@ -75,10 +75,10 @@ class AMQPWriter extends AbstractClient
     public
             function write_bit($b)
     {
-        $b            = $b ? 1 : 0;
-        $shift        = $this->bitcount % 8;
-        $last         = $shift === 0 ? 0 : array_pop($this->bits);
-        $last         |= ($b << $shift);
+        $b = $b ? 1 : 0;
+        $shift = $this->bitcount % 8;
+        $last = $shift === 0 ? 0 : array_pop($this->bits);
+        $last |= ($b << $shift);
         $this->bits[] = $last;
         $this->bitcount++;
 
@@ -98,7 +98,7 @@ class AMQPWriter extends AbstractClient
 
         foreach ($bits as $n => $bit)
         {
-            $bit   = $bit ? 1 : 0;
+            $bit = $bit ? 1 : 0;
             $value |= ($bit << $n);
         }
 
@@ -242,10 +242,9 @@ class AMQPWriter extends AbstractClient
 
             if ($this->is64bits)
             {
-                $res       = pack('J', $n);
+                $res = pack('J', $n);
                 $this->out .= $res;
-            }
-            else
+            } else
             {
                 $this->out .= pack('NN', 0, $n);
             }
@@ -283,11 +282,10 @@ class AMQPWriter extends AbstractClient
                     $packed = $this->convertByteOrder($packed);
                 }
                 $this->out .= $packed;
-            }
-            else
+            } else
             {
-                $hi        = $n < 0 ? -1 : 0;
-                $lo        = $n;
+                $hi = $n < 0 ? -1 : 0;
+                $lo = $n;
                 $this->out .= pack('NN', $hi, $lo);
             }
 

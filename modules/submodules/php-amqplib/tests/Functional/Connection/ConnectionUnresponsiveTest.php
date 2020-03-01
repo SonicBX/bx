@@ -26,23 +26,22 @@ class ConnectionUnresponsiveTest extends AbstractConnectionTest
             function must_throw_exception_on_completely_blocked_connection($type)
     {
         self::$blocked = false;
-        $connection    = $this->conection_create($type);
-        $channel       = $connection->channel();
+        $connection = $this->conection_create($type);
+        $channel = $connection->channel();
         $this->assertTrue($channel->is_open());
         $this->queue_bind($channel, $exchange_name = 'test_exchange_broken', $queue_name);
 
         self::$blocked = true;
-        $message       = new AMQPMessage(
+        $message = new AMQPMessage(
                 str_repeat('0', 8),
-                           ['delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT]
+                ['delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT]
         );
 
         $exception = null;
         try
         {
             $channel->basic_publish($message, $exchange_name, $queue_name);
-        }
-        catch (\Exception $exception)
+        } catch (\Exception $exception)
         {
             
         }
@@ -67,10 +66,10 @@ class ConnectionUnresponsiveTest extends AbstractConnectionTest
     public
             function must_throw_timeout_exception_on_missing_connect_response($type)
     {
-        $proxy      = $this->create_proxy();
+        $proxy = $this->create_proxy();
         $proxy->mode('timeout', ['timeout' => 0], 'downstream');
         $connection = null;
-        $exception  = null;
+        $exception = null;
         try
         {
             $connection = $this->conection_create(
@@ -79,8 +78,7 @@ class ConnectionUnresponsiveTest extends AbstractConnectionTest
                     $proxy->getPort(),
                     array('timeout' => 3, 'connectionTimeout' => .1, 'heartbeat' => 1)
             );
-        }
-        catch (\Exception $exception)
+        } catch (\Exception $exception)
         {
             
         }

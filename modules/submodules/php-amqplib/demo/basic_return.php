@@ -7,7 +7,7 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 // declare  exchange but don`t bind any queue
 $channel->exchange_declare('hidden_exchange', AMQPExchangeType::TOPIC);

@@ -25,16 +25,16 @@ function connect()
                 ['host' => HOST, 'port' => PORT2, 'user' => USER, 'password' => PASS, 'vhost' => VHOST],
                 ['host' => HOST, 'port' => PORT3, 'user' => USER, 'password' => PASS, 'vhost' => VHOST]
                     ],
-                                                   [
-                        'insist'             => false,
-                        'login_method'       => 'AMQPLAIN',
-                        'login_response'     => null,
-                        'locale'             => 'en_US',
+                    [
+                        'insist' => false,
+                        'login_method' => 'AMQPLAIN',
+                        'login_response' => null,
+                        'locale' => 'en_US',
                         'connection_timeout' => 3.0,
                         'read_write_timeout' => 3.0,
-                        'context'            => null,
-                        'keepalive'          => false,
-                        'heartbeat'          => 0
+                        'context' => null,
+                        'keepalive' => false,
+                        'heartbeat' => 0
     ]);
 }
 
@@ -48,8 +48,7 @@ function cleanup_connection($connection)
         {
             $connection->close();
         }
-    }
-    catch (\ErrorException $e)
+    } catch (\ErrorException $e)
     {
         
     }
@@ -65,20 +64,17 @@ while (true)
         register_shutdown_function('shutdown', $connection);
         // Your application code goes here.
         do_something_with_connection($connection);
-    }
-    catch (AMQPRuntimeException $e)
+    } catch (AMQPRuntimeException $e)
     {
         echo $e->getMessage() . PHP_EOL;
         cleanup_connection($connection);
         usleep(WAIT_BEFORE_RECONNECT_uS);
-    }
-    catch (\RuntimeException $e)
+    } catch (\RuntimeException $e)
     {
         echo "Runtime exception " . PHP_EOL;
         cleanup_connection($connection);
         usleep(WAIT_BEFORE_RECONNECT_uS);
-    }
-    catch (\ErrorException $e)
+    } catch (\ErrorException $e)
     {
         echo "Error exception " . PHP_EOL;
         cleanup_connection($connection);
@@ -88,9 +84,9 @@ while (true)
 
 function do_something_with_connection($connection)
 {
-    $queue       = 'receive';
+    $queue = 'receive';
     $consumerTag = 'consumer';
-    $channel     = $connection->channel();
+    $channel = $connection->channel();
     $channel->queue_declare($queue, false, true, false, false);
     $channel->basic_consume($queue, $consumerTag, false, false, false, false, 'process_message');
     while ($channel->is_consuming())

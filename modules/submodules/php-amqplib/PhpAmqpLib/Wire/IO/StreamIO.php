@@ -56,16 +56,16 @@ class StreamIO extends AbstractIO
           }
          */
 
-        $this->protocol               = 'tcp';
-        $this->host                   = $host;
-        $this->port                   = $port;
-        $this->connection_timeout     = $connection_timeout;
-        $this->read_timeout           = $read_write_timeout;
-        $this->write_timeout          = $read_write_timeout;
-        $this->context                = $context;
-        $this->keepalive              = $keepalive;
-        $this->heartbeat              = $heartbeat;
-        $this->initial_heartbeat      = $heartbeat;
+        $this->protocol = 'tcp';
+        $this->host = $host;
+        $this->port = $port;
+        $this->connection_timeout = $connection_timeout;
+        $this->read_timeout = $read_write_timeout;
+        $this->write_timeout = $read_write_timeout;
+        $this->context = $context;
+        $this->keepalive = $keepalive;
+        $this->heartbeat = $heartbeat;
+        $this->initial_heartbeat = $heartbeat;
         $this->canDispatchPcntlSignal = $this->isPcntlSignalEnabled();
 
         if (!is_resource($this->context) || get_resource_type($this->context) !== 'stream-context')
@@ -85,8 +85,7 @@ class StreamIO extends AbstractIO
             if (isset($ssl_protocol))
             {
                 $this->protocol = $ssl_protocol;
-            }
-            else
+            } else
             {
                 $this->protocol = 'ssl';
             }
@@ -99,7 +98,7 @@ class StreamIO extends AbstractIO
     public
             function connect()
     {
-        $errstr = $errno  = null;
+        $errstr = $errno = null;
 
         $remote = sprintf(
                 '%s://%s:%s',
@@ -121,8 +120,7 @@ class StreamIO extends AbstractIO
                     $this->context
             );
             $this->cleanup_error_handler();
-        }
-        catch (\ErrorException $e)
+        } catch (\ErrorException $e)
         {
             throw new AMQPIOException($e->getMessage());
         }
@@ -135,7 +133,7 @@ class StreamIO extends AbstractIO
                             $errno,
                             $errstr
                     ),
-                            $errno
+                    $errno
             );
         }
 
@@ -164,8 +162,7 @@ class StreamIO extends AbstractIO
             {
                 stream_set_read_buffer($this->sock, 0);
             }
-        }
-        else
+        } else
         {
             stream_set_blocking($this->sock, true);
         }
@@ -188,8 +185,8 @@ class StreamIO extends AbstractIO
         list($timeout_sec, $timeout_uSec) = MiscHelper::splitSecondsMicroseconds($this->read_timeout);
 
         $read_start = microtime(true);
-        $read       = 0;
-        $data       = '';
+        $read = 0;
+        $data = '';
 
         while ($read < $len)
         {
@@ -204,8 +201,7 @@ class StreamIO extends AbstractIO
             {
                 $buffer = fread($this->sock, ($len - $read));
                 $this->cleanup_error_handler();
-            }
-            catch (\ErrorException $e)
+            } catch (\ErrorException $e)
             {
                 throw new AMQPDataReadException($e->getMessage(), $e->getCode(), $e);
             }
@@ -218,7 +214,7 @@ class StreamIO extends AbstractIO
             if ($buffer === '')
             {
                 $read_now = microtime(true);
-                $t_read   = $read_now - $read_start;
+                $t_read = $read_now - $read_start;
                 if ($t_read > $this->read_timeout)
                 {
                     throw new AMQPTimeoutException('Too many read attempts detected in StreamIO');
@@ -229,9 +225,9 @@ class StreamIO extends AbstractIO
             }
 
             $this->last_read = microtime(true);
-            $read_start      = $this->last_read;
-            $read            += mb_strlen($buffer, 'ASCII');
-            $data            .= $buffer;
+            $read_start = $this->last_read;
+            $read += mb_strlen($buffer, 'ASCII');
+            $data .= $buffer;
         }
 
         if (mb_strlen($data, 'ASCII') !== $len)
@@ -240,7 +236,7 @@ class StreamIO extends AbstractIO
                     sprintf(
                             'Error reading data. Received %s instead of expected %s bytes',
                             mb_strlen($data, 'ASCII'),
-                                      $len
+                            $len
                     )
             );
         }
@@ -256,8 +252,8 @@ class StreamIO extends AbstractIO
     public
             function write($data)
     {
-        $written     = 0;
-        $len         = mb_strlen($data, 'ASCII');
+        $written = 0;
+        $len = mb_strlen($data, 'ASCII');
         $write_start = microtime(true);
 
         while ($written < $len)
@@ -281,10 +277,9 @@ class StreamIO extends AbstractIO
                 $buffer = mb_substr($data, $written, self::BUFFER_SIZE, 'ASCII');
                 $result = fwrite($this->sock, $buffer);
                 $this->cleanup_error_handler();
-            }
-            catch (\ErrorException $e)
+            } catch (\ErrorException $e)
             {
-                $code      = $this->last_error['errno'];
+                $code = $this->last_error['errno'];
                 $constants = SocketConstants::getInstance();
                 switch ($code)
                 {
@@ -316,10 +311,9 @@ class StreamIO extends AbstractIO
             $now = microtime(true);
             if ($result > 0)
             {
-                $this->last_write = $write_start      = $now;
-                $written          += $result;
-            }
-            else
+                $this->last_write = $write_start = $now;
+                $written += $result;
+            } else
             {
                 if (feof($this->sock))
                 {
@@ -342,7 +336,7 @@ class StreamIO extends AbstractIO
     public
             function error_handler($errno, $errstr, $errfile, $errline, $errcontext = null)
     {
-        $code      = $this->extract_error_code($errstr);
+        $code = $this->extract_error_code($errstr);
         $constants = SocketConstants::getInstance();
         switch ($code)
         {
@@ -365,8 +359,8 @@ class StreamIO extends AbstractIO
         {
             fclose($this->sock);
         }
-        $this->sock       = null;
-        $this->last_read  = 0;
+        $this->sock = null;
+        $this->last_read = 0;
         $this->last_write = 0;
     }
 
@@ -385,8 +379,8 @@ class StreamIO extends AbstractIO
     protected
             function do_select($sec, $usec)
     {
-        $read   = array($this->sock);
-        $write  = null;
+        $read = array($this->sock);
+        $write = null;
         $except = null;
 
         return stream_select($read, $write, $except, $sec, $usec);
@@ -398,8 +392,8 @@ class StreamIO extends AbstractIO
     protected
             function select_write()
     {
-        $read   = $except = null;
-        $write  = array($this->sock);
+        $read = $except = null;
+        $write = array($this->sock);
 
         return stream_select($read, $write, $except, 0, 100000);
     }
@@ -456,13 +450,12 @@ class StreamIO extends AbstractIO
         if (0 === strpos($message, 'stream_select():'))
         {
             $pattern = '/\s+\[(\d+)\]:\s+/';
-        }
-        else
+        } else
         {
             $pattern = '/\s+errno=(\d+)\s+/';
         }
         $matches = array();
-        $result  = preg_match($pattern, $message, $matches);
+        $result = preg_match($pattern, $message, $matches);
         if ($result > 0)
         {
             return (int) $matches[1];

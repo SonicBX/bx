@@ -28,8 +28,7 @@ class Consumer
             pcntl_signal(SIGUSR1, [$this, 'signalHandler']);
             pcntl_signal(SIGUSR2, [$this, 'signalHandler']);
             pcntl_signal(SIGALRM, [$this, 'alarmHandler']);
-        }
-        else
+        } else
         {
             echo 'Unable to process signals.' . PHP_EOL;
             exit(1);
@@ -39,7 +38,7 @@ class Consumer
         if (PORT === 5671)
         {
             $ssl = [
-                'verify_peer'      => false,
+                'verify_peer' => false,
                 'verify_peer_name' => false
             ];
         }
@@ -52,8 +51,8 @@ class Consumer
                 $ssl,
                 [
             'read_write_timeout' => 30, // needs to be at least 2x heartbeat
-            'keepalive'          => false, // doesn't work with ssl connections
-            'heartbeat'          => 15
+            'keepalive' => false, // doesn't work with ssl connections
+            'heartbeat' => 15
                 ]
         );
     }
@@ -142,14 +141,13 @@ class Consumer
         {
             echo 'Restarting consumer.' . PHP_EOL;
             $this->restart = false;
-        }
-        else
+        } else
         {
             echo 'Starting consumer.' . PHP_EOL;
         }
 
         $exchange = 'router';
-        $queue    = 'msgs';
+        $queue = 'msgs';
 
         $this->channel = $this->connection->channel();
         $this->channel->queue_declare($queue, false, true, false, false);
@@ -259,5 +257,4 @@ $consumer = new Consumer();
 do
 {
     $consumer->start();
-}
-while ($consumer->shouldRestart());
+} while ($consumer->shouldRestart());

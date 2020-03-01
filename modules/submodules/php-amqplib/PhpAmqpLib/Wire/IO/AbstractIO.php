@@ -105,8 +105,7 @@ abstract
         {
             $result = $this->do_select($sec, $usec);
             $this->cleanup_error_handler();
-        }
-        catch (\ErrorException $e)
+        } catch (\ErrorException $e)
         {
             throw new AMQPIOWaitException($e->getMessage(), $e->getCode(), $e);
         }
@@ -159,8 +158,8 @@ abstract
         // ignore unless heartbeat interval is set
         if ($this->heartbeat !== 0 && $this->last_read > 0 && $this->last_write > 0)
         {
-            $t       = microtime(true);
-            $t_read  = round($t - $this->last_read);
+            $t = microtime(true);
+            $t_read = round($t - $this->last_read);
             $t_write = round($t - $this->last_write);
 
             // server has gone away

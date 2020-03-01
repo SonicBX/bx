@@ -8,14 +8,14 @@ include(__DIR__ . '/config.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 
-$exchange    = 'fanout_exclusive_example_exchange';
-$queue       = ''; // if empty let RabbitMQ create a queue name
+$exchange = 'fanout_exclusive_example_exchange';
+$queue = ''; // if empty let RabbitMQ create a queue name
 // set a queue name and run multiple instances
 // to test exclusiveness
 $consumerTag = 'consumer' . getmypid();
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 /*
   name: $queue    // should be unique in fanout exchange. Let RabbitMQ create

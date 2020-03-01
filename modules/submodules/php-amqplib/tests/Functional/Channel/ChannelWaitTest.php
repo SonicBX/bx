@@ -27,12 +27,11 @@ class ChannelWaitTest extends TestCase
         $this->deferSignal(0.5);
         /** @var AMQPChannel $channel */
         $channel = $factory();
-        $result  = false;
+        $result = false;
         try
         {
             $result = $channel->wait();
-        }
-        catch (\Exception $exception)
+        } catch (\Exception $exception)
         {
             $this->fail($exception->getMessage());
         }
@@ -66,9 +65,9 @@ class ChannelWaitTest extends TestCase
             function should_return_instantly_non_blocking($factory)
     {
         $channel = $factory();
-        $start   = microtime(true);
+        $start = microtime(true);
         $channel->wait(null, true);
-        $took    = microtime(true) - $start;
+        $took = microtime(true) - $start;
 
         $this->assertLessThan(0.1, $took);
 
@@ -84,7 +83,7 @@ class ChannelWaitTest extends TestCase
             function should_call_handler_on_ack()
     {
         $receivedAck = false;
-        $handler     = function ($message) use (&$receivedAck)
+        $handler = function ($message) use (&$receivedAck)
         {
             $this->assertFalse($receivedAck);
             $this->assertInstanceOf(AMQPMessage::class, $message);
@@ -132,8 +131,7 @@ class ChannelWaitTest extends TestCase
                             false, 'AMQPLAIN', null, 'en_us',
                             $connectionTimeout, $connectionTimeout, null, false, $heartBeat
                     );
-                }
-                else
+                } else
                 {
                     $connection = new AMQPSocketConnection(
                             HOST, PORT, USER, PASS, VHOST,
@@ -144,14 +142,13 @@ class ChannelWaitTest extends TestCase
                             $heartBeat
                     );
                 }
-            }
-            catch (\ErrorException $exception)
+            } catch (\ErrorException $exception)
             {
                 $this->markTestSkipped('Cannot connect to RabbitMQ: ' . $exception->getMessage());
             }
 
-            $channel  = $connection->channel();
-            $channel->queue_declare($queue    = 'basic_get_queue', false, true, false, false);
+            $channel = $connection->channel();
+            $channel->queue_declare($queue = 'basic_get_queue', false, true, false, false);
             $channel->exchange_declare($exchange = 'basic_get_test', 'fanout', false, true, false);
             $channel->queue_bind($queue, $exchange);
 

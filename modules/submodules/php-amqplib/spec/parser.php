@@ -20,7 +20,7 @@ $json_spec = json_decode($spec, true);
 function to_camel_case($amqp_method)
 {
     $words = explode('-', $amqp_method);
-    $ret   = array();
+    $ret = array();
     foreach ($words as $w)
     {
         $ret[] = ucfirst($w);
@@ -56,8 +56,7 @@ function translateType($argument)
     if (array_key_exists('default-value', $argument))
     {
         $type = gettype($argument['default-value']);
-    }
-    elseif (array_key_exists('type', $argument))
+    } elseif (array_key_exists('type', $argument))
     {
         $type = $argument['type'];
     }
@@ -163,14 +162,13 @@ class ArgumentWriter
         if ($a_type == 'bit')
         {
             $this->bit_args[] = '$' . to_snake_case($arg['name']);
-            $ret              = '';
-        }
-        else
+            $ret = '';
+        } else
         {
             $ret = $this->write_bits();
 
             $a_name = '$' . to_snake_case($arg['name']);
-            $ret    .= '$writer->write_' . $a_type . '(' . ($a_type === 'table' ? 'empty(' . $a_name . ') ? array() : ' : '') . $a_name . ");\n";
+            $ret .= '$writer->write_' . $a_type . '(' . ($a_type === 'table' ? 'empty(' . $a_name . ') ? array() : ' : '') . $a_name . ");\n";
         }
 
         return $ret;
@@ -184,7 +182,7 @@ class ArgumentWriter
             return '';
         }
 
-        $ret            = '$writer->write_bits(array(' . implode(', ', $this->bit_args) . "));\n";
+        $ret = '$writer->write_bits(array(' . implode(', ', $this->bit_args) . "));\n";
         $this->bit_args = array();
 
         return $ret;
@@ -202,8 +200,7 @@ function protocol_version($json_spec)
     if (isset($json_spec['revision']))
     {
         return $json_spec['major-version'] . $json_spec['minor-version'] . $json_spec['revision'];
-    }
-    else
+    } else
     {
         return '0' . $json_spec['major-version'] . $json_spec['minor-version'];
     }
@@ -214,8 +211,7 @@ function protocol_header($json_spec)
     if (isset($json_spec['revision']))
     {
         $args = array(0, $json_spec['major-version'], $json_spec['minor-version'], $json_spec['revision']);
-    }
-    else
+    } else
     {
         $args = array(1, 1, $json_spec['major-version'], $json_spec['minor-version']);
     }
@@ -262,8 +258,7 @@ foreach ($json_spec['classes'] as $c)
             $methods .= ")\n{\n";
             $methods .= indent($methodBody) . "\n";
             $methods .= "}\n";
-        }
-        else
+        } else
         {
             $methodBody = '$response = array();' . "\n";
             foreach ($m['arguments'] as $arg)
@@ -458,8 +453,8 @@ function method_map($json_spec)
     $ret = array();
 
     $special_map = array(
-        '60,30'  => 'basic_cancel_from_server',
-        '60,80'  => 'basic_ack_from_server',
+        '60,30' => 'basic_cancel_from_server',
+        '60,80' => 'basic_ack_from_server',
         '60,120' => 'basic_nack_from_server'
     );
 
@@ -470,8 +465,7 @@ function method_map($json_spec)
             if (isset($special_map[$c['id'] . ',' . $m['id']]) && protocol_version($json_spec) == '091')
             {
                 $ret[$c['id'] . "," . $m['id']] = $special_map[$c['id'] . ',' . $m['id']];
-            }
-            else
+            } else
             {
                 $ret[$c['id'] . "," . $m['id']] = $c['name'] . '_' . to_snake_case($m['name']);
             }
