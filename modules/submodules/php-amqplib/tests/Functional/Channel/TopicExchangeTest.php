@@ -63,7 +63,7 @@ class TopicExchangeTest extends ChannelTestCase
         $this->channel->confirm_select();
 
         $connection2 = new AMQPSocketConnection(HOST, PORT, USER, PASS, VHOST);
-        $channel2    = $connection2->channel();
+        $channel2 = $connection2->channel();
 
         $channel2->queue_declare('tst.queue3');
         $channel2->queue_bind('tst.queue3', $this->exchange->name, '#');

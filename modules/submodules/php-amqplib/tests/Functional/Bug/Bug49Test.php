@@ -24,8 +24,8 @@ class Bug49Test extends TestCase
             function setUp()
     {
         $this->connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-        $this->channel    = $this->connection->channel();
-        $this->channel2   = $this->connection->channel();
+        $this->channel = $this->connection->channel();
+        $this->channel2 = $this->connection->channel();
     }
 
     protected
@@ -58,8 +58,7 @@ class Bug49Test extends TestCase
         {
             $this->channel->queue_declare($queue = 'pretty.queue', true, true);
             $this->fail('Should have raised an exception');
-        }
-        catch (AMQPProtocolException $exception)
+        } catch (AMQPProtocolException $exception)
         {
             $this->assertInstanceOf(AMQPProtocolChannelException::class, $exception);
             $this->assertEquals(404, $exception->getCode());

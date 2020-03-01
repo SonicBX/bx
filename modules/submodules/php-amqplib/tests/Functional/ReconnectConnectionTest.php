@@ -18,13 +18,13 @@ class ReconnectConnectionTest extends TestCase
     protected
             $connection = null;
     protected
-            $channel    = null;
+            $channel = null;
     protected
-            $exchange   = 'reconnect_exchange';
+            $exchange = 'reconnect_exchange';
     protected
-            $queue      = 'reconnect_queue';
+            $queue = 'reconnect_queue';
     protected
-            $msgBody    = 'foo bar baz äëïöü';
+            $msgBody = 'foo bar baz äëïöü';
 
     public
             function tearDown()
@@ -161,10 +161,10 @@ class ReconnectConnectionTest extends TestCase
             function publishGet()
     {
         $msg = new AMQPMessage($this->msgBody, [
-            'content_type'   => 'text/plain',
-            'delivery_mode'  => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,
+            'content_type' => 'text/plain',
+            'delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,
             'correlation_id' => 'my_correlation_id',
-            'reply_to'       => 'my_reply_to'
+            'reply_to' => 'my_reply_to'
         ]);
         $this->channel->basic_publish($msg, $this->exchange, $this->queue);
 

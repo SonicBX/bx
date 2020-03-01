@@ -20,7 +20,7 @@ class AMQPChannelTest extends TestCase
     {
         $connection = new TestConnection('user', 'pass', '/', false, 'PLAIN', null, '', new BufferIO());
         $connection->setIsBlocked(true);
-        $channel    = new TestChannel($connection, 1);
+        $channel = new TestChannel($connection, 1);
         $channel->basic_publish(new AMQPMessage());
     }
 

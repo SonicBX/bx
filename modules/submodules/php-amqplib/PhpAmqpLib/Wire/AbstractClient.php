@@ -79,7 +79,7 @@ class AbstractClient
     {
         if (self::$isLittleEndian === null)
         {
-            $tmp                  = unpack('S', "\x01\x00"); // to maintain 5.3 compatibility
+            $tmp = unpack('S', "\x01\x00"); // to maintain 5.3 compatibility
             self::$isLittleEndian = $tmp[1] === 1;
         }
 
@@ -103,7 +103,7 @@ class AbstractClient
             return self::$bigIntegers[$base][$value];
         }
 
-        $integer                          = new BigInteger($value, $base);
+        $integer = new BigInteger($value, $base);
         self::$bigIntegers[$base][$value] = $integer;
 
         return $integer;

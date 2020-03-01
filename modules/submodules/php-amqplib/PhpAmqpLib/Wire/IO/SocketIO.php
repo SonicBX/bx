@@ -27,13 +27,13 @@ class SocketIO extends AbstractIO
     public
             function __construct($host, $port, $read_timeout = 3, $keepalive = false, $write_timeout = null, $heartbeat = 0)
     {
-        $this->host                   = $host;
-        $this->port                   = $port;
-        $this->read_timeout           = $read_timeout;
-        $this->write_timeout          = $write_timeout ?: $read_timeout;
-        $this->heartbeat              = $heartbeat;
-        $this->initial_heartbeat      = $heartbeat;
-        $this->keepalive              = $keepalive;
+        $this->host = $host;
+        $this->port = $port;
+        $this->read_timeout = $read_timeout;
+        $this->write_timeout = $write_timeout ?: $read_timeout;
+        $this->heartbeat = $heartbeat;
+        $this->initial_heartbeat = $heartbeat;
+        $this->keepalive = $keepalive;
         $this->canDispatchPcntlSignal = $this->isPcntlSignalEnabled();
 
         /*
@@ -66,14 +66,13 @@ class SocketIO extends AbstractIO
         {
             $connected = socket_connect($this->sock, $this->host, $this->port);
             $this->cleanup_error_handler();
-        }
-        catch (\ErrorException $e)
+        } catch (\ErrorException $e)
         {
             $connected = false;
         }
         if (!$connected)
         {
-            $errno  = socket_last_error($this->sock);
+            $errno = socket_last_error($this->sock);
             $errstr = socket_strerror($errno);
             throw new AMQPIOException(sprintf(
                             'Error Connecting to server (%s): %s',
@@ -120,8 +119,8 @@ class SocketIO extends AbstractIO
 
         list($timeout_sec, $timeout_uSec) = MiscHelper::splitSecondsMicroseconds($this->read_timeout);
         $read_start = microtime(true);
-        $read       = 0;
-        $data       = '';
+        $read = 0;
+        $data = '';
         while ($read < $len)
         {
             $buffer = null;
@@ -139,7 +138,7 @@ class SocketIO extends AbstractIO
             if (empty($buffer))
             {
                 $read_now = microtime(true);
-                $t_read   = $read_now - $read_start;
+                $t_read = $read_now - $read_start;
                 if ($t_read > $this->read_timeout)
                 {
                     throw new AMQPTimeoutException('Too many read attempts detected in SocketIO');
@@ -157,7 +156,7 @@ class SocketIO extends AbstractIO
             throw new AMQPIOException(sprintf(
                             'Error reading data. Received %s instead of expected %s bytes',
                             mb_strlen($data, 'ASCII'),
-                                      $len
+                            $len
             ));
         }
 
@@ -172,8 +171,8 @@ class SocketIO extends AbstractIO
     public
             function write($data)
     {
-        $written     = 0;
-        $len         = mb_strlen($data, 'ASCII');
+        $written = 0;
+        $len = mb_strlen($data, 'ASCII');
         $write_start = microtime(true);
 
         while ($written < $len)
@@ -193,10 +192,9 @@ class SocketIO extends AbstractIO
                 $buffer = mb_substr($data, $written, self::BUFFER_SIZE, 'ASCII');
                 $result = socket_write($this->sock, $buffer, self::BUFFER_SIZE);
                 $this->cleanup_error_handler();
-            }
-            catch (\ErrorException $e)
+            } catch (\ErrorException $e)
             {
-                $code      = socket_last_error($this->sock);
+                $code = socket_last_error($this->sock);
                 $constants = SocketConstants::getInstance();
                 switch ($code)
                 {
@@ -229,10 +227,9 @@ class SocketIO extends AbstractIO
             $now = microtime(true);
             if ($result > 0)
             {
-                $this->last_write = $write_start      = $now;
-                $written          += $result;
-            }
-            else
+                $this->last_write = $write_start = $now;
+                $written += $result;
+            } else
             {
                 if (($now - $write_start) > $this->write_timeout)
                 {
@@ -254,8 +251,8 @@ class SocketIO extends AbstractIO
         {
             socket_close($this->sock);
         }
-        $this->sock       = null;
-        $this->last_read  = 0;
+        $this->sock = null;
+        $this->last_read = 0;
         $this->last_write = 0;
     }
 
@@ -265,8 +262,8 @@ class SocketIO extends AbstractIO
     protected
             function do_select($sec, $usec)
     {
-        $read   = array($this->sock);
-        $write  = null;
+        $read = array($this->sock);
+        $write = null;
         $except = null;
 
         return socket_select($read, $write, $except, $sec, $usec);
@@ -278,8 +275,8 @@ class SocketIO extends AbstractIO
     protected
             function select_write()
     {
-        $read   = $except = null;
-        $write  = array($this->sock);
+        $read = $except = null;
+        $write = array($this->sock);
 
         return socket_select($read, $write, $except, 0, 100000);
     }

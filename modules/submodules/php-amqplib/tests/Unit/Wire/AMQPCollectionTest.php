@@ -93,7 +93,7 @@ class AMQPCollectionTest extends TestCase
                         1234567890,
                     ],
                 ],
-                                                                          $this->getEncodedRawData($a)
+                $this->getEncodedRawData($a)
         );
 
         $eData = $this->getEncodedRawData($a, false);
@@ -179,7 +179,7 @@ class AMQPCollectionTest extends TestCase
                         [],
                     ],
                 ],
-                                                                          $this->getEncodedRawData($a)
+                $this->getEncodedRawData($a)
         );
 
         $eData = $this->getEncodedRawData($a, false);
@@ -265,7 +265,7 @@ class AMQPCollectionTest extends TestCase
                         [],
                     ],
                 ],
-                                                                          $this->getEncodedRawData($a)
+                $this->getEncodedRawData($a)
         );
 
         $eData = $this->getEncodedRawData($a, false);
@@ -366,7 +366,7 @@ class AMQPCollectionTest extends TestCase
                         ],
                     ],
                 ],
-                                                                                  $this->getEncodedRawData($a)
+                $this->getEncodedRawData($a)
         );
     }
 
@@ -393,7 +393,7 @@ class AMQPCollectionTest extends TestCase
                         1234567,
                     ],
                 ],
-                                                                          $this->getEncodedRawData($a)
+                $this->getEncodedRawData($a)
         );
 
         $this->setProtoVersion(Wire\AMQPAbstractCollection::PROTOCOL_RBT);
@@ -413,7 +413,7 @@ class AMQPCollectionTest extends TestCase
                         1234567,
                     ],
                 ],
-                                                                          $this->getEncodedRawData($a)
+                $this->getEncodedRawData($a)
         );
     }
 
@@ -637,7 +637,7 @@ class AMQPCollectionTest extends TestCase
     protected
             function getEncodedRawData(Wire\AMQPAbstractCollection $c, $recursive = true)
     {
-        $r    = new \ReflectionProperty($c, 'data');
+        $r = new \ReflectionProperty($c, 'data');
         $r->setAccessible(true);
         $data = $r->getValue($c);
         unset($r);
@@ -661,16 +661,16 @@ class AMQPCollectionTest extends TestCase
             function getTestDataSrc()
     {
         return [
-            'long'         => 12345,
-            'long_neg'     => -12345,
-            'longlong'     => 3000000000,
+            'long' => 12345,
+            'long_neg' => -12345,
+            'longlong' => 3000000000,
             'longlong_neg' => -3000000000,
-            'float_low'    => (float) 9.2233720368548,
-            'float_high'   => (float) 9223372036854800000,
-            'bool_true'    => true,
-            'bool_false'   => false,
-            'void'         => null,
-            'array'        => [
+            'float_low' => (float) 9.2233720368548,
+            'float_high' => (float) 9223372036854800000,
+            'bool_true' => true,
+            'bool_false' => false,
+            'void' => null,
+            'array' => [
                 1,
                 2,
                 3,
@@ -680,17 +680,17 @@ class AMQPCollectionTest extends TestCase
                 true,
                 null
             ],
-            'array_empty'  => [],
-            'table'        => [
-                'foo'  => 'bar',
-                'baz'  => 'boo',
+            'array_empty' => [],
+            'table' => [
+                'foo' => 'bar',
+                'baz' => 'boo',
                 'bool' => true,
-                'tbl'  => ['bar' => 'baz'],
-                'arr'  => ['boo', false, 5],
+                'tbl' => ['bar' => 'baz'],
+                'arr' => ['boo', false, 5],
             ],
-            'table_num'    => [
-                1   => 5,
-                3   => 'foo',
+            'table_num' => [
+                1 => 5,
+                3 => 'foo',
                 786 => 674,
             ],
             'array_nested' => [
@@ -725,16 +725,16 @@ class AMQPCollectionTest extends TestCase
             function getTestDataCmp()
     {
         return [
-            'long'         => 12345,
-            'long_neg'     => -12345,
-            'longlong'     => 3000000000,
+            'long' => 12345,
+            'long_neg' => -12345,
+            'longlong' => 3000000000,
             'longlong_neg' => -3000000000,
-            'float_low'    => (string) (float) 9.2233720368548,
-            'float_high'   => (string) (float) 9223372036854800000,
-            'bool_true'    => true,
-            'bool_false'   => false,
-            'void'         => null,
-            'array'        => [
+            'float_low' => (string) (float) 9.2233720368548,
+            'float_high' => (string) (float) 9223372036854800000,
+            'bool_true' => true,
+            'bool_false' => false,
+            'void' => null,
+            'array' => [
                 1,
                 2,
                 3,
@@ -744,17 +744,17 @@ class AMQPCollectionTest extends TestCase
                 true,
                 null
             ],
-            'array_empty'  => [],
-            'table'        => [
-                'foo'  => 'bar',
-                'baz'  => 'boo',
+            'array_empty' => [],
+            'table' => [
+                'foo' => 'bar',
+                'baz' => 'boo',
                 'bool' => true,
-                'tbl'  => ['bar' => 'baz'],
-                'arr'  => ['boo', false, 5],
+                'tbl' => ['bar' => 'baz'],
+                'arr' => ['boo', false, 5],
             ],
-            'table_num'    => [
-                1   => 5,
-                3   => 'foo',
+            'table_num' => [
+                1 => 5,
+                3 => 'foo',
                 786 => 674,
             ],
             'array_nested' => [
@@ -786,16 +786,16 @@ class AMQPCollectionTest extends TestCase
             function getTestDataCmp080()
     {
         return [
-            'long'         => 12345,
-            'long_neg'     => -12345,
-            'longlong'     => (string) 3000000000,
+            'long' => 12345,
+            'long_neg' => -12345,
+            'longlong' => (string) 3000000000,
             'longlong_neg' => (string) -3000000000,
-            'float_low'    => (string) (float) 9.2233720368548,
-            'float_high'   => (string) (float) 9223372036854800000,
-            'bool_true'    => 1,
-            'bool_false'   => 0,
-            'void'         => '',
-            'array'        => [
+            'float_low' => (string) (float) 9.2233720368548,
+            'float_high' => (string) (float) 9223372036854800000,
+            'bool_true' => 1,
+            'bool_false' => 0,
+            'void' => '',
+            'array' => [
                 1,
                 2,
                 3,
@@ -805,17 +805,17 @@ class AMQPCollectionTest extends TestCase
                 1,
                 '',
             ],
-            'array_empty'  => [],
-            'table'        => [
-                'foo'  => 'bar',
-                'baz'  => 'boo',
+            'array_empty' => [],
+            'table' => [
+                'foo' => 'bar',
+                'baz' => 'boo',
                 'bool' => 1,
-                'tbl'  => ['bar' => 'baz'],
-                'arr'  => ['boo', 0, 5],
+                'tbl' => ['bar' => 'baz'],
+                'arr' => ['boo', 0, 5],
             ],
-            'table_num'    => [
-                1   => 5,
-                3   => 'foo',
+            'table_num' => [
+                1 => 5,
+                3 => 'foo',
                 786 => 674,
             ],
             'array_nested' => [

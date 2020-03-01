@@ -36,8 +36,7 @@ final
         if (isset($constants['sockets']))
         {
             $this->constants = $constants['sockets'];
-        }
-        else
+        } else
         {
             trigger_error('Sockets extension is not enabled', E_USER_WARNING);
             $this->constants = array();

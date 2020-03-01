@@ -5,7 +5,7 @@ use PhpAmqpLib\Helper\Protocol\Wait091;
 
 include(__DIR__ . '/config.php');
 
-$queue       = 'msgs';
+$queue = 'msgs';
 $consumerTag = 'consumer';
 
 /*
@@ -14,7 +14,7 @@ $consumerTag = 'consumer';
  * 'consumer_cancel_notify' to true.
  */
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 $channel->queue_declare($queue);
 
 $waitHelper = new Wait091();

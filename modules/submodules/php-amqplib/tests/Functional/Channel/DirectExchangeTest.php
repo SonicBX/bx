@@ -54,12 +54,12 @@ class DirectExchangeTest extends ChannelTestCase
         $this->channel->queue_bind($this->queue->name, $this->exchange->name, $this->queue->name);
 
         $this->message = (object) [
-                    'body'       => 'foo',
+                    'body' => 'foo',
                     'properties' => [
-                        'content_type'   => 'text/plain',
-                        'delivery_mode'  => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,
+                        'content_type' => 'text/plain',
+                        'delivery_mode' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,
                         'correlation_id' => 'my_correlation_id',
-                        'reply_to'       => 'my_reply_to',
+                        'reply_to' => 'my_reply_to',
                     ],
         ];
 

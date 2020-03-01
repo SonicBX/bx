@@ -7,11 +7,11 @@ final
 {
 
     const
-            DIRECT  = 'direct';
+            DIRECT = 'direct';
     const
-            FANOUT  = 'fanout';
+            FANOUT = 'fanout';
     const
-            TOPIC   = 'topic';
+            TOPIC = 'topic';
     const
             HEADERS = 'headers';
 

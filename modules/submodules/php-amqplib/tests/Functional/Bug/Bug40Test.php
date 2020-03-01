@@ -13,7 +13,7 @@ class Bug40Test extends TestCase
 {
 
     protected
-            $exchangeName   = 'test_exchange';
+            $exchangeName = 'test_exchange';
     protected
             $queueName1;
     protected
@@ -31,8 +31,8 @@ class Bug40Test extends TestCase
             function setUp()
     {
         $this->connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-        $this->channel    = $this->connection->channel();
-        $this->channel2   = $this->connection->channel();
+        $this->channel = $this->connection->channel();
+        $this->channel2 = $this->connection->channel();
 
         $this->channel->exchange_declare($this->exchangeName, 'direct', false, false, false);
         list($this->queueName1,, ) = $this->channel->queue_declare();

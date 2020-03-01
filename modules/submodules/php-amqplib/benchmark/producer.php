@@ -11,10 +11,10 @@ use PhpAmqpLib\Message\AMQPMessage;
 include(__DIR__ . '/config.php');
 
 $exchange = 'bench_exchange';
-$queue    = 'bench_queue';
+$queue = 'bench_queue';
 
 $conn = new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
-$ch   = $conn->channel();
+$ch = $conn->channel();
 
 $ch->queue_declare($queue, false, false, false, false);
 

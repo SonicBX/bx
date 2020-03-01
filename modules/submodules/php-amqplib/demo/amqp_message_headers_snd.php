@@ -8,7 +8,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Wire;
 
 $connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel    = $connection->channel();
+$channel = $connection->channel();
 
 $exchangeName = 'topic_headers_test';
 $channel->exchange_declare($exchangeName, AMQPExchangeType::HEADERS);
@@ -21,16 +21,16 @@ if (empty($data))
 
 $message = new AMQPMessage($data);
 $headers = new Wire\AMQPTable(array(
-    'foo'          => 'bar',
-    'table'        => array('figuf', 'ghf' => 5, 5 => 675),
-    'num1'         => -4294967295,
-    'num2'         => 5,
-    'num3'         => -2147483648,
-    'true'         => true,
-    'false'        => false,
-    'void'         => null,
-    'date'         => new DateTime('now', new DateTimeZone('UTC')),
-    'array'        => array(null, 'foo', 'bar', 5, 5674625, 'ttt', array(5, 8, 2)),
+    'foo' => 'bar',
+    'table' => array('figuf', 'ghf' => 5, 5 => 675),
+    'num1' => -4294967295,
+    'num2' => 5,
+    'num3' => -2147483648,
+    'true' => true,
+    'false' => false,
+    'void' => null,
+    'date' => new DateTime('now', new DateTimeZone('UTC')),
+    'array' => array(null, 'foo', 'bar', 5, 5674625, 'ttt', array(5, 8, 2)),
     'arr_with_tbl' => array(
         'bar',
         5,
@@ -47,13 +47,13 @@ $headers = new Wire\AMQPTable(array(
         67,
         array(
             'foo' => 'bar',
-            5     => 7,
-            8     => 'boo',
+            5 => 7,
+            8 => 'boo',
             'baz' => 3,
         ),
     ),
-    '64bitint'     => 9223372036854775807,
-    '64bit_uint'   => '18446744073709600000',
+    '64bitint' => 9223372036854775807,
+    '64bit_uint' => '18446744073709600000',
     '64bitint_neg' => -pow(2, 40),
         ));
 $headers->set('shortshort', -5, Wire\AMQPTable::T_INT_SHORTSHORT);
