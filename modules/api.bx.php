@@ -1,7 +1,7 @@
 <?php
 
 //bx/modules/api.bx.php
-$bxapi_dir            = __DIR__."/api";
+$bxapi_dir            = __DIR__ . "/api";
 $bx["api"]["packet"]  = array();
 $bx["api"]["capture"] = array();
 $bx["api"]["output"]  = array();
