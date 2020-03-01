@@ -1,0 +1,56 @@
+//bx/FAQ
+Q: What does BX stand for?
+A: Branch eXchange.
+
+Q: What is BX?
+A: BX is an Application Programming Interface (API) framework.
+
+Q: What is BX made of?
+A: BX is a collection of PHP scripts.
+
+Q: How did BX come into existence?
+A: The original idea and code was started in 2020 by Russell Purinton <russell@sonicbx.com> of Windham, Maine, USA
+
+Q: Who can benefit from using BX? 
+A: Anyone who wants to organize anything in the universe.
+
+Q: How much does BX software cost?
+A: BX is open source and free of run on your own servers for business, government, or personal use.
+
+Q: Are all features free?
+A: Yes, all features and functions are included free.
+
+Q: Are software updates free?
+A: Yes, free software updates for the life of the product.
+
+Q: Is support free?
+A: Maybe.  Contact <russell@sonicbx.com> for more information.
+
+Q: What are the minimum system requirements to run the BX API?
+A: A computer with atleast 1 Gigabyte of free RAM and 1 Gigabyte of free disk space
+
+Q: What are the minimum software requirements to run the BX API?
+A: OS: Minimal Linux +
+HTTPS Server: Apache or Nginx
+CGI: PHP or PHP-FPM
+Database: MySQL or MariaDB
+Message Queue: RabbitMQ
+
+Q: What is the recommended configuration?
+A: Clustered Deployment of atleast 3 servers.
+
+Q: Can someone host my copy of BX for me?
+A: Yes.
+
+Q: Is paid installation service available?
+A: Yes.
+
+Q: Is paid technical support available?
+A: Yes.
+
+Q: Is paid maintenance available?
+A: Yes.
+
+Q: Is paid customization and development available?
+A: Yes.
+
