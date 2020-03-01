@@ -11,7 +11,7 @@ function bxapi_search($bxapi_command)
     global $bx;
     foreach (scandir($bxapi_command) as $bxapi_file)
         if (substr($bxapi_file, 0, 1) != ".")
-            $bx["api"]["packet"]["sub_commands"][] = str_replace(".bx.php", "", $bxapi_file);
+            $bx["api"]["packet"]["options"][] = str_replace(".bx.php", "", $bxapi_file);
     bxapi_success();
 }
 
@@ -71,6 +71,7 @@ function bxapi_failure($bxapi_msg = NULL)
     global $bx;
     if ($bxapi_msg)
         $bx["api"]["packet"]["FAILURE"]               = $bxapi_msg;
+    unset($bx["api"]["packet"]["command"]);
     $bx["api"]["packet"]["success"]               = false;
     $bx["api"]["output"][$bx["api"]["packet_id"]] = $bx["api"]["packet"];
     die(json_encode($bx["api"]["output"], JSON_PRETTY_PRINT) . "\n");
@@ -81,6 +82,7 @@ function bxapi_success($bxapi_msg = NULL)
     global $bx;
     if ($bxapi_msg)
         bxapi_info($bxapi_msg);
+    unset($bx["api"]["packet"]["command"]);
     $bx["api"]["packet"]["success"]               = true;
     $bx["api"]["output"][$bx["api"]["packet_id"]] = $bx["api"]["packet"];
 }
