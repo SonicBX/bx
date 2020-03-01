@@ -34,6 +34,8 @@ function bxapi_capture()
     global $bx;
     foreach ($bx["api"]["capture"] as $bx["api"]["packet_id"] => $bx["api"]["packet"])
         bxapi_packet();
+    if(isset($bx["debug"]))
+        die(json_encode($bx, JSON_PRETTY_PRINT)."\n");
     die(json_encode($bx["api"]["output"], JSON_PRETTY_PRINT) . "\n");
 }
 
