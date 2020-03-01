@@ -17,7 +17,7 @@ function bxapi_post()
 
 function bxapi_get()
 {
-    global $bx,$argv;
+    global $bx, $argv;
     bxapi_request();
     bxcli_parse();
     $bx["api"]["capture"]["https"] = $bx["api"]["packet"];
@@ -26,10 +26,10 @@ function bxapi_get()
 
 function bxapi_request()
 {
-    global $argv,$_SERVER;
+    global $argv, $_SERVER;
     $bxapi_request = $_SERVER["REQUEST_URI"];
-    while(strpos($bxapi_request,"%20")) $bxapi_request = str_replace("%20","/",$bxapi_request);
-    $argv = explode("/",$bxapi_request);
+    while (strpos($bxapi_request, "%20")) $bxapi_request = str_replace("%20", "/", $bxapi_request);
+    $argv = explode("/", $bxapi_request);
 }
 
 function bxapi_search($bxapi_command)
