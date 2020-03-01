@@ -6,6 +6,18 @@ $bx["api"]["packet"] = array();
 $bx["api"]["capture"] = array();
 $bx["api"]["output"] = array();
 
+function bxapi_post()
+{
+	global $bx,$_POST;
+	if (!isset($_POST)) bxapi_failure("no post");
+	if (!isset($_POST["packets"])) bxapi_failure("no packets in post");
+	if (!$bx["api"]["packets"] = json_decode($_POST["packets"], true))
+	        bxapi_failure("packets parse error");
+	if (!sizeof($bx["api"]["packets"])) bxapi_failure("packets empty");
+	bxapi_process_packets();
+}
+
+
 function bxapi_search($bxapi_command)
 {
     global $bx;
