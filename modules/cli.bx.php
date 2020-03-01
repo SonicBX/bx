@@ -5,8 +5,7 @@
 function bxcli_start()
 {
     global $bx, $argv;
-    if (isset($argv[1]) && $argv[1] == ".config")
-        die("config mode\n");
+    if (isset($argv[1]) && $argv[1] == ".config") die("config mode\n");
     if (isset($argv[1]) && $argv[1] == ".debug")
     {
         $bx["debug"]["argv"] = $argv;
@@ -23,21 +22,16 @@ function bxcli_parse()
     $bx["api"]["packet"]["input"] = array();
     $bxcli_command = array();
     unset($argv[0]);
-    foreach ($argv as $bxcli_arg)
-        if (!bxcli_eval($bxcli_arg))
-            $bxcli_command[] = $bxcli_arg;
+    foreach ($argv as $bxcli_arg) if (!bxcli_eval($bxcli_arg)) $bxcli_command[] = $bxcli_arg;
     $bx["api"]["packet"]["command"] = implode("/", $bxcli_command);
-    if (count($bx["api"]["packet"]["input"]) > 0)
-        $bx["api"]["packet"]["input"] = $bx["api"]["packet"]["input"];
-    else
-        unset($bx["api"]["packet"]["input"]);
+    if (count($bx["api"]["packet"]["input"]) > 0) $bx["api"]["packet"]["input"] = $bx["api"]["packet"]["input"];
+    else unset($bx["api"]["packet"]["input"]);
 }
 
 function bxcli_eval($bxcli_arg)
 {
     global $bx;
-    if (!strpos($bxcli_arg, "="))
-        return false;
+    if (!strpos($bxcli_arg, "=")) return false;
     $bxcli_arg_array = explode("=", $bxcli_arg);
     $bxcli_arg_key = $bxcli_arg_array[0];
     unset($bxcli_arg_array[0]);
@@ -48,8 +42,7 @@ function bxcli_eval($bxcli_arg)
 
 function bxcli_merge($bxcli_arg)
 {
-    if (!strpos($bxcli_arg, "="))
-        return $bxcli_arg;
+    if (!strpos($bxcli_arg, "=")) return $bxcli_arg;
     $bxcli_arg_array = explode("=", $bxcli_arg);
     $bxcli_arg_key = $bxcli_arg_array[0];
     unset($bxcli_arg_array[0]);
