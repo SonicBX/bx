@@ -22,11 +22,14 @@ function bxapi_packet()
     $bxapi_command .= $bx["api"]["packet"]["command"];
     if (is_dir($bxapi_command))
         bxapi_search($bxapi_command);
-    $bxapi_command .= ".bx.php";
-    if (!file_exists($bxapi_command))
-        bxapi_failure("command invalid");
-    if (!include($bxapi_command))
-        bxapi_failure("command failure");
+    else
+    {
+	    $bxapi_command .= ".bx.php";
+	    if (!file_exists($bxapi_command))
+	        bxapi_failure("command invalid");
+	    if (!include($bxapi_command))
+	        bxapi_failure("command failure");
+    }
 }
 
 function bxapi_capture()
