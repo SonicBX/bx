@@ -25,11 +25,11 @@ function bxmq_get($bxmq_queue)
     {
         if (handleMessage(json_decode($bxmq_msg->body, true)))
         {
-            $bxmq_msg->delivery_info['channel']->basic_ack($bxmq_msg->delivery_info['delivery_tag']);
+            $bxmq_msg->delivery_info["channel"]->basic_ack($bxmq_msg->delivery_info["delivery_tag"]);
         }
         else
         {
-            $bxmq_msg->delivery_info['channel']->basic_nack($bxmq_msg->delivery_info['delivery_tag'], false, true);
+            $bxmq_msg->delivery_info["channel"]->basic_nack($bxmq_msg->delivery_info["delivery_tag"], false, true);
         }
     };
     $bxmq_channel->basic_qos(null, 1, null);
