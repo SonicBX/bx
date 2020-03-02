@@ -64,8 +64,8 @@ function bxsql_select_image($bxsql_image)
 function bxsql_read_connect()
 {
     global $bx;
-    $bxsql_server = array_rand($bx['sql']['read_servers']);
-    $bxsql_server = $bx['sql']['read_servers'][$bxsql_server];
+    $bxsql_server = array_rand($bx["sql"]["read_servers"]);
+    $bxsql_server = $bx["sql"]["read_servers"][$bxsql_server];
 }
 
 function bxsql_write_connect()
