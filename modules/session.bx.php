@@ -71,7 +71,7 @@ function bxsession_start()
 function bxexpire()
 {
     global $bx;
-    $bxsession_id = $bx['api']['packet']['session'];
+    $bxsession_id = $bx["api"]["packet"]["session"];
     bxsql_read("bx", "UPDATE `bxsession` SET `bxsession_expired` = current_timestamp() WHERE `bxsession_id` = '$bxsession_id'");
     return(false);
 }

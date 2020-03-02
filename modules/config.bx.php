@@ -14,5 +14,5 @@ function bxconfig_get()
 function bxconfig_put()
 {
     global $bx;
-    if (!file_put_contents($bx["config_file"], json_encode($bx['config'], JSON_PRETTY_PRINT) . "\n")) die("ERROR: cannot write to $bxconfig_file\n");
+    if (!file_put_contents($bx["config_file"], json_encode($bx["config"], JSON_PRETTY_PRINT) . "\n")) die("ERROR: cannot write to $bxconfig_file\n");
 }
